@@ -1,7 +1,9 @@
 """Shared yappu card DB + PP metre-label map (single source).
 
 Cards: aruseer / kochakam / ezhucir (Moorkka v11 record) +
-aintucir / encir / kaliviruttam (TK track, Gemini call 2026-09-26).
+aintucir / encir / kaliviruttam (TK track, Gemini call 2026-09-26) +
+vanji-viruttam (2026-10-13: Yappurungalak Karigai sey.14 sinthadi×4;
+Pugazh Chozha war verses).
 Builders import YAPPU_DB_JS and label_to_key; never hand-edit
 cards in templates or per-story builders. build_moorkka_pilot.py
 keeps its embedded v11 copy frozen (do not touch).
@@ -139,6 +141,28 @@ YAPPU_DB_JS = """const yappuDatabase = {
                     raga: "Harikambhoji family",
                     pause: "Pause after the 2nd foot (2 + 2 = 4)."
                 }
+            },
+            "vanji-viruttam": {
+                nameEn: "Vanji Viruttam",
+                nameTa: "வஞ்சி விருத்தம் (முச்சீரடி)",
+                math: {
+                    anatomy: "4 lines, 3 metrical feet per line — 12 feet per stanza (sinthadi x 4; Yappurungalak Karigai 14)",
+                    syllables: "Vanji feet (kanichchir: teman-kani and kin, nirai-ending) bound by vanjithalai",
+                    rhyme: "2nd-letter ethukai across 4 lines; driving monai and line-internal doubling"
+                },
+                mood: {
+                    cadence: "Thungal Osai — swaying, forward-rolling war rhythm",
+                    effect: "War-drums momentum; Sekkizhar reserves vanji — the war thinai's metre — for the warrior-king's battlefield: elephants, steeds, blood-rivers, carrion birds in six rapid stanzas."
+                },
+                craft: {
+                    difficulty: "High",
+                    challenge: "Sustaining battle-fury inside 3 short feet per line while holding exact second-letter rhyme."
+                },
+                singing: {
+                    pann: "Odhuvan marabu, thungal-osai cadence (no fixed pann)",
+                    raga: "As per rendering pann",
+                    pause: "Sing each short line whole; pause at line ends."
+                }
             }
         };"""
 
@@ -163,9 +187,13 @@ def label_to_key(label):
     # share the identical 4-adi stanza geometry of the explicit
     # ஐந்துசீர்-கலித்துறை songs in the same sections (Murthi 28 explicit +
     # 19 bare, same poet), so they take the same aintucir-kalithurai card.
-    # வஞ்சி விருத்தம் deliberately left unmapped (own pa, needs new card).
     if "கலிநிலைத்துறை" in t:
         return "aintucir-kalithurai"
     if "கலித்துறை" in t:
         return "aintucir-kalithurai"
+    # வஞ்சி விருத்தம் (decision 2026-10-13, user-approved new card):
+    # own pa (vanji), sinthadi x 4 per Yappurungalak Karigai sey.14 —
+    # no existing card fits without mislabelling.
+    if "வஞ்சி" in t:
+        return "vanji-viruttam"
     return None
