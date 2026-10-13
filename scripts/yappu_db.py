@@ -158,4 +158,14 @@ def label_to_key(label):
         return "kochakam-kalippa"
     if "கலிவிருத்தம்" in t:
         return "kaliviruttam"
+    # Kalithurai family (decision 2026-10-13, data-backed, not drive-by):
+    # bare கலித்துறை / கலிநிலைத்துறை and சந்தம்-/கட்டளை-qualified variants
+    # share the identical 4-adi stanza geometry of the explicit
+    # ஐந்துசீர்-கலித்துறை songs in the same sections (Murthi 28 explicit +
+    # 19 bare, same poet), so they take the same aintucir-kalithurai card.
+    # வஞ்சி விருத்தம் deliberately left unmapped (own pa, needs new card).
+    if "கலிநிலைத்துறை" in t:
+        return "aintucir-kalithurai"
+    if "கலித்துறை" in t:
+        return "aintucir-kalithurai"
     return None
