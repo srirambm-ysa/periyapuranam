@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "tiruk_kurippu_tonda_nayanar",
+    "id": "tiruk-kurippu-tonda-nayanar",
+    "titleEn": "Tiruk Kurippu Tonda Nayanar",
+    "titleTa": "திருக்குறிப்புத்தொண்ட நாயனார்",
+    "status": "english_done",
+    "schema_version": 1,
+    "image": "./chola_bronze_320.png",
+    "type": "tani",
+    "category": "Service by discerning devotion",
+    "tamil_count": 36,
+    "english_count": 36,
+    "verse_count": 128,
+    "section_slug": "periya-puranam-mummaiyal-ulakanda-charukkam-thiruk-kuripputh-thonta-nayanar-puranam",
+    "exported_at": "2026-09-26"
+  }
+]

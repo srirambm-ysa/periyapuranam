@@ -1,0 +1,37 @@
+{
+ "slug": "kungkuliyakkalaya_nayanar",
+ "nayanar": "Kungkuliyakkalaya Nayanar",
+ "phase": "C",
+ "chunks": 2,
+ "merged_chars": 114592,
+ "merged_chapters": 7,
+ "has_eq": false,
+ "instrument": [
+  {
+   "chunk": 0,
+   "headers": "Chapter 01, Chapter 02, Chapter 03, Chapter 04",
+   "tamil_chars": 54136,
+   "english_chars": 55791,
+   "cost": 0.037520604,
+   "finish": "stop",
+   "duration_s": 77.3,
+   "prompt_tokens": 14632,
+   "completion_tokens": 13404
+  },
+  {
+   "chunk": 1,
+   "headers": "Chapter 05, Chapter 06, Chapter 07, Chapter 08",
+   "tamil_chars": 57770,
+   "english_chars": 58798,
+   "cost": 0.040440609,
+   "finish": "stop",
+   "duration_s": 81.4,
+   "prompt_tokens": 15472,
+   "completion_tokens": 14483
+  }
+ ],
+ "elapsed_s": 613.1,
+ "fix_cost": 0.0062,
+ "english_chapters": 8,
+ "fix": "missing Ch01 re-translated+spliced, headers canonicalized"
+}

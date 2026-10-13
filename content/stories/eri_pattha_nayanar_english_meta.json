@@ -1,0 +1,44 @@
+{
+  "slug": "eri_pattha_nayanar",
+  "nayanar": "Eri-Pattha Nayanar",
+  "chunks": 3,
+  "merged_chars": 155214,
+  "merged_chapters": 13,
+  "has_eq": false,
+  "instrument": [
+    {
+      "chunk": 0,
+      "headers": "Chapter 01, Chapter 02, Chapter 03, Chapter 04",
+      "tamil_chars": 50925,
+      "english_chars": 52962,
+      "cached": true,
+      "cost": 0,
+      "finish": "stop",
+      "duration_s": 0
+    },
+    {
+      "chunk": 1,
+      "headers": "Chapter 05, Chapter 06, Chapter 07, Chapter 08, Chapter 09",
+      "tamil_chars": 57332,
+      "english_chars": 57487,
+      "cached": true,
+      "cost": 0,
+      "finish": "stop",
+      "duration_s": 0
+    },
+    {
+      "chunk": 2,
+      "headers": "Chapter 10, Chapter 11, Chapter 12, Chapter 13",
+      "tamil_chars": 44690,
+      "english_chars": 44760,
+      "cached": true,
+      "cost": 0,
+      "finish": "stop",
+      "duration_s": 0
+    }
+  ],
+  "anomalies": [],
+  "elapsed_s": 0.1,
+  "total_cost_real": 0.1054,
+  "cost_corrected": 0.1054
+}

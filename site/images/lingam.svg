@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Shivalingam with tripundra">
+  <circle cx="32" cy="32" r="30" fill="#7A0016"/>
+  <circle cx="32" cy="32" r="28.5" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+  <!-- avudaiyar (base) -->
+  <rect x="14" y="43" width="36" height="7" rx="3.5" fill="#D4AF37"/>
+  <ellipse cx="32" cy="43.5" rx="15" ry="3" fill="#B38728"/>
+  <!-- lingam -->
+  <path d="M22 43 C22 29 26 18 32 18 C38 18 42 29 42 43 Z" fill="#EFE3BC"/>
+  <ellipse cx="27.5" cy="30" rx="2.5" ry="6" fill="#FFFFFF" opacity="0.35"/>
+  <!-- tripundra: three vibhuti lines, narrowing with the dome -->
+  <rect x="27" y="27" width="10" height="2.4" rx="1.2" fill="#7A0016"/>
+  <rect x="25" y="32" width="14" height="2.4" rx="1.2" fill="#7A0016"/>
+  <rect x="24" y="37" width="16" height="2.4" rx="1.2" fill="#7A0016"/>
+  <!-- kumkuma bindu on the middle line -->
+  <circle cx="32" cy="33.2" r="2.6" fill="#C62828"/>
+  <circle cx="32" cy="33.2" r="2.6" fill="none" stroke="#D4AF37" stroke-width="0.6"/>
+</svg>

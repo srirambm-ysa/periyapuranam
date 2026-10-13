@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#12100E">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <title>Periya Puranam - Sacred Epic Reader & Devotional Gallery</title>
+    <!-- Tailwind CSS (compiled offline-first — see ppreader/tailwind.config.js) -->
+    <link rel="stylesheet" href="./ppreader.css">
+    <!-- FontAwesome Icons (self-hosted: solid + regular) -->
+    <link rel="stylesheet" href="./fa/all.min.css">
+    <!-- Google Fonts (self-hosted woff2) -->
+    <link rel="stylesheet" href="./fonts.css">
+    
+    <style>
+        body.theme-parchment {
+            background-color: #FDFBF7;
+            color: #2A221B;
+            background-image: radial-gradient(#D4AF37 0.4px, transparent 0.4px);
+            background-size: 24px 24px;
+        }
+        body.theme-sepia {
+            background-color: #F4EFE6;
+            color: #382A1C;
+            background-image: none;
+        }
+        body.theme-dark {
+            background-color: #12100E;
+            color: #E2D9CC;
+            background-image: none;
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(212, 175, 55, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+
+        /* Typography Styling for Long-Form Epic Reading */
+        .story-text-sm { font-size: 1.05rem; line-height: 1.85; }
+        .story-text-md { font-size: 1.2rem; line-height: 1.95; }
+        .story-text-lg { font-size: 1.35rem; line-height: 2.05; }
+        .story-text-xl { font-size: 1.5rem; line-height: 2.15; }
+
+        .drop-cap::first-letter {
+            font-family: 'Cinzel', serif;
+            font-size: 3.8rem;
+            float: left;
+            line-height: 0.8;
+            padding-top: 4px;
+            padding-right: 12px;
+            padding-bottom: 2px;
+            color: #7A0016;
+            font-weight: 700;
+        }
+
+        body.theme-dark .drop-cap::first-letter {
+            color: #D4AF37;
+        }
+
+        .reading-progress-bar {
+            transition: width 0.1s ease-out;
+        }
+
+        /* Specialized Verse & Poetry Meter Styling */
+        .thirumurai-verse-card {
+            background: linear-gradient(135deg, rgba(253, 251, 247, 0.98) 0%, rgba(244, 239, 230, 0.92) 100%);
+            border-left: 5px solid #D4AF37;
+            border-right: 1px solid rgba(212, 175, 55, 0.3);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(122, 0, 22, 0.05);
+        }
+
+        body.theme-dark .thirumurai-verse-card {
+            background: linear-gradient(135deg, rgba(30, 25, 20, 0.98) 0%, rgba(20, 16, 12, 0.92) 100%);
+            border-left: 5px solid #D4AF37;
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .verse-highlight-text {
+            font-family: 'Noto Serif Tamil', serif;
+            font-weight: 700;
+            font-style: italic;
+            color: #7A0016;
+            line-height: 1.9;
+        }
+
+        body.theme-dark .verse-highlight-text {
+            color: #F3E5AB;
+        }
+    </style>
+</head>
+<body class="theme-dark font-body min-h-screen flex flex-col antialiased selection:bg-templeGold/30 selection:text-templeRed transition-colors duration-300">
+
+    <!-- Reading Progress Bar for Long Articles -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-1.5 z-50 bg-gray-200/20 pointer-events-none hidden">
+        <div id="reading-progress" class="h-full gold-gradient reading-progress-bar w-0 shadow-md"></div>
+    </div>
+
+    <header class="sticky top-0 z-40 bg-parchment/95 dark:bg-darkBg/95 backdrop-blur-md border-b border-templeGold/30 shadow-sm transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" onclick="showGalleryView(); return false;" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 rounded-full border-2 border-templeGold bg-templeRed flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform overflow-hidden">
+                    <img src="./images/lingam.svg" alt="Shivalingam" class="w-full h-full" />
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-lg sm:text-xl text-templeRed dark:text-amber-300 leading-tight tracking-wide">
+                        PERIYA PURANAM
+                    </h1>
+                    <p class="font-tamil text-xs text-saffron font-semibold">பெரிய புராணம் • Complete English Epic & Thirumurai</p>
+                </div>
+            </a>
+
+            <!-- Right Navigation Buttons -->
+            <div class="flex items-center gap-3">
+                <button onclick="showGalleryView()" id="btn-nav-gallery" class="min-h-[44px] px-3.5 py-2 rounded-full border border-templeGold/50 text-templeRed dark:text-amber-200 hover:bg-templeGold/10 transition-colors text-xs sm:text-sm font-semibold flex items-center gap-2">
+                    <i class="fa-solid fa-grid-2 text-templeGold"></i>
+                    <span>All 72 Saints Gallery</span>
+                </button>
+                <button onclick="toggleBookmarksDrawer()" class="min-h-[44px] px-3.5 py-2 rounded-full bg-templeRed hover:bg-templeRed/90 text-templeGold text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-bookmark text-templeGold"></i>
+                    <span class="hidden sm:inline">Saved Stories</span>
+                    <span id="bookmark-count" class="bg-templeGold text-charcoal text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="view-gallery" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-opacity duration-300">
+        
+        <!-- Hero Banner -->
+        <div class="relative rounded-3xl bg-gradient-to-r from-templeRed via-red-950 to-templeRed text-white p-6 sm:p-10 mb-10 overflow-hidden shadow-2xl border border-templeGold/40">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-templeGold/20 border border-templeGold/40 text-templeGold text-xs font-semibold mb-4 backdrop-blur-sm">
+                    <i class="fa-solid fa-book-open"></i> Full Unabridged English Chapters, Poetry & Yappu Meters
+                </div>
+                <h2 class="font-heading text-3xl sm:text-5xl font-bold tracking-wide text-amber-100 mb-4 leading-tight">
+                    The Sacred Chronicles of Shiva's Devotees
+                </h2>
+                <p class="text-amber-200/90 text-sm sm:text-base leading-relaxed mb-8">
+                    Explore comprehensive multi-chapter translations, historical context, highlighted Tirumurai stanzas, and Tamil poetry prosody (யாப்பிலக்கணம்) analysis.
+                </p>
+
+                <div class="lg:hidden flex items-center gap-3 mb-6">
+                    <img src="./images/sekkizhar_384.jpg" alt="Sekkizhar" class="w-12 h-12 rounded-full object-cover border border-templeGold/60 shadow" />
+                    <p class="text-xs text-amber-200/90"><span class="font-tamil font-semibold text-templeGold">சேக்கிழார் · Sekkizhar</span> — author of the Periyapuranam</p>
+                </div>
+
+                <!-- Search Input Bar -->
+                <div class="relative max-w-xl">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-templeGold">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </div>
+                    <input type="text" id="searchInput" oninput="handleSearch()" 
+                        placeholder="Search by saint name, town, or miracle (e.g., Kannappa, Appar, Chidambaram)..." 
+                        class="w-full pl-12 pr-10 py-3.5 rounded-xl bg-parchment text-charcoal placeholder-gray-500 font-medium focus:outline-none focus:ring-2 focus:ring-templeGold shadow-lg transition-all text-sm sm:text-base">
+                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-charcoal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <figure class="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col items-center gap-2">
+                <img src="./images/sekkizhar_384.jpg" alt="Sekkizhar, author of the Periyapuranam" class="w-48 h-48 border-2 border-templeGold rounded-full object-cover shadow-2xl" />
+                <figcaption class="text-xs text-templeGold font-tamil font-semibold">சேக்கிழார் · Sekkizhar</figcaption>
+            </figure>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-templeGold/20 pb-4">
+            <div class="flex flex-wrap gap-2" id="filter-buttons">
+                <button onclick="filterDevotees('all')" data-filter="all" class="filter-btn active min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-templeRed text-templeGold shadow-sm transition-all border border-templeRed">
+                    All Devotees (72)
+                </button>
+                <button onclick="filterDevotees('tani')" data-filter="tani" class="filter-btn min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-parchmentDark dark:bg-zinc-800 text-charcoal dark:text-amber-200 hover:bg-templeGold/20 transition-all border border-templeGold/30">
+                    63 Nayanmars (Individual)
+                </button>
+                <button onclick="filterDevotees('thogai')" data-filter="thogai" class="filter-btn min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-parchmentDark dark:bg-zinc-800 text-charcoal dark:text-amber-200 hover:bg-templeGold/20 transition-all border border-templeGold/30">
+                    9 Thogai Adiyars (Collective)
+                </button>
+                <button onclick="filterDevotees('big4')" data-filter="big4" class="filter-btn min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-parchmentDark dark:bg-zinc-800 text-charcoal dark:text-amber-200 hover:bg-templeGold/20 transition-all border border-templeGold/30">
+                    The Big 4 (Samayacharyars)
+                </button>
+            </div>
+
+            <div class="text-xs sm:text-sm font-semibold text-saffron flex items-center gap-2">
+                Showing <span id="active-count-badge" class="bg-templeGold/20 px-2.5 py-1 rounded-md text-templeRed dark:text-amber-300 font-bold">72</span> Saints
+            </div>
+        </div>
+
+        <!-- 72 Devotee Grid -->
+        <div id="devotee-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 min-h-[300px]">
+            <!-- Dynamic JS Items Rendered Here -->
+        </div>
+
+        <!-- No Results Fallback -->
+        <div id="no-results" class="hidden text-center py-16 bg-parchmentDark/50 rounded-2xl border border-dashed border-templeGold/40 my-8">
+            <div class="text-4xl mb-3">🛕</div>
+            <h3 class="font-heading font-bold text-lg text-templeRed mb-1">No Devotee Found</h3>
+            <p class="text-sm text-gray-600 mb-4">Try searching with another name or category.</p>
+            <button onclick="clearSearch()" class="min-h-[44px] px-4 py-2 bg-templeRed text-templeGold rounded-full text-xs font-bold">Reset Search</button>
+        </div>
+    </main>
+
+    <main id="view-reader" class="hidden flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-opacity duration-300">
+        
+        <!-- Reader Toolbar Controls (Sticky below header) -->
+        <div class="sticky top-20 z-30 bg-parchment/95 dark:bg-darkBg/95 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-templeGold/40 shadow-md mb-8 flex flex-wrap items-center justify-between gap-4">
+            <!-- Breadcrumbs -->
+            <div class="flex items-center gap-2 text-xs sm:text-sm">
+                <button onclick="showGalleryView()" class="min-h-[44px] text-saffron hover:underline font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-left"></i> Gallery
+                </button>
+                <span class="text-gray-400">/</span>
+                <span id="reader-breadcrumb-title" class="font-heading font-bold text-templeRed dark:text-amber-300 truncate max-w-[180px] sm:max-w-xs"></span>
+            </div>
+
+            <!-- Reading Display Customization Controls -->
+            <div class="flex items-center flex-wrap gap-3 text-xs">
+                <!-- Drawer Toggles: Chapters (mobile) + Root Verses (Tamil mode) -->
+                <div class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                    <button onclick="openTocDrawer()" title="Chapters" class="lg:hidden min-h-[44px] min-w-[44px] px-3 text-xs font-bold rounded hover:text-templeRed flex items-center gap-1.5">
+                        <i class="fa-solid fa-list-ol text-saffron"></i> Chapters
+                    </button>
+                    <span class="lang-ta hidden">
+                        <button id="verses-btn" onclick="openVersesDrawer()" title="மூல பாடல்கள்" class="min-h-[44px] px-3 text-xs font-bold rounded hover:text-templeRed flex items-center gap-1.5 font-tamil">
+                            <i class="fa-solid fa-book-open text-saffron"></i> மூல பாடல்கள்
+                        </button>
+                    </span>
+                </div>
+
+                <!-- Reading Mode Themes -->
+                <div class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                    <button onclick="setTheme('parchment')" title="Parchment Mode" class="px-2.5 py-1 rounded font-serif text-charcoal hover:bg-white transition-colors">Aa</button>
+                    <button onclick="setTheme('sepia')" title="Sepia Mode" class="px-2.5 py-1 rounded font-serif bg-sepiaBg text-sepiaText hover:opacity-90 transition-colors">Aa</button>
+                    <button onclick="setTheme('dark')" title="Night Temple Mode" class="px-2.5 py-1 rounded font-serif bg-darkBg text-amber-200 hover:opacity-90 transition-colors">Aa</button>
+                </div>
+
+                <!-- Font Size Adjuster -->
+                <div class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                    <button onclick="setFontSize('sm')" title="Small Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-xs font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed">A-</button>
+                    <button onclick="setFontSize('md')" title="Medium Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed">A</button>
+                    <button onclick="setFontSize('lg')" title="Large Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-base font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed">A+</button>
+                    <button onclick="setFontSize('xl')" title="Extra Large Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-lg font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed">A++</button>
+                </div>
+
+                <!-- Language Toggle -->
+                <div class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                    <button id="lang-btn-en" onclick="setLang('en')" title="Read in English" class="min-h-[44px] min-w-[44px] px-2.5 py-0.5 text-xs font-bold rounded hover:text-templeRed">EN</button>
+                    <button id="lang-btn-ta" onclick="setLang('ta')" title="தமிழில் படிக்க" class="min-h-[44px] min-w-[44px] px-2.5 py-0.5 text-xs font-bold rounded font-tamil hover:text-templeRed">தமிழ்</button>
+                </div>
+
+                <!-- Bookmark Story -->
+                <button id="reader-bookmark-btn" onclick="toggleActiveBookmark()" class="min-h-[44px] px-3 py-1.5 rounded-lg border border-templeGold/50 text-templeRed dark:text-amber-300 font-semibold flex items-center gap-1.5 hover:bg-templeGold/10">
+                    <i class="fa-regular fa-bookmark"></i> Save
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Reading Layout Grid (Content + Sticky Table of Contents) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Sticky Sidebar: Table of Contents & Metadata -->
+            <aside class="lg:col-span-4 xl:col-span-3 space-y-6">
+                
+                <!-- Saint Quick Header Card -->
+                <div class="p-5 rounded-2xl bg-gradient-to-br from-parchmentDark to-amber-50/50 dark:from-zinc-900 dark:to-zinc-800 border border-templeGold/40 shadow-sm">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div id="reader-icon-avatar" class="w-16 h-16 rounded-full border-2 border-templeGold bg-parchment flex items-center justify-center text-3xl shadow-inner overflow-hidden">
+                            <!-- Idol avatar -->
+                        </div>
+                        <div>
+                            <span id="reader-type-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-templeRed text-amber-100">
+                                63 Nayanmar
+                            </span>
+                            <h3 id="reader-saint-ta" class="font-tamil font-bold text-sm text-saffron mt-1"></h3>
+                        </div>
+                    </div>
+                    <h2 id="reader-saint-en" class="font-heading font-bold text-xl text-templeRed dark:text-amber-200 leading-tight mb-2"></h2>
+                    <p id="reader-summary-short" class="hidden lg:block text-xs text-gray-600 dark:text-gray-300 italic mb-4 leading-relaxed"></p>
+
+                    <div class="hidden lg:block space-y-2 pt-3 border-t border-templeGold/20 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Birthplace:</span>
+                            <span id="reader-meta-place" class="font-bold text-charcoal dark:text-amber-100"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Primary Grace:</span>
+                            <span id="reader-meta-devotion" class="font-bold text-charcoal dark:text-amber-100"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">Est. Reading Time:</span>
+                            <span id="reader-meta-readtime" class="font-bold text-saffron">25 mins</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Chapters Table of Contents -->
+                <div class="sticky top-40 p-5 rounded-2xl bg-parchmentDark/80 dark:bg-zinc-900 border border-templeGold/30 shadow-sm">
+                    <h4 class="font-heading font-bold text-xs uppercase tracking-widest text-templeRed dark:text-amber-300 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-ol text-saffron"></i> Table of Chapters
+                    </h4>
+                    <nav id="toc-chapter-list" class="space-y-1 text-xs font-medium custom-scrollbar max-h-[60vh] overflow-y-auto pr-1">
+                        <!-- Dynamic TOC Chapters generated by JS -->
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Right Main Story Body (Full Multi-Chapter Blog Post) -->
+            <article class="lg:col-span-8 xl:col-span-9 space-y-10">
+                
+                <!-- Story Header Banner -->
+                <div class="border-b-2 border-templeGold/30 pb-6">
+                    <h1 id="post-main-title" class="font-heading font-bold text-3xl sm:text-5xl text-templeRed dark:text-amber-200 leading-tight mb-4">
+                        <!-- Full Epic Title -->
+                    </h1>
+                    <p id="post-subtitle" class="font-serif text-lg sm:text-xl text-saffron italic leading-relaxed">
+                        <!-- Subtitle -->
+                    </p>
+                </div>
+
+                <!-- Chapter Container (Dynamic Rendered Chapters) -->
+                <div id="post-chapters-container" class="font-serif story-text-md space-y-12 text-charcoal dark:text-darkText">
+                    <!-- Dynamic Chapters inject here -->
+                </div>
+
+                <!-- Bottom Chapter Navigation -->
+                <div class="pt-8 border-t-2 border-templeGold/30 flex items-center justify-between gap-4 font-sans">
+                    <button id="btn-prev-chapter" onclick="navigateChapter(-1)" class="px-5 py-2.5 rounded-xl border border-templeGold/50 hover:bg-templeGold/10 text-xs sm:text-sm font-semibold flex items-center gap-2 text-charcoal dark:text-amber-200">
+                        <i class="fa-solid fa-arrow-left"></i> Previous Chapter
+                    </button>
+                    <button id="btn-next-chapter" onclick="navigateChapter(1)" class="px-5 py-2.5 rounded-xl bg-templeRed text-templeGold hover:bg-templeRed/90 text-xs sm:text-sm font-semibold flex items-center gap-2">
+                        Next Chapter <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Slide-over drawers: Chapters (mobile) + Root Verses (Tamil mode) -->
+    <div id="drawer-backdrop" onclick="closeDrawers()" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm hidden"></div>
+
+    <aside id="toc-drawer" aria-label="Chapters" class="fixed inset-y-0 left-0 z-50 w-[86vw] max-w-sm -translate-x-full transition-transform duration-300 bg-parchment dark:bg-zinc-900 border-r border-templeGold/40 shadow-2xl flex flex-col" style="padding-top: env(safe-area-inset-top);">
+        <div class="flex items-center justify-between p-4 border-b border-templeGold/30">
+            <h3 class="font-heading font-bold text-base text-templeRed dark:text-amber-300 flex items-center gap-2">
+                <i class="fa-solid fa-list-ol text-saffron"></i> Chapters <span id="toc-drawer-count" class="text-xs font-sans text-gray-500"></span>
+            </h3>
+            <button data-close onclick="closeDrawers()" aria-label="Close chapters" class="min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-400 hover:text-charcoal dark:hover:text-amber-200 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <nav id="toc-drawer-list" class="flex-1 overflow-y-auto p-4 space-y-1 text-sm font-medium custom-scrollbar" style="padding-bottom: env(safe-area-inset-bottom);">
+        </nav>
+    </aside>
+
+    <aside id="verses-drawer" aria-label="மூல பாடல்கள்" class="fixed inset-y-0 right-0 z-50 w-[94vw] max-w-xl translate-x-full transition-transform duration-300 bg-parchment dark:bg-zinc-900 border-l border-templeGold/40 shadow-2xl flex flex-col" style="padding-top: env(safe-area-inset-top);">
+        <div class="flex items-center justify-between p-4 border-b border-templeGold/30">
+            <h3 class="font-heading font-bold text-base text-templeRed dark:text-amber-300 flex items-center gap-2">
+                <i class="fa-solid fa-book-open text-saffron"></i> <span class="font-tamil">மூல பாடல்கள்</span> <span id="verses-drawer-count" class="text-xs font-sans text-gray-500"></span>
+            </h3>
+            <button data-close onclick="closeDrawers()" aria-label="Close verses" class="min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-400 hover:text-charcoal dark:hover:text-amber-200 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div id="verses-drawer-list" class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar" style="padding-bottom: env(safe-area-inset-bottom);">
+        </div>
+        <p class="px-4 py-3 border-t border-templeGold/20 text-[11px] text-gray-500 font-tamil">திருமுறை மூலம் · எண் வரிசைப்படி · யாப்பு அட்டைகளுடன்</p>
+    </aside>
+
+    <div id="bookmarks-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-parchment dark:bg-zinc-900 text-charcoal dark:text-amber-100 w-full max-w-lg rounded-2xl shadow-2xl border border-templeGold p-6 relative">
+            <div class="flex items-center justify-between border-b border-templeGold/30 pb-3 mb-4">
+                <h3 class="font-heading font-bold text-xl text-templeRed dark:text-amber-300 flex items-center gap-2">
+                    <i class="fa-solid fa-bookmark text-templeGold"></i> Saved Stories
+                </h3>
+                <button onclick="toggleBookmarksDrawer()" class="min-h-[44px] min-w-[44px] flex items-center justify-center text-gray-400 hover:text-charcoal dark:hover:text-amber-200 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="bookmarks-list" class="max-h-80 overflow-y-auto space-y-2 custom-scrollbar">
+                <!-- Dynamic Items -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-templeRed text-amber-100 py-8 border-t-4 border-templeGold mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+            <p class="font-heading font-bold text-lg text-templeGold">Tiruthondar Puranam • Sekkizhar's Periya Puranam</p>
+            <p class="font-tamil text-xs text-amber-200">"தென்னாடுடைய சிவனே போற்றி... எந்நாட்டவர்க்கும் இறைவா போற்றி..."</p>
+            <p class="text-xs text-amber-200/60 pt-2">Full English Epic Translation & Devotional Reader</p>
+        </div>
+    </footer>
+
+    <script>
+        // PWA: register the site service worker after first paint (offline reader)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); });
+        }
+    </script>
+
+    <script>
+        const CHOLA_BRONZE_IMAGES = [
+            "./chola_bronze_320.png",
+            "./chola_bronze_320.png",
+            "./chola_bronze_320.png"
+        ];
+
+        // Database of Tamil Poetry Meters (Yappilakkanam / யாப்பிலக்கணம்) with 4-Pillar Deep Analysis
+        const yappuDatabase = {
+            "aruseer-viruttham": {
+                nameEn: "Aruseer Kazhinediladi Asiriya Viruttham",
+                nameTa: "அறுசீர்க் கழிநெடிலடி ஆசிரிய விருத்தம்",
+                math: {
+                    anatomy: "4 lines, 6 metrical feet per line — 24 feet per stanza",
+                    syllables: "Kai-seer feet ending in Naer (நேர்)",
+                    rhyme: "2nd-letter ethukai across 4 lines; monai alliteration 1st-4th foot"
+                },
+                mood: {
+                    cadence: "Ahaval Osai — fluid, narrative, deeply devotional",
+                    effect: "Majestic epic momentum; Sekkizhar paints vivid drama without slowing narrative speed."
+                },
+                craft: {
+                    difficulty: "High",
+                    challenge: "Fitting dense Tamil sandhi into exact 6-foot lines while preserving 2nd-letter rhyme."
+                },
+                singing: {
+                    pann: "Nattapaadai / Thakkakesi",
+                    raga: "Nattai / Gambheeranattai or Mayamalavagowla",
+                    pause: "Pause after the 3rd foot in each line (3 + 3 = 6)."
+                }
+            },
+            "kochakam-kalippa": {
+                nameEn: "Kochchaka Kalippa",
+                nameTa: "கொச்சகக் கலிப்பா",
+                math: {
+                    anatomy: "Mixed Kalippa limbs (taravu opening + thazhisai); Moorkka 8-12 run as 4-line stanzas",
+                    syllables: "Kali feet with Thullal Osai rhythm",
+                    rhyme: "Ethukai across lines with kalippa-internal limb rhymes"
+                },
+                mood: {
+                    cadence: "Thullal Osai — leaping, dramatic, urgent",
+                    effect: "Sekkizhar shifts gear for the gambling drama: pace quickens, moral tension rises, then resolves into grace."
+                },
+                craft: {
+                    difficulty: "Very High",
+                    challenge: "Holding mixed taravu/thazhisai limbs together while the story accelerates."
+                },
+                singing: {
+                    pann: "Kolli / Thakkakesi (odhuvan marabu)",
+                    raga: "Pantuvarali / Kalyani family",
+                    pause: "Break after each limb; chant thazhisai passages briskly."
+                }
+            },
+            "ezhucir-viruttham": {
+                nameEn: "Ezhuseer Kazhinediladi Asiriya Viruttham",
+                nameTa: "எழுசீர்க் கழிநெடிலடி ஆசிரிய விருத்தம்",
+                math: {
+                    anatomy: "4 lines, 7 metrical feet per line — 28 feet per stanza",
+                    syllables: "Mixed kai-seer feet ending in Naer",
+                    rhyme: "2nd-letter ethukai across lines; monai alliteration"
+                },
+                mood: {
+                    cadence: "Ahaval Osai — grave, weighty, processional",
+                    effect: "Seven-foot lines carry catalogue and praise passages: Thogai's roll-call of saints, Anthathi's compressed hagiography."
+                },
+                craft: {
+                    difficulty: "High",
+                    challenge: "Sustaining the long 7-foot line without slack while keeping second-letter rhyme exact."
+                },
+                singing: {
+                    pann: "Nattapaadai / Thakkakesi",
+                    raga: "Nattai / Mayamalavagowla family",
+                    pause: "Pause after the 4th foot (4 + 3 = 7)."
+                }
+            },
+            "aintucir-kalithurai": {
+                nameEn: "Aintucir Kalithurai",
+                nameTa: "ஐந்துசீர் கலித்துறை",
+                math: {
+                    anatomy: "4 lines, 5 metrical feet per line — 20 feet per stanza",
+                    syllables: "Kali feet in Thullal Osai rhythm",
+                    rhyme: "2nd-letter ethukai across lines; monai alliteration"
+                },
+                mood: {
+                    cadence: "Thullal Osai — leaping, energetic, urgent",
+                    effect: "Carries fast narrative and fervent devotion; Sekkizhar sustains pace through wonder passages without slack."
+                },
+                craft: {
+                    difficulty: "High",
+                    challenge: "Holding exact 5-foot lines with rhyme while the story runs at full speed."
+                },
+                singing: {
+                    pann: "Panchamam",
+                    raga: "Ahiri family",
+                    pause: "Pause after the 2nd foot (2 + 3 = 5)."
+                }
+            },
+            "encir-viruttham": {
+                nameEn: "Encir Kazhinediladi Asiriya Viruttham",
+                nameTa: "எண்சீர்க் கழிநெடிலடி ஆசிரிய விருத்தம்",
+                math: {
+                    anatomy: "4 lines, 8 metrical feet per line — 32 feet per stanza",
+                    syllables: "Kai-seer feet ending in Naer, strong mid-line caesura",
+                    rhyme: "2nd-letter ethukai across 4 lines; monai alliteration"
+                },
+                mood: {
+                    cadence: "Ahaval Osai — majestic, expansive, contemplative",
+                    effect: "Grandeur and detailed praise; Sekkizhar slows time for divine acts and saintly virtues."
+                },
+                craft: {
+                    difficulty: "High",
+                    challenge: "Filling 8 long feet per line with imagery that never sags, under strict rhyme."
+                },
+                singing: {
+                    pann: "Indalam",
+                    raga: "Kedaragowla family",
+                    pause: "Pause after the 4th foot (4 + 4 = 8)."
+                }
+            },
+            "kaliviruttam": {
+                nameEn: "Kaliviruttam",
+                nameTa: "கலிவிருத்தம் (நான்கு சீர்)",
+                math: {
+                    anatomy: "4 lines, 4 metrical feet per line — 16 feet per stanza",
+                    syllables: "Kali feet in Thullal Osai rhythm",
+                    rhyme: "2nd-letter ethukai across lines; monai alliteration"
+                },
+                mood: {
+                    cadence: "Thullal Osai — brisk, direct, lively",
+                    effect: "Concise turns of event and pointed devotional statement in the shortest Kali gear."
+                },
+                craft: {
+                    difficulty: "Moderate",
+                    challenge: "Compression: full meaning and emotion inside 4 short feet per line."
+                },
+                singing: {
+                    pann: "Kurinji",
+                    raga: "Harikambhoji family",
+                    pause: "Pause after the 2nd foot (2 + 2 = 4)."
+                }
+            }
+        };
+
+        const devoteesData = [];
+
+        // v1 data layer: manifest drives the index, story JSON fetches on
+        // demand. JSON holds RAW Tamil (unescaped) — every story-text
+        // insertion into the DOM MUST go through esc(). (G8 gate enforces.)
+        const DATA_BASE = "../content/build"; // repo-served layout; deploy remaps
+        let STORY_MANIFEST = [];
+        function esc(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+        // Central image resolver: legacy './x' records live under ./images/.
+        // Absolute URLs pass through. Output always routed via esc() (G8).
+        function imgURL(src) {
+            const s = String(src || './images/lingam.svg');
+            if (/^(https?:|data:|\/|blob:)/.test(s)) return s;
+            if (s.startsWith('./images/')) return s;
+            if (s.startsWith('./')) return s.replace(/^\.\//, './images/');
+            return './images/' + s;
+        }
+        // Audited sink: the only path for chapter text into innerHTML.
+        function parasHTML(text, cls, dropCap, hidden) {
+            return String(text == null ? '' : text).split(/\n\n+/).map((p, pi) =>
+                '<p class="' + (pi === 0 && dropCap ? 'drop-cap ' : '') + cls + (hidden ? ' hidden' : '') + '">' + esc(p) + '</p>').join('');
+        }
+        // v1 chapter section: Tamil + matched English, one visible per
+        // pp_lang at paint (setLang flips classes afterwards). Verses live
+        // in the drawer only — no per-chapter verse mapping by contract.
+        function chapterSectionHTML(chap, index, en) {
+            const L = (typeof localStorage !== 'undefined' && localStorage.getItem('pp_lang')) || 'en';
+            const enOK = en && en.n === chap.n;
+            return '<section id="chapter-' + index + '" class="space-y-4 pt-4 border-b border-templeGold/20 pb-8">' +
+                '<h2 class="font-heading font-bold text-2xl sm:text-3xl text-templeRed dark:text-amber-300 flex items-center gap-3">' +
+                '<span class="text-saffron font-sans text-sm border border-saffron px-2.5 py-1 rounded-md">Chapter ' + esc(chap.n) + '</span></h2>' +
+                parasHTML(chap.text, 'font-tamil text-justify leading-relaxed lang-ta', false, L !== 'ta') +
+                (enOK ? parasHTML(en.text, 'text-justify leading-relaxed lang-en', index === 0, L !== 'en') : '') +
+                '</section>';
+        }
+        async function loadManifest() {
+            const r = await fetch(DATA_BASE + "/manifest.json");
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            STORY_MANIFEST = await r.json();
+            return STORY_MANIFEST;
+        }
+        function manifestEntry(id) {
+            return STORY_MANIFEST.find(e => e.id === id);
+        }
+
+        // Collapsed-by-default verse card (P14 presentation, v1 fields):
+        // ref header toggles the verse body, yappu button toggles the
+        // 4-pillar panel. Same card CSS as the golden experiment; small type.
+        function formatThirumuraiVerseCard({ lines, yappuKey, ref, n, vid, kind }) {
+            const yappu = yappuDatabase[yappuKey] || { nameTa: "யாப்பு அறியப்படவில்லை" };
+            return `
+                <div id="v-${vid}" class="my-8 p-6 sm:p-8 rounded-3xl thirumurai-verse-card relative overflow-hidden border-2 border-templeGold/50 shadow-lg scroll-mt-28">
+                    <button onclick="toggleVerse('vb-${vid}')" class="w-full flex items-center justify-between gap-2 text-xs font-bold text-amber-200 font-tamil tracking-wide">
+                        <span class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-om text-saffron text-base"></i> Verse ${esc(n)} · ${esc(ref)}
+                        </span>
+                        <span id="vb-${vid}-txt" class="text-saffron text-base leading-none">▸</span>
+                    </button>
+                    <div id="vb-${vid}" class="hidden">
+                        <p class="verse-highlight-text text-lg sm:text-xl mt-4 mb-4 leading-relaxed tracking-wide">
+                            ${esc(lines).replace(/\n/g, '<br>')}
+                        </p>
+                        <div class="flex justify-start mb-2">
+                            <button onclick="toggleVerse('vyb-${vid}')" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-templeGold/20 hover:bg-templeGold/30 text-amber-300 transition-colors flex items-center gap-1 font-tamil">
+                                <i class="fa-solid fa-feather-pointed text-saffron"></i> யாப்பு: ${yappu.nameTa} <span id="vyb-${vid}-txt">▸</span>
+                            </button>
+                        </div>
+                        <div id="vyb-${vid}" class="hidden mt-2">${yappuPillars(yappuKey)}</div>
+                        <p class="text-[11px] text-gray-500">${esc(kind || '')}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleVerse(bodyId) {
+            const b = document.getElementById(bodyId);
+            if (!b) return;
+            const closed = b.classList.toggle('hidden');
+            const t = document.getElementById(bodyId + '-txt');
+            if (t) t.innerText = closed ? '▸' : '▾';
+        }
+
+        function yappuPillars(yappuKey) {
+            const yappu = yappuDatabase[yappuKey] || {
+                nameEn: "Metre Unidentified",
+                nameTa: "யாப்பு அறியப்படவில்லை",
+                math: { anatomy: "Pending offline classification", syllables: "Queued for metre review", rhyme: "Not yet analysed" },
+                mood: { cadence: "—", effect: "This verse awaits offline metre identification before publish." },
+                craft: { difficulty: "—", challenge: "Human review required." },
+                singing: { pann: "—", raga: "—", pause: "—" }
+            };
+            const row = (l, v) => '<p class="text-gray-700 dark:text-gray-200"><strong>' + l + ':</strong> ' + v + '</p>';
+            const panel = (t, inner) => '<div class="p-4 rounded-xl bg-amber-50/80 dark:bg-zinc-800/80 border border-templeGold/30 space-y-1.5">'
+                + '<div class="font-heading font-bold uppercase tracking-wider">' + t + '</div>' + inner + '</div>';
+            return '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans">'
+                + panel('1. The Mathematics', row('Anatomy', yappu.math.anatomy) + row('Syllables', yappu.math.syllables) + row('Rhyme', yappu.math.rhyme))
+                + panel('2. Mood & Rasa', row('Cadence', yappu.mood.cadence) + row('Effect', yappu.mood.effect))
+                + panel('3. Poetic Rigor', row('Difficulty', yappu.craft.difficulty) + row('Challenge', yappu.craft.challenge))
+                + panel('4. How to Sing', row('Pann', yappu.singing.pann) + row('Raga', yappu.singing.raga) + row('Pause', yappu.singing.pause))
+                + '</div>';
+        }
+
+        let activeFilter = 'all';
+        let savedBookmarks = JSON.parse(localStorage.getItem('periya_puranam_bookmarks') || '[]');
+        let activeStoryId = null;
+        let activeChapterIndex = 0;
+
+        function gallerySource() {
+            // Manifest entries drive the index (image/type/category travel
+            // in the manifest, so cards and type filters work unopened);
+            // cached full records fill in place for stories already opened.
+            const cache = {};
+            devoteesData.forEach(d => { cache[d.id] = d; });
+            return STORY_MANIFEST.map(e => ({
+                id: e.id, slug: e.slug, nameEn: e.titleEn, nameTa: e.titleTa,
+                status: e.status, tamil_count: e.tamil_count,
+                english_count: e.english_count, verse_count: e.verse_count,
+                image: e.image || ((cache[e.id] && cache[e.id].image) || ''),
+                type: e.type || null,
+                isBig4: !!(cache[e.id] && cache[e.id].isBig4),
+                category: e.category || '',
+                place: (cache[e.id] && cache[e.id].place) || ''
+            }));
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('devotee-grid');
+            const searchVal = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+            const noRes = document.getElementById('no-results');
+
+            if (!grid) return;
+
+            const filtered = gallerySource().filter(devotee => {
+                // Type comes from the manifest, so filters work unopened.
+                const matchesFilter =
+                    activeFilter === 'all' ? true :
+                    activeFilter === 'tani' ? devotee.type === 'tani' :
+                    activeFilter === 'thogai' ? devotee.type === 'thogai' :
+                    activeFilter === 'big4' ? devotee.isBig4 === true : true;
+
+                const matchesSearch =
+                    !searchVal ||
+                    devotee.nameEn.toLowerCase().includes(searchVal) ||
+                    devotee.nameTa.toLowerCase().includes(searchVal) ||
+                    devotee.place.toLowerCase().includes(searchVal) ||
+                    devotee.category.toLowerCase().includes(searchVal);
+
+                return matchesFilter && matchesSearch;
+            });
+
+            document.getElementById('active-count-badge').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                if (noRes) noRes.classList.remove('hidden');
+                return;
+            } else {
+                if (noRes) noRes.classList.add('hidden');
+            }
+
+            grid.innerHTML = filtered.map(devotee => `
+                <div onclick="loadStory('${esc(devotee.id)}')" class="group cursor-pointer p-3 sm:p-4 rounded-2xl bg-parchmentDark/70 dark:bg-zinc-800/80 border border-templeGold/30 hover:border-templeGold hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden">
+                    <div class="absolute top-2 right-2">
+                        <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${esc(devotee.type === 'thogai' ? 'bg-amber-900 text-amber-200' : 'bg-templeRed text-amber-100')}">
+                            ${esc(devotee.type === 'thogai' ? 'Group' : 'Nayanmar')}
+                        </span>
+                    </div>
+
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-templeGold p-0.5 bg-parchment shadow-md group-hover:scale-105 transition-transform overflow-hidden mb-2">
+                        <img src="${esc(imgURL(devotee.image))}" alt="${esc(devotee.nameEn)}" class="w-full h-full object-cover rounded-full" onerror="this.src='./images/lingam.svg'" />
+                    </div>
+
+                    <h3 class="font-heading font-bold text-xs sm:text-sm text-templeRed dark:text-amber-200 line-clamp-1 group-hover:text-saffron transition-colors">
+                        ${esc(devotee.nameEn)}
+                    </h3>
+                    <p class="font-tamil text-[11px] text-saffron font-semibold line-clamp-1">
+                        ${esc(devotee.nameTa)}
+                    </p>
+                    <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">
+                        📍 ${esc(devotee.place || devotee.category)}
+                    </p>
+                    <p class="text-[10px] text-gray-500 dark:text-gray-400 line-clamp-1">
+                        📖 ${esc(devotee.tamil_count)} chapters · 📜 ${esc(devotee.verse_count)} verses · ${esc(devotee.status === 'english_done' ? 'EN + TA' : 'Tamil')}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        function filterDevotees(type) {
+            activeFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === type) {
+                    btn.className = "filter-btn active min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-templeRed text-templeGold shadow-sm transition-all border border-templeRed";
+                } else {
+                    btn.className = "filter-btn min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-parchmentDark dark:bg-zinc-800 text-charcoal dark:text-amber-200 hover:bg-templeGold/20 transition-all border border-templeGold/30";
+                }
+            });
+            renderGallery();
+        }
+
+        function handleSearch() {
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const searchVal = document.getElementById('searchInput').value;
+            if (clearBtn) {
+                if (searchVal) clearBtn.classList.remove('hidden');
+                else clearBtn.classList.add('hidden');
+            }
+            renderGallery();
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('searchInput');
+            if (input) input.value = '';
+            handleSearch();
+        }
+
+        async function loadStory(id, chapterIdx = 0) {
+            let devotee = devoteesData.find(d => d.id === id);
+            if (!devotee) {
+                const entry = manifestEntry(id);
+                if (!entry) return;
+                // Manifest-driven fetch: story JSON (v1 shape) on demand
+                document.getElementById('view-gallery').classList.add('hidden');
+                document.getElementById('view-reader').classList.remove('hidden');
+                document.getElementById('post-chapters-container').innerHTML = '<p class="text-sm text-gray-500 p-8 font-tamil">கதை ஏற்றப்படுகிறது…</p>';
+                try {
+                    const r = await fetch(DATA_BASE + '/' + entry.slug + '.json');
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    devotee = await r.json();
+                    devoteesData.push(devotee);
+                } catch (e) {
+                    document.getElementById('post-chapters-container').innerHTML = '<p class="text-sm text-red-400 p-8">Could not load this story (' + esc((e && e.message) || e) + '). Check connection or offline cache.</p>';
+                    return;
+                }
+            }
+            if (!devotee) return;
+
+            activeStoryId = id;
+            activeChapterIndex = chapterIdx;
+
+            // Update UI Views
+            document.getElementById('view-gallery').classList.add('hidden');
+            document.getElementById('view-reader').classList.remove('hidden');
+            document.getElementById('progress-container').classList.remove('hidden');
+
+            // Set Breadcrumb & Metadata
+            document.getElementById('reader-breadcrumb-title').innerText = devotee.nameEn;
+            document.getElementById('reader-saint-en').innerText = devotee.nameEn;
+            document.getElementById('reader-saint-ta').innerText = devotee.nameTa;
+            document.getElementById('reader-summary-short').innerText = devotee.summary;
+            document.getElementById('reader-meta-place').innerText = devotee.place;
+            document.getElementById('reader-meta-devotion').innerText = devotee.category;
+            document.getElementById('reader-meta-readtime').innerText = devotee.readTime || '25 mins';
+            document.getElementById('reader-type-badge').innerText = devotee.type === 'thogai' ? 'Thogai Adiyar' : '63 Nayanmar';
+            
+            document.getElementById('reader-icon-avatar').innerHTML = `
+                <img src="${esc(imgURL(devotee.image))}" alt="${esc(devotee.nameEn)}" class="w-full h-full object-cover rounded-full" onerror="this.src='./images/lingam.svg'" />
+            `;
+
+            document.getElementById('post-main-title').innerText = devotee.nameEn;
+            document.getElementById('post-subtitle').innerText = devotee.subtitle || devotee.summary;
+
+            // Build Table of Contents (v1: tamil_chapters [{n, text}])
+            const tocNav = document.getElementById('toc-chapter-list');
+            tocNav.innerHTML = devotee.tamil_chapters.map((chap, index) => `
+                <button onclick="scrollToChapter(${index})" class="w-full text-left px-3 py-3 min-h-[44px] rounded-lg transition-colors flex items-center gap-2 ${index === chapterIdx ? 'bg-templeGold/30 text-templeRed dark:text-amber-200 font-bold' : 'hover:bg-templeGold/10 text-gray-700 dark:text-gray-300'}">
+                    <span class="w-5 h-5 rounded-full bg-templeGold/20 text-[10px] font-bold flex items-center justify-center shrink-0">${index + 1}</span>
+                    <span class="truncate">Chapter ${esc(chap.n)}</span>
+                </button>
+            `).join('');
+
+            // Render Post Chapters (v1 prose; verses live in the drawer only —
+            // no per-chapter verse mapping exists by contract)
+            const postContainer = document.getElementById('post-chapters-container');
+            postContainer.innerHTML = devotee.tamil_chapters.map((chap, index) =>
+                chapterSectionHTML(chap, index, (devotee.english_chapters || [])[index])).join('');
+
+            initTocSpy();
+            setActiveToc(chapterIdx || 0);
+            if (chapterIdx) {
+                requestAnimationFrame(() => {
+                    const first = document.getElementById(`chapter-${chapterIdx}`);
+                    if (first) first.scrollIntoView({ block: 'start' });
+                });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            updateBookmarkBtnState();
+            window.location.hash = `#story=${id}&chapter=${chapterIdx}`;
+        }
+
+        // Golden P-d scroll spy, adapted to v1 (tamil_chapters): scrolling or
+        // jumping chapters highlights the active entry in sidebar + drawer.
+        let tocObserver = null;
+        function setActiveToc(index) {
+            activeChapterIndex = index;
+            ['toc-chapter-list', 'toc-drawer-list'].forEach((id) => {
+                document.querySelectorAll('#' + id + ' button').forEach((b, i) => {
+                    const on = i === index;
+                    b.classList.toggle('bg-templeGold/30', on);
+                    b.classList.toggle('text-templeRed', on);
+                    b.classList.toggle('dark:text-amber-200', on);
+                    b.classList.toggle('font-bold', on);
+                });
+            });
+            try { history.replaceState(null, '', '#story=' + activeStoryId + '&chapter=' + index); } catch (e) {}
+        }
+        function initTocSpy() {
+            if (tocObserver) tocObserver.disconnect();
+            const secs = document.querySelectorAll('#post-chapters-container section[id^="chapter-"]');
+            if (!('IntersectionObserver' in window) || !secs.length) return;
+            tocObserver = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        const idx = parseInt(e.target.id.replace('chapter-', ''), 10);
+                        if (!isNaN(idx)) setActiveToc(idx);
+                    }
+                });
+            }, { rootMargin: '-30% 0px -60% 0px' });
+            secs.forEach(s => tocObserver.observe(s));
+            window._tocObserver = tocObserver;
+        }
+        function scrollToChapter(index) {
+            setActiveToc(index);
+            requestAnimationFrame(() => {
+                const target = document.getElementById(`chapter-${index}`);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                else window.scrollTo({ top: 0 });
+            });
+        }
+
+        function navigateChapter(direction) {
+            const devotee = devoteesData.find(d => d.id === activeStoryId);
+            if (!devotee) return;
+            const newIndex = activeChapterIndex + direction;
+            if (newIndex >= 0 && newIndex < devotee.tamil_chapters.length) {
+                scrollToChapter(newIndex);
+            }
+        }
+
+        function showGalleryView() {
+            document.getElementById('view-gallery').classList.remove('hidden');
+            document.getElementById('view-reader').classList.add('hidden');
+            document.getElementById('progress-container').classList.add('hidden');
+            window.location.hash = '#gallery';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setTheme(theme) {
+            document.body.classList.remove('theme-parchment', 'theme-sepia', 'theme-dark');
+            document.body.classList.add(`theme-${theme}`);
+            document.documentElement.classList.toggle('dark', theme === 'dark');
+            localStorage.setItem('periya_puranam_theme', theme);
+        }
+
+        function setFontSize(size) {
+            const container = document.getElementById('post-chapters-container');
+            if (container) {
+                container.classList.remove('story-text-sm', 'story-text-md', 'story-text-lg', 'story-text-xl');
+                container.classList.add(`story-text-${size}`);
+            }
+            localStorage.setItem('periya_puranam_fontsize', size);
+        }
+
+        /* Slide-over drawers: TOC (mobile) + root verses (Tamil mode).
+           Self-contained: no dependency on builder-injected helpers. */
+        function activeDevotee() {
+            try {
+                if (typeof devoteesData === 'undefined' || !activeStoryId) return null;
+                return devoteesData.find(d => d.id === activeStoryId) || null;
+            } catch (e) { return null; }
+        }
+        function openDrawer(id) {
+            closeDrawers(true);
+            document.getElementById('drawer-backdrop').classList.remove('hidden');
+            document.getElementById(id).classList.remove('-translate-x-full', 'translate-x-full');
+            document.body.classList.add('overflow-hidden');
+            if (id === 'toc-drawer') renderDrawerToc();
+            if (id === 'verses-drawer') renderVersesDrawer();
+            var c = document.getElementById(id).querySelector('[data-close]');
+            if (c) c.focus();
+        }
+        function closeDrawers(keepBackdrop) {
+            var t = document.getElementById('toc-drawer');
+            var v = document.getElementById('verses-drawer');
+            if (t) t.classList.add('-translate-x-full');
+            if (v) v.classList.add('translate-x-full');
+            if (!keepBackdrop) {
+                document.getElementById('drawer-backdrop').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+        function openTocDrawer() { openDrawer('toc-drawer'); }
+        function openVersesDrawer() { openDrawer('verses-drawer'); }
+        function goChapter(i) { closeDrawers(); scrollToChapter(i); }
+        function renderDrawerToc() {
+            var host = document.getElementById('toc-drawer-list');
+            var d = activeDevotee();
+            if (!d || !d.tamil_chapters || !d.tamil_chapters.length) {
+                host.innerHTML = '<p class="text-sm text-gray-500 p-2">No chapters loaded.</p>';
+                return;
+            }
+            document.getElementById('toc-drawer-count').innerText = '· ' + d.tamil_chapters.length;
+            host.innerHTML = d.tamil_chapters.map((chap, i) =>
+                '<button onclick="goChapter(' + i + ')" class="w-full text-left px-3 py-3 min-h-[44px] rounded-lg transition-colors flex items-center gap-2 ' + (i === activeChapterIndex ? 'bg-templeGold/30 text-templeRed dark:text-amber-200 font-bold' : 'hover:bg-templeGold/10 text-gray-700 dark:text-gray-300') + '">' +
+                '<span class="w-6 h-6 rounded-full bg-templeGold/20 text-[11px] font-bold flex items-center justify-center shrink-0">' + (i + 1) + '</span>' +
+                '<span class="truncate">Chapter ' + esc(chap.n) + '</span></button>').join('');
+        }
+        function renderVersesDrawer() {
+            var host = document.getElementById('verses-drawer-list');
+            var d = activeDevotee();
+            var songs = (d && d.verses) || [];
+            document.getElementById('verses-drawer-count').innerText = songs.length ? '· ' + songs.length : '';
+            if (!songs.length) {
+                host.innerHTML = '<p class="text-sm text-gray-500 p-2 font-tamil">இக்கதைக்கு மூல பாடல்கள் இன்னும் இணைக்கப்படவில்லை.</p>';
+                return;
+            }
+            host.innerHTML = songs.map(function (s, i) {
+                return formatThirumuraiVerseCard({
+                    lines: (s.lines || []).join('\n'),
+                    yappuKey: s.yappuKey, ref: s.ref || '',
+                    n: (s.n || (i + 1)), vid: 'dv-' + i, kind: s.kind || ''
+                });
+            }).join('');
+        }
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawers(); });
+
+        function setLang(l) {
+            document.querySelectorAll('.lang-en').forEach(e => e.classList.toggle('hidden', l !== 'en'));
+            document.querySelectorAll('.lang-ta').forEach(e => e.classList.toggle('hidden', l !== 'ta'));
+            const be = document.getElementById('lang-btn-en');
+            const bt = document.getElementById('lang-btn-ta');
+            if (be) be.classList.toggle('bg-templeGold/30', l === 'en');
+            if (bt) bt.classList.toggle('bg-templeGold/30', l === 'ta');
+            localStorage.setItem('pp_lang', l);
+        }
+
+        function toggleBookmarksDrawer() {
+            const modal = document.getElementById('bookmarks-modal');
+            if (modal) {
+                modal.classList.toggle('hidden');
+                renderBookmarksList();
+            }
+        }
+
+        function toggleActiveBookmark() {
+            if (!activeStoryId) return;
+            const idx = savedBookmarks.indexOf(activeStoryId);
+            if (idx >= 0) {
+                savedBookmarks.splice(idx, 1);
+            } else {
+                savedBookmarks.push(activeStoryId);
+            }
+            localStorage.setItem('periya_puranam_bookmarks', JSON.stringify(savedBookmarks));
+            updateBookmarkBadge();
+            updateBookmarkBtnState();
+        }
+
+        function updateBookmarkBadge() {
+            const badge = document.getElementById('bookmark-count');
+            if (badge) badge.innerText = savedBookmarks.length;
+        }
+
+        function updateBookmarkBtnState() {
+            const btn = document.getElementById('reader-bookmark-btn');
+            if (!btn) return;
+            if (savedBookmarks.includes(activeStoryId)) {
+                btn.innerHTML = `<i class="fa-solid fa-bookmark text-templeGold"></i> Saved`;
+                btn.classList.add('bg-templeGold/20');
+            } else {
+                btn.innerHTML = `<i class="fa-regular fa-bookmark"></i> Save`;
+                btn.classList.remove('bg-templeGold/20');
+            }
+        }
+
+        function renderBookmarksList() {
+            const list = document.getElementById('bookmarks-list');
+            if (!list) return;
+
+            if (savedBookmarks.length === 0) {
+                list.innerHTML = `<p class="text-xs text-gray-500 py-4 text-center">No saved stories yet. Click 'Save' while reading any story!</p>`;
+                return;
+            }
+
+            const items = devoteesData.filter(d => savedBookmarks.includes(d.id));
+            list.innerHTML = items.map(item => `
+                <div class="flex items-center justify-between p-3 rounded-xl bg-parchmentDark dark:bg-zinc-800 border border-templeGold/30">
+                    <div class="flex items-center gap-3 cursor-pointer" onclick="toggleBookmarksDrawer(); loadStory('${esc(item.id)}');">
+                        <img src="${esc(imgURL(item.image))}" alt="${esc(item.nameEn)}" class="w-10 h-10 rounded-full object-cover border border-templeGold" />
+                        <div>
+                            <h4 class="font-bold text-xs text-templeRed dark:text-amber-200">${esc(item.nameEn)}</h4>
+                            <p class="font-tamil text-[10px] text-saffron">${esc(item.nameTa)}</p>
+                        </div>
+                    </div>
+                    <button onclick="activeStoryId='${esc(item.id)}'; toggleActiveBookmark(); renderBookmarksList();" class="text-xs text-red-500 hover:text-red-700">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.addEventListener('scroll', () => {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar || document.getElementById('view-reader').classList.contains('hidden')) return;
+
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        function handleHashRouting() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#story=')) {
+                const params = new URLSearchParams(hash.replace('#', ''));
+                const storyId = params.get('story');
+                const chapterIdx = parseInt(params.get('chapter') || '0', 10);
+                if (storyId) loadStory(storyId, chapterIdx);
+            } else {
+                showGalleryView();
+            }
+        }
+
+        // Initialize application on load (manifest first — gallery and
+        // hash routing both depend on it)
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await loadManifest();
+            } catch (e) {
+                const grid = document.getElementById('devotee-grid');
+                if (grid) grid.innerHTML = '<p class="text-sm text-red-400 p-8">Could not load story index. Check connection.</p>';
+                return;
+            }
+            renderGallery();
+            updateBookmarkBadge();
+
+            const savedTheme = localStorage.getItem('periya_puranam_theme');
+            if (savedTheme) setTheme(savedTheme); else setTheme('dark');
+
+            const savedFontSize = localStorage.getItem('periya_puranam_fontsize');
+            if (savedFontSize) setFontSize(savedFontSize);
+
+            setLang(localStorage.getItem('pp_lang') || 'en');
+
+            handleHashRouting();
+        });
+
+        window.addEventListener('hashchange', handleHashRouting);
+    </script>
+</body>
+</html>

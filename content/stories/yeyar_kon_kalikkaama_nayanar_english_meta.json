@@ -1,0 +1,11 @@
+{
+ "model": "google/gemini-2.5-flash",
+ "groups": 14,
+ "tamil_chars": 709635,
+ "english_chars": 706850,
+ "english_chapters": 61,
+ "has_separator": false,
+ "total_cost": 0.5674,
+ "normalize": "ch50 dupe-header removed; file-start orphan into Ch01; headers unified hyphen; bilingual 61=61",
+ "fix_cost": 0.043
+}

@@ -1,0 +1,16 @@
+# Periyapuranam storefront — static assets only (no Worker script).
+# dist/ is assembled by scripts/assemble_dist.py; deploy = build, gate,
+# assemble, then `wrangler deploy`. Local-proven stays deploy-true: the
+# relative tree (site/ + content/build/) is identical in dist/.
+name = "periyapuranam-storefront"
+compatibility_date = "2026-09-26"
+
+[assets]
+directory = "./dist"
+
+# Custom domain (periyapuranam.nalvar.in) — DRAFT, NOT wired.
+# Attaching it needs zone perms and/or dashboard DNS edits, which is a human
+# step by session rule. Do not uncomment in CI until the zone is confirmed;
+# verify the exact routes/custom_domain syntax against the wrangler docs on
+# first wire, then deploy from main.
+# routes = [{ pattern = "periyapuranam.nalvar.in/*", custom_domain = true }]

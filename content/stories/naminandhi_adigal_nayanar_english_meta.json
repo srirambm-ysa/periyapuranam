@@ -1,0 +1,37 @@
+{
+ "slug": "naminandhi_adigal_nayanar",
+ "nayanar": "Naminandhi Adigal Nayanar",
+ "phase": "C",
+ "chunks": 2,
+ "merged_chars": 99978,
+ "merged_chapters": 10,
+ "has_eq": false,
+ "instrument": [
+  {
+   "chunk": 0,
+   "headers": "Chapter 01, Chapter 02, Chapter 03, Chapter 04, Chapter 05, Chapter 06",
+   "tamil_chars": 49811,
+   "english_chars": 53465,
+   "cost": 0.036682668,
+   "finish": "stop",
+   "duration_s": 74.8,
+   "prompt_tokens": 13419,
+   "completion_tokens": 13211
+  },
+  {
+   "chunk": 1,
+   "headers": "Chapter 07, Chapter 08, Chapter 09, Chapter 10, Chapter 11",
+   "tamil_chars": 47768,
+   "english_chars": 46510,
+   "cost": 0.031576347,
+   "finish": "stop",
+   "duration_s": 62.2,
+   "prompt_tokens": 12801,
+   "completion_tokens": 11222
+  }
+ ],
+ "elapsed_s": 525.5,
+ "fix_cost": 0.0049,
+ "english_chapters": 11,
+ "fix": "missing Ch01 re-translated+spliced, headers canonicalized"
+}

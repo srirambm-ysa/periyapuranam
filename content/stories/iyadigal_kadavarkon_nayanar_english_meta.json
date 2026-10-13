@@ -1,0 +1,23 @@
+{
+  "slug": "iyadigal_kadavarkon_nayanar",
+  "nayanar": "Iyadigal Kadavarkon Nayanar",
+  "phase": "C",
+  "chunks": 1,
+  "merged_chars": 28231,
+  "merged_chapters": 2,
+  "has_eq": false,
+  "instrument": [
+    {
+      "chunk": 0,
+      "headers": "Chapter 01, Chapter 02",
+      "tamil_chars": 27477,
+      "english_chars": 28230,
+      "cost": 0.021155607,
+      "finish": "stop",
+      "duration_s": 45.6,
+      "prompt_tokens": 8156,
+      "completion_tokens": 7569
+    }
+  ],
+  "elapsed_s": 184.4
+}
