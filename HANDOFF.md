@@ -31,25 +31,35 @@
   `../content/build` resolves identically); `wrangler.toml` (assets-only `./dist`,
   custom-domain block DRAFT); `.github/workflows/deploy.yml` (PR: diff+gates+preview
   artifact; main: rebuild-from-scratch then deploy).
-- Verse preview: `content/preview/` 68 stories (gitignored) + `site/preview.html`
-  (gitignored, bannered). 62/67 populated, 1737 drawer verses, reconciled to map
-  (1737 + 324 pending = 2061). Served at `http://localhost:8934/site/preview.html`
+- Verse preview: `content/preview/` 69 stories (gitignored) + `site/preview.html`
+  (gitignored, bannered). 68/68 populated, 2071 drawer verses, reconciled to map
+  (2071 + 0 pending). Served at `http://localhost:8934/site/preview.html`
   (repo-root server); product at `http://localhost:8933` (`dist/` server).
 - Factory input: `content/factory_section_map.json` v1 (committed, build input —
-  68 entries, 2189 verses, 3 flagged mappings inside).
+  69 entries, 2199 verses, 4 flagged mappings inside, incl. the nedumara
+  placeholder).
+- `yappu_db.py` metres all mapped (2026-10-13): kalithurai-family labels →
+  aintucir-kalithurai; new `vanji-viruttam` card (Karigai sey.14) for Pugazh
+  Chozha. Golden + `shell.html` untouched.
+- Nedumara Nayanar placeholder (the missing 63rd Thani Adiyaar): story absent
+  from catalog, video catalog, and thagar zip entirely. 8-chapter web-sourced
+  Tamil+English placeholder (`content/stories/nedumara_nayanar_*`,
+  `_english_meta.json` `placeholder:true`, sources listed) + 69th map entry.
+  Builds as `transcribed` (never listed) — product unaffected. Factory must
+  still transcribe/translate the real 10-song puranam + human sign-off.
+  Reconciles: 63 + 9 Thogai = 72 saint-stories.
 
 ## Next queue (in order)
 
-1. `yappu_db` decision (deliberate, not drive-by) for 5 unmapped labels → rebuild
-   preview for: Anaya (42, சந்தக் கலிநிலைத்துறை), Kannappa (186, கலிநிலைத்துறை
-   ஐந்து சீர்), Murthi (49, கலித்துறை), Somasi Mara (6, கலித்துறை),
-   Pugazh Chozha (41, வஞ்சி விருத்தம்). Full per-story report was delivered
-   with the preview session.
-2. Flagged-3 scope confirmation arrives factory-side (Gananadhar identity,
-   Poyyadimai/Bakthraaip framing scope) — apply + rebuild preview.
+1. Factory: transcribe/translate Nedumara Nayanar's real 10-song puranam (the
+   placeholder is web-sourced, unverified) → replace files → rebuild preview →
+   human sign-off. Video catalog has no Nedumara row (gap upstream in catalog).
+2. Apply flagged-3 scope confirmation when it arrives factory-side (Gananadhar
+   identity, Poyyadimai/Bakthraaip framing scope) — plus the new nedumara
+   placeholder flag — then rebuild preview.
 3. 67 English/sign-off arrivals → promote `content/build/` + manifest per
    SCHEMA_V1 §3 (factory delivers, human signs off).
-4. Ship: git (below) → push → domain attach (human) → deploy.
+4. Ship: git push (human creates repo) → secrets → domain attach → deploy.
 
 ## GIT REPO instructions (first task on resume, before any code work)
 
