@@ -2,6 +2,8 @@
 
 > **Last updated:** 2026-10-13 pm · **State:** full 72-story preview reader
 > green locally; product still TK-only; NOTHING pushed live.
+> **Session (2026-10-13 · model deepseek-v4.1-flash · ses_eca2d1587ff…):**
+> REAL billed 1,738,205 tokens (raw 13.5M, 97.5% cache-hit, 87.1% efficiency).
 > **Resume prompt for next session:** read `docs/CONTRACT.md`, `docs/COPY_LOG.md`,
 > `docs/SCHEMA_V1.md`, then this file. Own `D:\periapuranam` ONLY — never
 > write under `D:\nalvar`; factory needs come as files in `content/`.
@@ -93,3 +95,20 @@ git push -u origin main
 - After push: set repo secrets `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`
   (human), attach `periyapuranam.nalvar.in` custom domain (human, dashboard/DNS),
   then first `main` push deploys. PRs get preview artifacts automatically.
+
+## Session log — 2026-10-13 (deepseek-v4.1-flash)
+
+Commits (master, tree clean): `15f5bc4` exported_at refresh · `814dab5`
+kalithurai-family yappu mapping · `de5757e` vanji-viruttam card · `69b3b2a`
+nedumara placeholder · `ad0ab2b` handoff · `bf800ce` giants + preview reader.
+
+- Git repo initialised + committed locally (branch `master`, NO remote yet —
+  push is a human step: create empty GitHub repo, `git remote add origin`,
+  `git branch -M main`, `git push -u origin main`).
+- yappu_db: all metre labels mapped (4 kalithurai-family → aintucir-kalithurai;
+  new vanji-viruttam card). Zero UNMAPPED across corpus.
+- Set reconciled to 72 saint-stories: 68 + 3 giants + nedumara (the missing
+  63rd Thani Adiyaar). Nedumara source genuinely absent factory-side.
+- 3 day-08 giants integrated into preview; preview + beta reader rebuilt
+  (72 stories). `make_preview.py` generator added (fixes preview drift).
+- Product untouched: golden diff clean, `check.py` gates clean.
