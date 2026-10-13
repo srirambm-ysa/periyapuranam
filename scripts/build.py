@@ -335,10 +335,12 @@ def build_preview():
     populated = sum(1 for e in entries
                     if e["slug"] != "tiruk_kurippu_tonda_nayanar"
                     and e["verse_count"] > 0)
+    non_tk = sum(1 for e in entries
+                 if e["slug"] != "tiruk_kurippu_tonda_nayanar")
     vtotal = sum(e["verse_count"] for e in entries
                  if e["slug"] != "tiruk_kurippu_tonda_nayanar")
     print(f"preview: {len(entries)} stories, {len(failed)} failed, "
-          f"{populated}/67 verse-populated, {vtotal} drawer verses")
+          f"{populated}/{non_tk} verse-populated, {vtotal} drawer verses")
     for slug, reason in failed:
         print(f"  FAILED {slug}: {reason}")
     for slug in sorted(unmapped_report):

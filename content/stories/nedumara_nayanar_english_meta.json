@@ -1,0 +1,17 @@
+{
+  "placeholder": true,
+  "factory_slug": "nedumara_nayanar",
+  "created": "2026-10-13",
+  "created_by": "periapuranam storefront session (Muse Spark) — no factory transcription exists; nvl_catalog.xlsx and the video catalog carry no Nedumara rows",
+  "sources": [
+    "shaivam.org — The History of Ninrasir Nedumara Nayanar",
+    "koyil.com/nm49 — Ninra Seer Nedumara Naayanaar",
+    "theindosphere.com — Ninra Seer Nedumaara",
+    "thiruppugazh-nectar.blogspot.com — How Sambanthar cured the Pandyan king",
+    "pradosham.com — Ninra Seer Nedumara Nayanar"
+  ],
+  "method": "unverified web synthesis, 8 prose chapters in Tamil and English (placeholder scale, not discourse transcription)",
+  "status_note": "NOT human sign-off and NOT verification. Builds as transcribed (never listed); english_chapters ship in preview only. Promote per SCHEMA_V1 only after factory transcription/translation + per-story human sign-off, which replaces these files.",
+  "tamil_chapters": 8,
+  "english_chapters": 8
+}
