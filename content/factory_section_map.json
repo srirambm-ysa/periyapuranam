@@ -2,26 +2,18 @@
  "map_version": 1,
  "exported_at": "2026-09-26",
  "source_corpus": "Thirumurai_12_shaivam_corpus.json (78 sections, 4286 songs)",
- "factory_range": "day-01..day-07 (68 stories) + nedumara placeholder (69th)",
- "n_entries": 69,
- "verse_total_mapped": 2199,
+ "factory_range": "day-01..day-07 (68) + nedumara placeholder (69th) + 3 day-08 giants (Sundarar/Appar/Sambandhar)",
+ "n_entries": 72,
+ "verse_total_mapped": 4140,
  "out_of_scope_sections": {
   "intro_payiram": [
    1,
    2,
    3,
    4,
-   5,
-   6
-  ],
-  "giants_day08": [
-   27,
-   34
+   5
   ],
   "no_factory_story": [],
-  "vellanaich": [
-   78
-  ],
   "placeholder_pending_factory_text": [
    56
   ]
@@ -854,6 +846,77 @@
    "section_title": "12.056 - நின்றசீர் நெடுமாற நாயனார் புராணம் - கறைக் கண்டன் சருக்கம்",
    "n_songs": 10,
    "flag": "placeholder story (web synthesis, unverified) — pending factory transcription/translation"
+  },
+  {
+   "factory_slug": "sundarar",
+   "id": "sundarar",
+   "nameEn": "Sundarar",
+   "nameTa": "சுந்தரமூர்த்தி நாயனார்",
+   "ref": "தடுத்து ஆட்கொண்ட புராணம்",
+   "section_order": 6,
+   "section_slug": "periya-puranam-thirumalaich-charukkam-thatuththu-atkonta-puranam",
+   "section_title": "12.006 - தடுத்து ஆட்கொண்ட புராணம் - திருமலைச் சருக்கம்",
+   "n_songs": 256,
+   "giant": true,
+   "ta_file": "sundarar_tamil.fixed.txt",
+   "en_file": "sundarar_english.txt",
+   "sections": [
+    {
+     "slug": "periya-puranam-thirumalaich-charukkam-thatuththu-atkonta-puranam",
+     "ref": "தடுத்து ஆட்கொண்ட புராணம்",
+     "n_songs": 203
+    },
+    {
+     "slug": "periya-puranam-vellanaich-charukkam",
+     "ref": "வெள்ளானைச் சருக்கம்",
+     "n_songs": 53
+    }
+   ],
+   "flag": "giant (day-08): 36 Thaduthatkonda chapters + 11 Vellanai chapters; verses = drawer 6 + 78"
+  },
+  {
+   "factory_slug": "thirunavukkarasu_nayanar",
+   "id": "thirunavukkarasu-nayanar",
+   "nameEn": "Thirunavukkarasu Nayanar (Appar)",
+   "nameTa": "திருநாவுக்கரசு நாயனார்",
+   "ref": "திருநாவுக்கரசு சுவாமிகள் புராணம்",
+   "section_order": 27,
+   "section_slug": "periya-puranam-thiruninra-charukkam-thirunavukkarachu-chuvamikal-puranam",
+   "section_title": "12.027 - திருநாவுக்கரசு சுவாமிகள் புராணம் - திருநின்ற சருக்கம்",
+   "n_songs": 429,
+   "giant": true,
+   "ta_file": "thirunavukkarasu_nayanar_tamil.fixed.txt",
+   "en_file": "thirunavukkarasu_english.txt",
+   "sections": [
+    {
+     "slug": "periya-puranam-thiruninra-charukkam-thirunavukkarachu-chuvamikal-puranam",
+     "ref": "திருநாவுக்கரசு சுவாமிகள் புராணம்",
+     "n_songs": 429
+    }
+   ],
+   "flag": "giant (day-08): 215 chapters"
+  },
+  {
+   "factory_slug": "thirugnanasambandha_nayanar",
+   "id": "thirugnanasambandha-nayanar",
+   "nameEn": "Thirugnanasambandha Nayanar",
+   "nameTa": "திருஞானசம்பந்த நாயனார்",
+   "ref": "திருஞான சம்பந்த சுவாமிகள் புராணம்",
+   "section_order": 34,
+   "section_slug": "periya-puranam-vampara-varivanduu-charukkam-thirunyana-champantha-chuvamikal-puranam",
+   "section_title": "12.034 - திருஞான சம்பந்த சுவாமிகள் புராணம் - வம்பறா வரிவண்டுச் சருக்கம்",
+   "n_songs": 1256,
+   "giant": true,
+   "ta_file": "thirugnanasambandha_nayanar_tamil.fixed.txt",
+   "en_file": "thirugnanasambandha_english.txt",
+   "sections": [
+    {
+     "slug": "periya-puranam-vampara-varivanduu-charukkam-thirunyana-champantha-chuvamikal-puranam",
+     "ref": "திருஞான சம்பந்த சுவாமிகள் புராணம்",
+     "n_songs": 1256
+    }
+   ],
+   "flag": "giant (day-08): 291 chapters"
   }
  ]
 }

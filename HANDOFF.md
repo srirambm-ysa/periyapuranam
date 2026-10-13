@@ -1,6 +1,7 @@
 # HANDOFF — Periyapuranam Storefront (D:\periapuranam)
 
-> **Last updated:** 2026-09-26 pm · **State:** shippable on demand, proven locally, NOTHING pushed live.
+> **Last updated:** 2026-10-13 pm · **State:** full 72-story preview reader
+> green locally; product still TK-only; NOTHING pushed live.
 > **Resume prompt for next session:** read `docs/CONTRACT.md`, `docs/COPY_LOG.md`,
 > `docs/SCHEMA_V1.md`, then this file. Own `D:\periapuranam` ONLY — never
 > write under `D:\nalvar`; factory needs come as files in `content/`.
@@ -31,35 +32,43 @@
   `../content/build` resolves identically); `wrangler.toml` (assets-only `./dist`,
   custom-domain block DRAFT); `.github/workflows/deploy.yml` (PR: diff+gates+preview
   artifact; main: rebuild-from-scratch then deploy).
-- Verse preview: `content/preview/` 69 stories (gitignored) + `site/preview.html`
-  (gitignored, bannered). 68/68 populated, 2071 drawer verses, reconciled to map
-  (2071 + 0 pending). Served at `http://localhost:8934/site/preview.html`
+- Verse preview (the BETA reader): `content/preview/` 72 stories (gitignored) +
+  `site/preview.html` (gitignored, bannered). 71/71 populated, 4012 non-TK drawer
+  verses (4140 incl TK), 0 pending. Served at `http://localhost:8934/site/preview.html`
   (repo-root server); product at `http://localhost:8933` (`dist/` server).
+- `scripts/make_preview.py` (new): regenerates `site/preview.html` from the
+  product reader (`periya_puranam_index.html`) with exactly 2 deltas — banner +
+  `DATA_BASE` → `../content/preview`. Preview was hand-built before and drifted
+  (stale yappu DB); now reproducible. Run after `build.py --preview`.
 - Factory input: `content/factory_section_map.json` v1 (committed, build input —
-  69 entries, 2199 verses, 4 flagged mappings inside, incl. the nedumara
+  72 entries, 4140 verses, 7 flagged mappings inside, incl. the nedumara
   placeholder).
 - `yappu_db.py` metres all mapped (2026-10-13): kalithurai-family labels →
   aintucir-kalithurai; new `vanji-viruttam` card (Karigai sey.14) for Pugazh
   Chozha. Golden + `shell.html` untouched.
+- Day-08 GIANTS integrated (2026-10-13) via `content/stories/giants/` +
+  `build.py --preview` giant path (`giant:true` map entries; `sections[]` list):
+  Sundarar (47 chapters = drawer §6 Thaduthatkonda 203 + §78 Vellanai 53 = 256
+  verses), Thirunavukkarasu/Appar (215 chapters, §27, 429), Thirugnanasambandha
+  (291 chapters, §34, 1256). Preview splitter merges duplicate chapter heads
+  (Sambandhar English repeats 250/291). `isBig4:true`.
 - Nedumara Nayanar placeholder (the missing 63rd Thani Adiyaar): story absent
   from catalog, video catalog, and thagar zip entirely. 8-chapter web-sourced
   Tamil+English placeholder (`content/stories/nedumara_nayanar_*`,
-  `_english_meta.json` `placeholder:true`, sources listed) + 69th map entry.
-  Builds as `transcribed` (never listed) — product unaffected. Factory must
-  still transcribe/translate the real 10-song puranam + human sign-off.
-  Reconciles: 63 + 9 Thogai = 72 saint-stories.
+  `_english_meta.json` `placeholder:true`, sources listed) + map entry. SOURCE
+  FILES DO NOT EXIST factory-side → this stays the story. Builds as
+  `transcribed` (never listed) — product unaffected. Reconciles: 63 + 9 Thogai
+  = 72 saint-stories (68 + 3 giants + nedumara).
 
 ## Next queue (in order)
 
-1. Factory: transcribe/translate Nedumara Nayanar's real 10-song puranam (the
-   placeholder is web-sourced, unverified) → replace files → rebuild preview →
-   human sign-off. Video catalog has no Nedumara row (gap upstream in catalog).
-2. Apply flagged-3 scope confirmation when it arrives factory-side (Gananadhar
-   identity, Poyyadimai/Bakthraaip framing scope) — plus the new nedumara
-   placeholder flag — then rebuild preview.
-3. 67 English/sign-off arrivals → promote `content/build/` + manifest per
-   SCHEMA_V1 §3 (factory delivers, human signs off).
-4. Ship: git push (human creates repo) → secrets → domain attach → deploy.
+1. Settle the 7 preview flags factory-side (Gananadhar identity,
+   Poyyadimai/Bakthraaip framing scope are real; the 3 giants + nedumara
+   placeholder flags are informational) → apply + rebuild preview.
+2. English/sign-off arrivals → promote `content/build/` + manifest per
+   SCHEMA_V1 §3 (factory delivers, human signs off). Product stays TK-only
+   until then; giants/nedumara build as `transcribed` in preview only.
+3. Ship: git push (human creates repo) → secrets → domain attach → deploy.
 
 ## GIT REPO instructions (first task on resume, before any code work)
 

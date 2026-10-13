@@ -25,6 +25,7 @@ from yappu_db import label_to_key  # noqa: E402
 
 CONTENT = REPO / "content"
 STORIES = CONTENT / "stories"
+GIANTS = STORIES / "giants"  # day-08 giant puranams (Sundarar/Appar/Sambandhar)
 BUILD = CONTENT / "build"
 PREVIEW = CONTENT / "preview"
 CORPUS = CONTENT / "Thirumurai_12_shaivam_corpus.json"
@@ -126,6 +127,21 @@ def load_drawer_verses_preview(section_slug, ref):
     return verses, sorted(set(label for _, label in unmapped))
 
 
+def load_drawer_verses_sections(sections):
+    """Preview multi-section loader for day-08 giants: concatenate each
+    drawer section in map order, each carrying its OWN ref (so Sundarar's
+    Thaduthatkonda 6 + Vellanai 78 stay distinguishable). Returns
+    (verses, unmapped_labels) or (None, []) if any section is missing."""
+    all_v, unmapped = [], []
+    for spec in sections:
+        v, u = load_drawer_verses_preview(spec["slug"], spec["ref"])
+        if v is None:
+            return None, []
+        all_v.extend(v)
+        unmapped.extend(u)
+    return all_v, sorted(set(unmapped))
+
+
 def read_time_label(ta_full):
     read_mins = max(15, round(len(ta_full) / 1100))
     return ("~%d hrs" % round(read_mins / 60)) if read_mins >= 90 \
@@ -221,11 +237,36 @@ def write_manifest():
 
 def split_chapters_preview(text):
     """Preview-only tolerance: drop any leading preamble (title line,
-    Thiruchitrambalam opener) before the first chapter head, then use the
-    frozen product splitter. Never used for content/build/."""
+    Thiruchitrambalam opener) before the first chapter head, then split.
+    Unlike the frozen product splitter it MERGES duplicate chapter heads
+    (factory text can repeat a head — e.g. Sambandhar English repeats
+    chapters 250 and 291); bodies of same-n chapters concatenate in order.
+    Never used for content/build/."""
     m = re.search(r"(?m)^Chapter \d+", text)
     assert m, "no chapter heads at all"
-    return split_chapters(text[m.start():])
+    parts = re.split(r"(?=^Chapter \d+)", text[m.start():], flags=re.M)
+    by_n, order = {}, []
+    for p in parts:
+        p = p.strip()
+        if not p:
+            continue
+        hm = CHAP_RE.match(p.split("\n", 1)[0])
+        if not hm:
+            continue
+        n = int(hm.group(1))
+        body = p.split("\n", 1)[1] if "\n" in p else ""
+        paras = [re.sub(r"\s+", " ", q).strip()
+                 for q in re.split(r"\n\s*\n", body) if q.strip()]
+        if n in by_n:
+            by_n[n]["text"] += "\n\n" + "\n\n".join(paras)
+        else:
+            by_n[n] = {"n": n, "text": "\n\n".join(paras)}
+            order.append(n)
+    chapters = [by_n[n] for n in order]
+    chapters.sort(key=lambda c: c["n"])
+    assert [c["n"] for c in chapters] == list(range(1, len(chapters) + 1)), \
+        "chapter sequence not contiguous from 1"
+    return chapters
 
 
 def build_preview():
@@ -306,6 +347,88 @@ def build_preview():
                 }
                 if pending:
                     story["verses_pending_reason"] = pending
+            story["preview"] = True
+            (PREVIEW / f"{slug}.json").write_text(
+                json.dumps(story, ensure_ascii=False, indent=2),
+                encoding="utf-8")
+            entries.append({
+                "slug": story["slug"],
+                "id": story["id"],
+                "titleEn": story["nameEn"],
+                "titleTa": story["nameTa"],
+                "status": story["status"],
+                "schema_version": story["schema_version"],
+                "preview": True,
+                "image": story["image"],
+                "type": story["type"],
+                "category": story["category"],
+                "tamil_count": story["tamil_count"],
+                "english_count": story["english_count"],
+                "verse_count": story["verse_count"],
+                "section_slug": story["section_slug"],
+                "exported_at": story["exported_at"],
+            })
+        except Exception as e:  # noqa: BLE001 — preview reports, never halts
+            failed.append((slug, f"{type(e).__name__}: {e}"))
+    # day-08 giants (Sundarar/Appar/Sambandhar): prose chapters from
+    # content/stories/giants/, verses = one or more drawer sections in order.
+    for entry in factory_map.values():
+        if not entry.get("giant"):
+            continue
+        slug = entry["factory_slug"]
+        try:
+            ta_full = (GIANTS / entry["ta_file"]).read_text(encoding="utf-8")
+            en_full = (GIANTS / entry["en_file"]).read_text(encoding="utf-8")
+            ta_ch = split_chapters_preview(ta_full)
+            en_ch = split_chapters_preview(en_full)
+            assert [c["n"] for c in ta_ch] == [c["n"] for c in en_ch], \
+                "tamil/english n mismatch"
+            verses, unmapped = load_drawer_verses_sections(entry["sections"])
+            pending = None
+            if verses is None:
+                pending = "section_missing"
+            elif unmapped:
+                pending = "unmapped_labels"
+                unmapped_report[slug] = unmapped
+            else:
+                want = sum(s["n_songs"] for s in entry["sections"])
+                if len(verses) != want:
+                    pending = (f"count_mismatch: got {len(verses)}, "
+                               f"expected {want}")
+            if pending:
+                verses = []
+            if entry.get("flag"):
+                flagged.append((slug, entry["flag"]))
+            story = {
+                "schema_version": 1,
+                "slug": slug,
+                "id": entry.get("id") or slug.replace("_", "-"),
+                "status": "transcribed",
+                "nameEn": entry.get("nameEn") or "",
+                "nameTa": entry.get("nameTa") or "",
+                "type": entry.get("type") or "giant",
+                "isBig4": True,
+                "category": entry.get("category") or "",
+                "place": "",
+                "grace": "",
+                "readTime": read_time_label(ta_full),
+                "image": "",
+                "prev": None,
+                "next": None,
+                "summary": "(Local preview — giant puranam, unverified factory "
+                           "text, not for deploy.)",
+                "subtitle": "",
+                "tamil_chapters": ta_ch,
+                "english_chapters": en_ch,
+                "verses": verses,
+                "section_slug": entry["section_slug"],
+                "tamil_count": len(ta_ch),
+                "english_count": len(en_ch),
+                "verse_count": len(verses),
+                "exported_at": datetime.now(timezone.utc).date().isoformat(),
+            }
+            if pending:
+                story["verses_pending_reason"] = pending
             story["preview"] = True
             (PREVIEW / f"{slug}.json").write_text(
                 json.dumps(story, ensure_ascii=False, indent=2),
