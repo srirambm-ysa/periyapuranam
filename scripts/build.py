@@ -7,7 +7,7 @@ Golden files stay byte-identical and are NEVER imported here:
 Contract: docs/CONTRACT.md, field list: docs/SCHEMA_V1.md.
 Usage:
   python scripts/build.py                       # build TK pilot
-  python scripts/build.py --all                 # build every registry entry
+  python scripts/build.py --all                 # full product corpus (73) + preview
   python scripts/build.py --check               # rebuild TK + diff vs golden
 Output: content/build/<slug>.json (schema_version 1)
 """
@@ -207,7 +207,12 @@ LISTED = ("tamil_verified", "english_done")
 
 def write_manifest():
     """Manifest lists listed stories only; transcribed never appears.
-    Built from build outputs (plus registry status), never scanned at runtime."""
+    Built from build outputs (plus registry status), never scanned at runtime.
+    Order is canonical (drawer section_order via the factory map), so the
+    gallery renders in Thirumurai order without client-side sorting."""
+    fmap = {e["factory_slug"]: e for e in json.loads(
+        (CONTENT / "factory_section_map.json").read_text(encoding="utf-8"))
+        ["entries"]}
     entries = []
     for path in sorted(BUILD.glob("*.json")):
         if path.name == "manifest.json":
@@ -231,9 +236,11 @@ def write_manifest():
             "english_count": story["english_count"],
             "verse_count": story["verse_count"],
             "section_slug": story["section_slug"],
+            "section_order": fmap.get(story["slug"], {})
+            .get("section_order", 999),
             "exported_at": story["exported_at"],
         })
-    entries.sort(key=lambda e: e["slug"])
+    entries.sort(key=lambda e: (e["section_order"], e["slug"]))
     (BUILD / "manifest.json").write_text(
         json.dumps(entries, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"wrote content/build/manifest.json: {len(entries)} listed")
@@ -273,7 +280,22 @@ def split_chapters_preview(text):
     return chapters
 
 
-def build_preview():
+def mirror_product(story):
+    """Owner sign-off path (factory closed 2026-10-14, approval retired):
+    every preview story also ships as a product english_done artifact.
+    Strips the preview flag; keeps verses_pending_reason where present.
+    Registry stories (TK) are skipped — build_story stays the frozen path."""
+    if story["slug"] in STORIES_REGISTRY:
+        return
+    BUILD.mkdir(parents=True, exist_ok=True)
+    prod = dict(story)
+    prod.pop("preview", None)
+    prod["status"] = "english_done"
+    (BUILD / f"{story['slug']}.json").write_text(
+        json.dumps(prod, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def build_preview(write_products=False):
     """Local-only full-scale gallery preview (never ships, never gated as
     product): every content/stories/ pair to content/preview/. TK is the full
     signed-off artifact (english_done + drawer verses) plus preview:true,
@@ -370,6 +392,8 @@ def build_preview():
             (PREVIEW / f"{slug}.json").write_text(
                 json.dumps(story, ensure_ascii=False, indent=2),
                 encoding="utf-8")
+            if write_products:
+                mirror_product(story)
             entries.append({
                 "slug": story["slug"],
                 "id": story["id"],
@@ -456,6 +480,8 @@ def build_preview():
             (PREVIEW / f"{slug}.json").write_text(
                 json.dumps(story, ensure_ascii=False, indent=2),
                 encoding="utf-8")
+            if write_products:
+                mirror_product(story)
             entries.append({
                 "slug": story["slug"],
                 "id": story["id"],
@@ -573,6 +599,13 @@ if __name__ == "__main__":
     elif "--manifest" in sys.argv:
         write_manifest()
     elif "--all" in sys.argv:
+        # Full product corpus (factory closed 2026-10-14, owner blanket
+        # sign-off): TK via the frozen path, all 72 others mirrored from
+        # the preview pass as english_done, then the listed manifest.
         build_all(list(STORIES_REGISTRY))
+        failed = build_preview(write_products=True)
+        write_manifest()
+        if failed:
+            raise SystemExit(f"--all: {len(failed)} preview stories failed")
     else:
         build_all(["tiruk_kurippu_tonda_nayanar"])

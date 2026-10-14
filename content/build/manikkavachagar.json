@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "slug": "manikkavachagar",
+  "id": "manikkavachagar",
+  "status": "english_done",
+  "nameEn": "Manikkavachagar (Vadhavurar)",
+  "nameTa": "மாணிக்கவாசகர்",
+  "type": "",
+  "isBig4": true,
+  "group": "external",
+  "category": "",
+  "place": "",
+  "grace": "",
+  "readTime": "~15 mins",
+  "image": "",
+  "prev": null,
+  "next": null,
+  "summary": "(External Nalvar note — outside the Periyapuranam.)",
+  "subtitle": "",
+  "tamil_chapters": [
+    {
+      "n": 1,
+      "text": "மாணிக்கவாசகர் பெரியபுராணத்தின் அறுபத்து மூவரிலோ தொகையடியார் ஒன்பதினரிலோ இடம்பெறாதவர்; சுந்தரர் காலத்திற்குப் பின் வாழ்ந்தவர் என்பதால் சேக்கிழாரின் திருத்தொண்டர் புராணத்தில் அவர் வரலாறு இல்லை. ஆயினும் அப்பர், சுந்தரர், சம்பந்தருடன் சேர்ந்து சமயக் குரவர் நால்வருள் ஒருவராகப் போற்றப்படுகிறார்.\n\nபாண்டிய மன்னனின் அமைச்சராக இருந்த வாதவூரர், திருப்பெருந்துறையில் இறைவனால் ஆட்கொள்ளப்பட்டு மாணிக்கவாசகர் ஆனார். அவர் அருளிய திருவாசகமும் திருக்கோவையாரும் எட்டாம் திருமுறையாகத் திகழ்கின்றன; \"திருவாசகத்துக்கு உருகார் ஒரு வாசகத்துக்கும் உருகார்\" என்பது பழமொழி.\n\nஇங்கு இது ஒரு குறிப்பு மட்டுமே; மூல பாடல் கிடையாது. முழு வரலாற்றையும் திருவாசக மூலத்தையும் கீழ்க்காணும் இணைய வளங்களில் படிக்கலாம்: shaivam.org மாணிக்கவாசகர் வாழ்க்கை வரலாறு (https://shaivam.org/devotees/manikkavasagar-life-history), shaivam.org திருவாசக மூலமும் உரையும் (https://shaivam.org/scripture/Tamil/2554/thiruvasagam-moolamum-uraiyum/), Project Madurai திருவாசக ஆங்கில மொழிபெயர்ப்பு — போப், பாகம் 1 (https://www.projectmadurai.org/pm_etexts/utf8/pmuni0094.html), பாகம் 2 (https://www.projectmadurai.org/pm_etexts/utf8/pmuni0222.html), கௌசல்யா ஹார்ட் மொழிபெயர்ப்பு (https://www.projectmadurai.org/pm_etexts/utf8/pmuni0659.html), விக்கிப்பீடியா திருவாசகம் (https://en.wikipedia.org/wiki/Thiruvasagam)."
+    }
+  ],
+  "english_chapters": [
+    {
+      "n": 1,
+      "text": "Manikkavachagar stands outside the Periyapuranam's sixty-three Nayanmars and nine Thogai Adiyars; living after Sundarar's age, his life finds no place in Sekkizhar's Thiruthondar Puranam. Yet with Appar, Sundarar and Sambandar he is honoured as one of the four Samayacharyas, the Nalvar.\n\nVadhavurar, minister to the Pandyan king, was taken into grace by the Lord at Tirupperundurai and became Manikkavachagar. His Thiruvasagam and Thirukkovaiyar shine as the eighth Thirumurai; the proverb says that one who does not melt for the Thiruvasagam will melt for nothing uttered.\n\nThis page is only a pointer, with no root verses. Read his full history and the Thiruvasagam at these internet resources: Manikkavasagar life history on shaivam.org (https://shaivam.org/devotees/manikkavasagar-life-history), Thiruvasagam text with Tamil commentary and English translation (https://shaivam.org/scripture/Tamil/2554/thiruvasagam-moolamum-uraiyum/), G.U. Pope's English translation on Project Madurai, part 1 (https://www.projectmadurai.org/pm_etexts/utf8/pmuni0094.html) and part 2 (https://www.projectmadurai.org/pm_etexts/utf8/pmuni0222.html), Kausalya Hart's translation (https://www.projectmadurai.org/pm_etexts/utf8/pmuni0659.html), and the Thiruvasagam article on Wikipedia (https://en.wikipedia.org/wiki/Thiruvasagam)."
+    }
+  ],
+  "verses": [],
+  "section_slug": "",
+  "tamil_count": 1,
+  "english_count": 1,
+  "verse_count": 0,
+  "exported_at": "2026-10-14",
+  "verses_pending_reason": "external_no_drawer_section"
+}

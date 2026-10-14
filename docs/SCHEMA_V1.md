@@ -30,7 +30,7 @@ embedded `devoteesData` is the diff oracle for the first artifact.
 | `schema_version` | int = 1 | |
 | `slug` | string | factory slug, e.g. `tiruk_kurippu_tonda_nayanar` |
 | `id` | string | reader id, e.g. `tiruk-kurippu-tonda-nayanar` (matches golden) |
-| `status` | enum | `transcribed` (never listed) → `tamil_verified` (launch threshold) → `english_done` |
+| `status` | enum | `transcribed` (never listed) → `tamil_verified` (launch threshold) → `english_done`. Factory closed 2026-10-14: per-story verification is retired; owner blanket sign-off 2026-10-14 lists the full 73-story corpus as `english_done` (both languages ship as-is) |
 | `nameEn` / `nameTa` | string | display names (from golden/legacy record) |
 | `type` / `isBig4` / `category` / `place` / `grace` | string/bool | passthrough display metadata (reader shell needs them) |
 | `group` | enum | gallery grouping, manifest-driven: `tani` (63 Nayanmars incl. samaya saints) / `thogai` (9 collectives) / `samaya` (Appar/Sundarar/Sambandar) / `external` (Manikkavachagar note, no drawer section). Added pre-ship 2026-10-14, no version bump |
@@ -70,11 +70,14 @@ Array of one entry per **listed** story (`tamil_verified` or `english_done`):
 
 `{slug, id, titleEn, titleTa, status, schema_version, image, type, isBig4,
 group, category, tamil_count, english_count (0 when null), verse_count,
-section_slug, exported_at}`
+section_slug, section_order, exported_at}`
 
 - `image`/`type`/`isBig4`/`group`/`category` mirror the story file (gallery
   cards + group filters work on unopened stories; no extra fetch). Added
   pre-ship, so no version bump (`schema_version` stays 1 until first deploy).
+- `section_order` (canonical drawer order; external entries sort last, added
+  2026-10-14, no version bump) drives gallery order — manifest array order
+  IS render order; CI asserts `(section_order, slug)` sorting.
 - Preview `content/preview/manifest.json` is a superset: same fields plus
   `preview: true` and `section_order` (canonical drawer order; external
   entries sort last). It is local-only, never gated, never shipped.
@@ -93,12 +96,11 @@ english_done`, 36/36 chapters, 128 verses. Acceptance: chapter `n/text`
 (para-joined) and verse `n/lines/yappuKey/ref` diff clean against the golden
 HTML's embedded `devoteesData`. Only then is (2) done.
 
-## 5. Open questions for the factory session (not this repo)
+## 5. Open questions for the factory session (closed 2026-10-14 with the factory)
 
-- Canonical `section_slug` mapping for the other 67 stories (needed before
-  their `verses` can be anything but `[]`).
-- Display metadata (`nameEn/nameTa/category/place/grace/summary/...`) source
-  for non-pilot stories. Until answered, new stories build as
-  `transcribed` (never listed, `english_chapters: null`, `verses: []`);
-  per-story human sign-off promotes to `tamil_verified` (Tamil lists,
-  English backfilled later) or `english_done` (verified English ships).
+- Canonical `section_slug` mapping for the other 67 stories — RESOLVED via
+  `content/factory_section_map.json` v2 (72 mapped + Manikkavachagar
+  external, no drawer section by design).
+- Display metadata for non-pilot stories — MOOT: factory closed, no further
+  source coming. Owner blanket sign-off 2026-10-14 ships all 73 texts as-is
+  (`english_done`); the verification distinction is retired, not deferred.

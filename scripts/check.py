@@ -34,9 +34,23 @@ MANIFEST_FIELDS = {"slug", "id", "titleEn", "titleTa", "status",
                    "schema_version", "image", "type", "isBig4", "group",
                    "category",
                    "tamil_count", "english_count",
-                   "verse_count", "section_slug", "exported_at"}
+                   "verse_count", "section_slug", "section_order",
+                   "exported_at"}
 LISTED = ("tamil_verified", "english_done")
 GROUPS = ("tani", "thogai", "samaya", "external")
+FMAP_ORDER = {e["factory_slug"]: e.get("section_order", 999) for e in
+              json.loads((REPO / "content" / "factory_section_map.json")
+                         .read_text(encoding="utf-8"))["entries"]}
+# Expected drawer-verse totals per story (giants span 2 drawer sections,
+# so the single-section lookup below cannot apply to them).
+FMAP_VERSES = {}
+for _e in json.loads((REPO / "content" / "factory_section_map.json")
+                     .read_text(encoding="utf-8"))["entries"]:
+    if _e.get("giant"):
+        FMAP_VERSES[_e["factory_slug"]] = \
+            sum(s["n_songs"] for s in _e.get("sections", []))
+    else:
+        FMAP_VERSES[_e["factory_slug"]] = _e.get("n_songs", 0)
 KINDS = ("periyapuranam_root", "thogai", "anthathi")
 
 errors = []
@@ -190,7 +204,12 @@ def main():
             fail(f"{path.name}: verse_count != len(verses)")
         slug = s.get("section_slug")
         if len(verses) > 0:
-            if slug not in sections:
+            want = FMAP_VERSES.get(s.get("slug"))
+            if want is not None:
+                if len(verses) != want:
+                    fail(f"{path.name}: verse_count {len(verses)} != "
+                         f"mapped drawer total {want}")
+            elif slug not in sections:
                 fail(f"{path.name}: section_slug not in drawer")
             elif len(verses) != sections[slug]["n_songs"]:
                 fail(f"{path.name}: verse_count {len(verses)} != drawer "
@@ -228,6 +247,9 @@ def main():
                   "section_slug", "exported_at"):
             if e.get(f) != s.get(f):
                 fail(f"manifest {key}: {f} {e.get(f)!r} != story {s.get(f)!r}")
+        if e.get("section_order") != FMAP_ORDER.get(key, 999):
+            fail(f"manifest {key}: section_order "
+                 f"{e.get('section_order')!r} not canonical")
         if e.get("id") != s.get("id") or \
                 e.get("titleEn") != s.get("nameEn") or \
                 e.get("titleTa") != s.get("nameTa") or \
@@ -243,6 +265,9 @@ def main():
             fail(f"{path.name}: listed status but missing from manifest")
         if s.get("status") == "transcribed" and key in seen:
             fail(f"{path.name}: transcribed must never be listed")
+    order = [(e.get("section_order", 999), e.get("slug")) for e in manifest]
+    if order != sorted(order):
+        fail("manifest not in canonical (section_order, slug) order")
 
     for e in gate_escaping():  # G8
         fail(e)

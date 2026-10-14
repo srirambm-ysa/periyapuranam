@@ -1,8 +1,11 @@
 # HANDOFF — Periyapuranam Storefront (D:\periapuranam)
 
-> **Last updated:** 2026-10-14 · **State:** full 73-story preview reader
-> green locally (72 + Manikkavachagar external note); product still TK-only;
-> NOTHING pushed live.
+> **Last updated:** 2026-10-14 eve · **State:** LIVE on
+> `https://periyapuranam.srirambm.workers.dev` (Worker `periyapuranam`,
+> versioned deploy, banner-free dist verified). Repo:
+> `https://github.com/srirambm-ysa/periyapuranam` (branch `main`).
+> Product still TK-only. Custom domain `periyapuranam.nalvar.in` NOT wired
+> (human step).
 > **Session (2026-10-13 · model deepseek-v4.1-flash · ses_eca2d1587ff…):**
 > REAL billed 1,738,205 tokens (raw 13.5M, 97.5% cache-hit, 87.1% efficiency).
 > **Resume prompt for next session:** read `docs/CONTRACT.md`, `docs/COPY_LOG.md`,
