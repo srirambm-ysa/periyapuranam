@@ -1,6 +1,6 @@
-# Story JSON v1 + manifest.json — Field List (decision doc, 2026-09-26)
+# Story JSON v1 + manifest.json — Field List (decision doc, 2026-09-26; revised 2026-10-14)
 
-Status: **draft for sign-off**. Unblocks `scripts/build.py`, manifest, CI gates, site wiring.
+Status: **accepted — live**. Unblocks `scripts/build.py`, manifest, CI gates, site wiring.
 Guardrails: golden files (`scripts/build_tirukkurippu_experiment.py`,
 `reference/tiruk_kurippu_experiment.html`) stay byte-identical; golden HTML
 embedded `devoteesData` is the diff oracle for the first artifact.
@@ -11,10 +11,14 @@ embedded `devoteesData` is the diff oracle for the first artifact.
   (`{title, content_en[], content_ta[]}`) + 128 `verses_all`
   (`{n, lines[], yappuKey, ref}`). `build.py` must reproduce its
   chapters/verses from raw inputs (diff on `n/lines/yappuKey/ref`).
-- Factory has delivered 68 stories × (`*_tamil.txt`, `*_english.txt`,
-  `*_english_meta.json`) into `content/stories/`. (`*_english_meta.json` is a
-  raw LLM API log — **not** verification. `status` is decided here, per-story
-  human sign-off, never inferred from factory files.)
+- Factory delivered 68 stories × (`*_tamil.txt`, `*_english.txt`,
+  `*_english_meta.json`) into `content/stories/`, plus 3 day-08 giants
+  (`content/stories/giants/`). (`*_english_meta.json` is a raw LLM API log —
+  **not** verification.) Factory closed 2026-10-14: no further source coming.
+  Final corpus = 68 + 3 giants + Nedumara placeholder + Manikkavachagar
+  external note = 73 stories, all shipped as `english_done` under owner
+  blanket sign-off 2026-10-14 (`scripts/build.py --all` mirrors the preview
+  pass into `content/build/`; TK alone still comes from the frozen path).
 - TK factory files: `Chapter NN — <name>` heads, 36/36 chapters; header line
   stripped, number goes in `n`.
 - Canonical drawer: `content/Thirumurai_12_shaivam_corpus.json` (78 sections);
@@ -36,7 +40,7 @@ embedded `devoteesData` is the diff oracle for the first artifact.
 | `group` | enum | gallery grouping, manifest-driven: `tani` (63 Nayanmars incl. samaya saints) / `thogai` (9 collectives) / `samaya` (Appar/Sundarar/Sambandar) / `external` (Manikkavachagar note, no drawer section). Added pre-ship 2026-10-14, no version bump |
 | `readTime` / `image` / `prev` / `next` / `summary` / `subtitle` | various | passthrough from legacy record; `prev/next`: `{id,nameEn,nameTa,published}` |
 | `tamil_chapters` | `[{n:int, text:string}]` | header stripped, number in `n`; `text` = body paras joined with `\n\n` |
-| `english_chapters` | same shape or `null` | `null` only when no verified English (`tamil_verified`); backfilled later via re-export |
+| `english_chapters` | same shape or `null` | `null` only for `tamil_verified` (none in the live corpus — all 73 ship both languages as `english_done`) |
 | `verses` | `[verse]` | full canonical section (drawer order); `[]` while pending. Replaces legacy `verses_all` name |
 | `section_slug` | string | drawer key, e.g. `periya-puranam-…-nayanar-puranam` |
 | `tamil_count` / `english_count` / `verse_count` | int | redundant counts for CI gates |
@@ -79,14 +83,18 @@ section_slug, section_order, exported_at}`
   2026-10-14, no version bump) drives gallery order — manifest array order
   IS render order; CI asserts `(section_order, slug)` sorting.
 - Preview `content/preview/manifest.json` is a superset: same fields plus
-  `preview: true` and `section_order` (canonical drawer order; external
-  entries sort last). It is local-only, never gated, never shipped.
+  `preview: true`. Preview story JSONs keep `status: transcribed` plus
+  `verses_pending_reason` where applicable (dev overlay only). It is
+  local-only, never gated, never shipped.
 
 - Drives the reader index and CI gates; runtime never scans directories.
 - CI gates: every entry `schema_version == 1`; `status in (tamil_verified,
   english_done)`; `english_done ⇒ english_count == tamil_count > 0`;
   `tamil_verified ⇒ english_count == 0`; chapter `n` contiguous from 1;
-  `verse_count` equals drawer section length (or 0 while pending).
+  `verse_count` equals drawer section length (or 0 while pending; giants
+  spanning 2 drawer sections check against the map total); manifest mirrors
+  story `group`/`isBig4`/`section_order` and is sorted by
+  `(section_order, slug)`.
 
 ## 4. First artifact + acceptance test (= work item (2)+(3))
 
