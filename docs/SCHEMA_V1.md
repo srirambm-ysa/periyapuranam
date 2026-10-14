@@ -33,6 +33,7 @@ embedded `devoteesData` is the diff oracle for the first artifact.
 | `status` | enum | `transcribed` (never listed) → `tamil_verified` (launch threshold) → `english_done` |
 | `nameEn` / `nameTa` | string | display names (from golden/legacy record) |
 | `type` / `isBig4` / `category` / `place` / `grace` | string/bool | passthrough display metadata (reader shell needs them) |
+| `group` | enum | gallery grouping, manifest-driven: `tani` (63 Nayanmars incl. samaya saints) / `thogai` (9 collectives) / `samaya` (Appar/Sundarar/Sambandar) / `external` (Manikkavachagar note, no drawer section). Added pre-ship 2026-10-14, no version bump |
 | `readTime` / `image` / `prev` / `next` / `summary` / `subtitle` | various | passthrough from legacy record; `prev/next`: `{id,nameEn,nameTa,published}` |
 | `tamil_chapters` | `[{n:int, text:string}]` | header stripped, number in `n`; `text` = body paras joined with `\n\n` |
 | `english_chapters` | same shape or `null` | `null` only when no verified English (`tamil_verified`); backfilled later via re-export |
@@ -67,13 +68,16 @@ only for HTML embedding).
 
 Array of one entry per **listed** story (`tamil_verified` or `english_done`):
 
-`{slug, id, titleEn, titleTa, status, schema_version, image, type, category,
-tamil_count, english_count (0 when null), verse_count, section_slug,
-exported_at}`
+`{slug, id, titleEn, titleTa, status, schema_version, image, type, isBig4,
+group, category, tamil_count, english_count (0 when null), verse_count,
+section_slug, exported_at}`
 
-- `image`/`type`/`category` mirror the story file (gallery cards + type
-  filter work on unopened stories; no extra fetch). Added pre-ship, so no
-  version bump (`schema_version` stays 1 until first deploy).
+- `image`/`type`/`isBig4`/`group`/`category` mirror the story file (gallery
+  cards + group filters work on unopened stories; no extra fetch). Added
+  pre-ship, so no version bump (`schema_version` stays 1 until first deploy).
+- Preview `content/preview/manifest.json` is a superset: same fields plus
+  `preview: true` and `section_order` (canonical drawer order; external
+  entries sort last). It is local-only, never gated, never shipped.
 
 - Drives the reader index and CI gates; runtime never scans directories.
 - CI gates: every entry `schema_version == 1`; `status in (tamil_verified,

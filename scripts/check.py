@@ -31,10 +31,12 @@ BUILD = REPO / "content" / "build"
 CORPUS = REPO / "content" / "Thirumurai_12_shaivam_corpus.json"
 KNOWN_KEYS = set(re.findall(r'"([\w-]+)":\s*\{', YAPPU_DB_JS))
 MANIFEST_FIELDS = {"slug", "id", "titleEn", "titleTa", "status",
-                   "schema_version", "image", "type", "category",
+                   "schema_version", "image", "type", "isBig4", "group",
+                   "category",
                    "tamil_count", "english_count",
                    "verse_count", "section_slug", "exported_at"}
 LISTED = ("tamil_verified", "english_done")
+GROUPS = ("tani", "thogai", "samaya", "external")
 KINDS = ("periyapuranam_root", "thogai", "anthathi")
 
 errors = []
@@ -159,6 +161,10 @@ def main():
         ta = s.get("tamil_chapters") or []
         if [c.get("n") for c in ta] != list(range(1, len(ta) + 1)):  # G5
             fail(f"{path.name}: tamil chapter n not contiguous from 1")
+        if s.get("group") not in GROUPS:
+            fail(f"{path.name}: bad group {s.get('group')!r}")
+        if not isinstance(s.get("isBig4"), bool):
+            fail(f"{path.name}: isBig4 must be bool")
         if s.get("tamil_count") != len(ta):
             fail(f"{path.name}: tamil_count != len(tamil_chapters)")
 
@@ -227,9 +233,11 @@ def main():
                 e.get("titleTa") != s.get("nameTa") or \
                 e.get("image") != s.get("image") or \
                 e.get("type") != s.get("type") or \
+                e.get("isBig4") != s.get("isBig4") or \
+                e.get("group") != s.get("group") or \
                 e.get("category") != s.get("category"):
-            fail(f"manifest {key}: id/title/image/type/category drift "
-                 f"vs story file")
+            fail(f"manifest {key}: id/title/image/type/isBig4/group/"
+                 f"category drift vs story file")
     for key, (path, s) in stories.items():
         if s.get("status") in LISTED and key not in seen:
             fail(f"{path.name}: listed status but missing from manifest")

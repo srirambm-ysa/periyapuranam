@@ -2,7 +2,7 @@
 # dist/ is assembled by scripts/assemble_dist.py; deploy = build, gate,
 # assemble, then `wrangler deploy`. Local-proven stays deploy-true: the
 # relative tree (site/ + content/build/) is identical in dist/.
-name = "periyapuranam-storefront"
+name = "periyapuranam"
 compatibility_date = "2026-09-26"
 
 [assets]

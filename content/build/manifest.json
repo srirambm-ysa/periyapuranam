@@ -8,11 +8,13 @@
     "schema_version": 1,
     "image": "./chola_bronze_320.png",
     "type": "tani",
+    "isBig4": false,
+    "group": "tani",
     "category": "Service by discerning devotion",
     "tamil_count": 36,
     "english_count": 36,
     "verse_count": 128,
     "section_slug": "periya-puranam-mummaiyal-ulakanda-charukkam-thiruk-kuripputh-thonta-nayanar-puranam",
-    "exported_at": "2026-10-13"
+    "exported_at": "2026-10-14"
   }
 ]

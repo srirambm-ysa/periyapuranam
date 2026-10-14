@@ -1,12 +1,15 @@
 # HANDOFF — Periyapuranam Storefront (D:\periapuranam)
 
-> **Last updated:** 2026-10-13 pm · **State:** full 72-story preview reader
-> green locally; product still TK-only; NOTHING pushed live.
+> **Last updated:** 2026-10-14 · **State:** full 73-story preview reader
+> green locally (72 + Manikkavachagar external note); product still TK-only;
+> NOTHING pushed live.
 > **Session (2026-10-13 · model deepseek-v4.1-flash · ses_eca2d1587ff…):**
 > REAL billed 1,738,205 tokens (raw 13.5M, 97.5% cache-hit, 87.1% efficiency).
 > **Resume prompt for next session:** read `docs/CONTRACT.md`, `docs/COPY_LOG.md`,
 > `docs/SCHEMA_V1.md`, then this file. Own `D:\periapuranam` ONLY — never
 > write under `D:\nalvar`; factory needs come as files in `content/`.
+> **Preview:** double-click `preview.bat` (serves repo root on :8934, opens
+> `site/preview.html`). Factory is dead — no more transcriptions coming.
 
 ## Frozen contract (do not renegotiate)
 
@@ -34,17 +37,25 @@
   `../content/build` resolves identically); `wrangler.toml` (assets-only `./dist`,
   custom-domain block DRAFT); `.github/workflows/deploy.yml` (PR: diff+gates+preview
   artifact; main: rebuild-from-scratch then deploy).
-- Verse preview (the BETA reader): `content/preview/` 72 stories (gitignored) +
-  `site/preview.html` (gitignored, bannered). 71/71 populated, 4012 non-TK drawer
-  verses (4140 incl TK), 0 pending. Served at `http://localhost:8934/site/preview.html`
-  (repo-root server); product at `http://localhost:8933` (`dist/` server).
+- Verse preview (the BETA reader): `content/preview/` 73 stories (gitignored) +
+  `site/preview.html` (gitignored, bannered). 72/72 verse-populated
+  (Manikkavachagar has no drawer section by design), 4012 non-TK drawer
+  verses (4140 incl TK), 0 pending. Served via `preview.bat` → 
+  `http://localhost:8934/site/preview.html` (repo-root server); product at
+  `http://localhost:8933` (`dist/` server).
+- Gallery order = canonical Thirumurai order (drawer `section_order`:
+  Sundarar §6 first … Isaignaniyar §77, Mani external last). Manifest-driven
+  groups: `tani` 63 (incl. 3 samaya saints) / `thogai` 9 / `samaya` 3 /
+  `external` Mani; Big-4 filter = 3 samaya + Mani. Filter counts are live
+  from the manifest (product labels itself 1, preview 73). End-of-story shows
+  Home + Choose-another-story (prev/next removed); chapter jumps measure the
+  sticky header+toolbar live so the chapter top lands clear.
 - `scripts/make_preview.py` (new): regenerates `site/preview.html` from the
   product reader (`periya_puranam_index.html`) with exactly 2 deltas — banner +
   `DATA_BASE` → `../content/preview`. Preview was hand-built before and drifted
   (stale yappu DB); now reproducible. Run after `build.py --preview`.
-- Factory input: `content/factory_section_map.json` v1 (committed, build input —
-  72 entries, 4140 verses, 7 flagged mappings inside, incl. the nedumara
-  placeholder).
+- Factory input: `content/factory_section_map.json` v2 (committed, build input —
+  73 entries: 72 + Manikkavachagar external, 4140 verses, 2 placeholder flags).
 - `yappu_db.py` metres all mapped (2026-10-13): kalithurai-family labels →
   aintucir-kalithurai; new `vanji-viruttam` card (Karigai sey.14) for Pugazh
   Chozha. Golden + `shell.html` untouched.
@@ -55,12 +66,13 @@
   (291 chapters, §34, 1256). Preview splitter merges duplicate chapter heads
   (Sambandhar English repeats 250/291). `isBig4:true`.
 - Nedumara Nayanar placeholder (the missing 63rd Thani Adiyaar): story absent
-  from catalog, video catalog, and thagar zip entirely. 8-chapter web-sourced
-  Tamil+English placeholder (`content/stories/nedumara_nayanar_*`,
-  `_english_meta.json` `placeholder:true`, sources listed) + map entry. SOURCE
-  FILES DO NOT EXIST factory-side → this stays the story. Builds as
-  `transcribed` (never listed) — product unaffected. Reconciles: 63 + 9 Thogai
-  = 72 saint-stories (68 + 3 giants + nedumara).
+  from catalog, video catalog, and thagar zip entirely. Enriched 2026-10-14 to
+  ~959 Tamil / ~1110 English words across the same 8 chapters — LLM+web
+  synthesis grounded verse-by-verse in drawer §56 (10 songs) + Sundarar's
+  "Nelveli venra" reference; disputed points hedged in-text (Arikesari
+  identification, kazhuvertram as tradition). Factory dead → stays the story.
+  Builds as `transcribed` (never listed) — product unaffected. Reconciles:
+  63 + 9 Thogai = 72 saint-stories (68 + 3 giants + nedumara).
 
 ## Next queue (in order)
 

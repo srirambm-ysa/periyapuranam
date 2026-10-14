@@ -1,9 +1,9 @@
 {
- "map_version": 1,
+ "map_version": 2,
  "exported_at": "2026-09-26",
  "source_corpus": "Thirumurai_12_shaivam_corpus.json (78 sections, 4286 songs)",
  "factory_range": "day-01..day-07 (68) + nedumara placeholder (69th) + 3 day-08 giants (Sundarar/Appar/Sambandhar)",
- "n_entries": 72,
+ "n_entries": 73,
  "verse_total_mapped": 4140,
  "out_of_scope_sections": {
   "intro_payiram": [
@@ -29,7 +29,9 @@
    "section_slug": "periya-puranam-poiyadimai-illatha-pulavar-charukkam-athipaththa-nayanar-puranam",
    "section_title": "12.049 - அதிபத்த நாயனார் புராணம் - பொய்யடிமை யில்லாத புலவர் சருக்கம்",
    "n_songs": 20,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "amar_niti_nayanar",
@@ -41,7 +43,9 @@
    "section_slug": "periya-puranam-thillaivazh-anthanar-charukkam-amarnithi-nayanar-puranam",
    "section_title": "12.013 - அமர்நீதி நாயனார் புராணம் - தில்லைவாழ் அந்தணர் சருக்கம்",
    "n_songs": 49,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "anaya_nayanar",
@@ -53,7 +57,9 @@
    "section_slug": "periya-puranam-ilai-malintha-charukkam-anaya-nayanar-puranam",
    "section_title": "12.020 - ஆனாய நாயனார் புராணம் - இலை மலிந்த சருக்கம்",
    "n_songs": 42,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "appalum_adicharndhar",
@@ -65,7 +71,9 @@
    "section_slug": "periya-puranam-paththarai-paniivar-charukkam-appalum-atichcharnthar-puranam",
    "section_title": "12.070 - அப்பாலும் அடிச்சார்ந்தார் புராணம்- பத்தராய்ப் பணிவார் சருக்கம்",
    "n_songs": 2,
-   "flag": null
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "appoothi_adikal_nayanar",
@@ -77,7 +85,9 @@
    "section_slug": "periya-puranam-thiruninra-charukkam-apputhi-atikal-nayanar-puranam",
    "section_title": "12.031 - அப்பூதி அடிகள் நாயனார் புராணம் - திருநின்ற சருக்கம்",
    "n_songs": 45,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "arivattaya_nayanar",
@@ -89,7 +99,9 @@
    "section_slug": "periya-puranam-ilai-malintha-charukkam-arivattaya-nayanar-puranam",
    "section_title": "12.019 - அரிவாட்டாய நாயனார் புராணம் - இலை மலிந்த சருக்கம்",
    "n_songs": 23,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "bakthraaip_nayanar",
@@ -101,7 +113,9 @@
    "section_slug": "periya-puranam-paththarai-panivar-charukkam-paththarayp-panivar-puranam",
    "section_title": "12.064 - பத்தராய்ப் பணிவார் புராணம்- பத்தராய்ப் பணிவார் சருக்கம்",
    "n_songs": 8,
-   "flag": "elimination-match to section 64 paththarai-panivar framing section (8 verses); confirm scope"
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "chadaiya_nayanar",
@@ -113,7 +127,9 @@
    "section_slug": "periya-puranam-manniya-seer-charukkam-chataiya-nayanar-puranam",
    "section_title": "12.076 - சடைய நாயனார் புராணம் - மன்னிய சீர்ச் சருக்கம்",
    "n_songs": 1,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "chandesura_nayanar",
@@ -125,7 +141,9 @@
    "section_slug": "periya-puranam-mummaiyal-ulakanda-charukkam-chantechura-nayanar-puranam",
    "section_title": "12.026 - சண்டேசுர நாயனார் புராணம் - மும்மையால் உலகாண்ட சருக்கம்",
    "n_songs": 60,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "chithaththaich_sivan_pale_vaiththar",
@@ -137,7 +155,9 @@
    "section_slug": "periya-puranam-paththarai-paniivar-charukkam-chiththaththaich-chivanpale-vaiththar-puranam",
    "section_title": "12.066 - சித்தத்தைச் சிவன்பாலே வைத்தார் புராணம்- பத்தராய்ப் பணிவார் சருக்கம்",
    "n_songs": 1,
-   "flag": null
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "dhandi_adigal_nayanar",
@@ -149,7 +169,9 @@
    "section_slug": "periya-puranam-vampara-varivanduu-charukkam-thantiyatikal-puranam",
    "section_title": "12.037 - தண்டியடிகள் புராணம் - வம்பறா வரிவண்டுச் சருக்கம்",
    "n_songs": 26,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "eanati_nathar_nayanar",
@@ -161,7 +183,9 @@
    "section_slug": "periya-puranam-ilai-malintha-charukkam-enathinatha-nayanar-puranam",
    "section_title": "12.015 - ஏனாதிநாத நாயனார் புராணம் - இலை மலிந்த சருக்கம் ",
    "n_songs": 42,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "eri_pattha_nayanar",
@@ -173,7 +197,9 @@
    "section_slug": "periya-puranam-ilai-malintha-charukkam-eripaththa-nayanar-puranam",
    "section_title": "12.014 - எறிபத்த நாயனார் புராணம் - இலை மலிந்த சருக்கம்",
    "n_songs": 57,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "gananadhar_nayanar",
@@ -185,7 +211,9 @@
    "section_slug": "periya-puranam-varkonda-vanamulaiyal-charukkam-kananatha-nayanar-puranam",
    "section_title": "12.044 - கணநாத நாயனார் புராணம் - வார்கொண்ட வனமுலையாள் சருக்கம்",
    "n_songs": 7,
-   "flag": "elimination-match to section 44 kananatha (7 songs); confirm saint identity"
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "idangazhi_nayanar",
@@ -197,7 +225,9 @@
    "section_slug": "periya-puranam-kadal-soozhntha-charukkam-itankazi-nayanar-puranam",
    "section_title": "12.060 - இடங்கழி நாயனார் புராணம் - கடல் சூழ்ந்த சருக்கம்",
    "n_songs": 11,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "isaignani_ammaiyar_nayanar",
@@ -209,7 +239,9 @@
    "section_slug": "periya-puranam-manniya-seer-charukkam-ichai-nyaniyar-puranam",
    "section_title": "12.077 - இசை ஞானியார் புராணம் - மன்னிய சீர்ச் சருக்கம்",
    "n_songs": 1,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "iyadigal_kadavarkon_nayanar",
@@ -221,7 +253,9 @@
    "section_slug": "periya-puranam-poiyadimai-illatha-pulavar-charukkam-aiyatikal-kalavarkon-nayanar-puranam",
    "section_title": "12.053 - ஐயடிகள் காடவர்கோன் நாயனார் புராணம் - பொய்யடிமை யில்லாத புலவர் சருக்கம்",
    "n_songs": 9,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "iyarpakai_nayanar",
@@ -233,7 +267,9 @@
    "section_slug": "periya-puranam-thillai-vaz-anthanar-charukkam-iyarpakai-nayanar-puranam",
    "section_title": "12.009 - இயற்பகை நாயனார் புராணம் - தில்லைவாழ் அந்தணர் சருக்கம்",
    "n_songs": 36,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kaari_nayanar",
@@ -245,7 +281,9 @@
    "section_slug": "periya-puranam-karaik-kantan-charukkam-kari-nayanar-puranam",
    "section_title": "12.055 - காரிநாயனார் புராணம் - கறைக் கண்டன் சருக்கம்",
    "n_songs": 5,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kalikamba_nayanar",
@@ -257,7 +295,9 @@
    "section_slug": "periya-puranam-poiyadimai-illatha-pulavar-charukkam-kalikkampa-nayanar-puranam",
    "section_title": "12.050 - கலிக்கம்ப நாயனார் புராணம் - பொய்யடிமை யில்லாத புலவர் சருக்கம்",
    "n_songs": 10,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kaliya_nayanar",
@@ -269,7 +309,9 @@
    "section_slug": "periya-puranam-poiyadimai-illatha-pulavar-charukkam-kaliya-nayanar-puranam",
    "section_title": "12.051 - கலிய நாயனார் புராணம் - பொய்யடிமை யில்லாத புலவர் சருக்கம்",
    "n_songs": 17,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kanampulla_nayanar",
@@ -281,7 +323,9 @@
    "section_slug": "periya-puranam-karaik-kantan-charukkam-kanampulla-nayanar-puranam",
    "section_title": "12.054 - கணம்புல்ல நாயனார் புராணம் - கறைக் கண்டன் சருக்கம்",
    "n_songs": 9,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kannappa_nayanar",
@@ -293,7 +337,9 @@
    "section_slug": "periya-puranam-ilai-malintha-charukkam-kannappa-nayanar-puranam",
    "section_title": "12.016 - கண்ணப்ப நாயனார் புராணம் - இலை மலிந்த சருக்கம்",
    "n_songs": 186,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "karaikal_ammaiyaar",
@@ -305,7 +351,9 @@
    "section_slug": "periya-puranam-thiruninra-charukkam-karaikkal-ammaiyar-puranam",
    "section_title": "12.030 - காரைக்கால் அம்மையார் புராணம் - திருநின்ற சருக்கம்",
    "n_songs": 66,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kazharchinga_nayanar",
@@ -317,7 +365,9 @@
    "section_slug": "periya-puranam-kadal-soozhntha-charukkam-kazarchinka-nayanar-puranam",
    "section_title": "12.059 - கழற்சிங்க நாயனார் புராணம் - கடல் சூழ்ந்த சருக்கம்",
    "n_songs": 13,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kazharitrarivar_nayanar",
@@ -329,7 +379,9 @@
    "section_slug": "periyapuranam-varkonda-vanamulaiyal-charukkam-kazharitrarivar-nayanar-puranam",
    "section_title": "12.043 - கழறிற்றறிவார் (சேரமான் பெருமாள்) நாயனார் புராணம் - வார்கொண்ட வனமுலையாள் சருக்கம்",
    "n_songs": 175,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kochengat_chozha_nayanar",
@@ -341,7 +393,9 @@
    "section_slug": "periya-puranam-manniya-seer-charukkam-kochchenkat-choza-nayanar-puranam",
    "section_title": "12.074 - கோச்செங்கட் சோழ நாயனார் புராணம் - மன்னிய சீர்ச் சருக்கம்",
    "n_songs": 18,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kootruva_nayanar",
@@ -353,7 +407,9 @@
    "section_slug": "periya-puranam-varkonda-vanamulaiyal-charukkam-kutruva-nayanar-puranam",
    "section_title": "12.045 - கூற்றுவ நாயனார் புராணம் - வார்கொண்ட வனமுலையாள் சருக்கம்",
    "n_songs": 9,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kotpuli_nayanar",
@@ -365,7 +421,9 @@
    "section_slug": "periya-puranam-kadal-soozhntha-charukkam-kotpuli-nayanar-puranam",
    "section_title": "12.063 - கோட்புலி நாயனார் புராணம் - கடல் சூழ்ந்த சருக்கம்",
    "n_songs": 13,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kulacchirai_nayanar",
@@ -377,7 +435,9 @@
    "section_slug": "periya-puranam-thiruninra-charukkam-kulachchirai-nayanar-puranam",
    "section_title": "12.028 - குலச்சிறை நாயனார் புராணம் - திருநின்ற சருக்கம்",
    "n_songs": 11,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "kungkuliyakkalaya_nayanar",
@@ -389,7 +449,9 @@
    "section_slug": "periya-puranam-ilai-malintha-charukkam-kunkuliyak-kalaya-nayanar-puranam",
    "section_title": "12.017 - குங்குலியக் கலய நாயனார் புராணம் - இலை மலிந்த சருக்கம்",
    "n_songs": 35,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "manakkanchara_nayanar",
@@ -401,7 +463,9 @@
    "section_slug": "periya-puranam-ilai-malintha-charukkam-manakkanychara-nayanar-puranam",
    "section_title": "12.018 - மானக்கஞ்சாற நாயனார் புராணம் - இலை மலிந்த சருக்கம்",
    "n_songs": 37,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "mangaiyarkkarsi_ammaiyar",
@@ -413,7 +477,9 @@
    "section_slug": "periya-puranam-manniya-seer-charukkam-mankaiyarkkarachiyar-puranam",
    "section_title": "12.072 - மங்கையர்க்கரசியார் புராணம் - மன்னிய சீர்ச் சருக்கம்",
    "n_songs": 3,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "mara_nayanar",
@@ -425,7 +491,9 @@
    "section_slug": "periya-puranam-thillaivazh-anthanar-charukkam-ilaiyankudi-mara-nayanar-puranam",
    "section_title": "12.010 - இளையான்குடி மாற நாயனார் புராணம் - தில்லைவாழ் அந்தணர் சருக்கம்",
    "n_songs": 27,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "mei_p_porul_nayanar",
@@ -437,7 +505,9 @@
    "section_slug": "periya-puranam-thillaivazh-anthanar-charukkam-meypporul-nayanar-puranam",
    "section_title": "12.011 - மெய்ப்பொருள் நாயனார் புராணம் - தில்லைவாழ் அந்தணர் சருக்கம்",
    "n_songs": 24,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "moorkka_nayanar",
@@ -449,7 +519,9 @@
    "section_slug": "periya-puranam-vampara-varivanduu-charukkam-murkka-nayanar-puranam",
    "section_title": "12.038 - மூர்க்க நாயனார் புராணம் - வம்பறா வரிவண்டுச் சருக்கம்",
    "n_songs": 12,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "munaiyaduvar_nayanar",
@@ -461,7 +533,9 @@
    "section_slug": "periya-puranam-karaik-kantan-charukkam-munaiyatuvar-nayanar-puranam",
    "section_title": "12.058 - முனையடுவார் நாயனார் புராணம் - கறைக் கண்டன் சருக்கம்",
    "n_songs": 7,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "muppodhum_thirumeni_theenduvar",
@@ -473,7 +547,9 @@
    "section_slug": "periya-puranam-paththarai-panivar-charukkam-muppothum-thirumeni-theenduvar-puranam",
    "section_title": "12.068 - முப்போதும் திருமேனி தீண்டுவார் புராணம்- பத்தராய்ப் பணிவார் சருக்கம்",
    "n_songs": 3,
-   "flag": null
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "murthi_nayanar",
@@ -485,7 +561,9 @@
    "section_slug": "periya-puranam-mummaiyal-ulakanda-charukkam-murththi-nayanar-puramam",
    "section_title": "12.021 - மூர்த்தி நாயனார் புராணம் - மும்மையால் உலகாண்ட சருக்கம்",
    "n_songs": 49,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "muruga_nayanar",
@@ -497,7 +575,9 @@
    "section_slug": "periya-puranam-mummaiyal-ulakanda-charukkam-muruka-nayanar-puranam",
    "section_title": "12.022 - முருக நாயனார் புராணம் - மும்மையால் உலகாண்ட சருக்கம்",
    "n_songs": 14,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "muzhu_neeru_poosiya_munivar",
@@ -509,7 +589,9 @@
    "section_slug": "periya-puranam-paththarai-paniivar-charukkam-muzuniru-puchiya-munivar-puranam",
    "section_title": "12.069 - முழுநீறு பூசிய முனிவர் புராணம்- பத்தராய்ப் பணிவார் சருக்கம்",
    "n_songs": 6,
-   "flag": null
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "naminandhi_adigal_nayanar",
@@ -521,7 +603,9 @@
    "section_slug": "periya-puranam-thiruninra-charukkam-namin-anthi-atikal-nayanar-puranam",
    "section_title": "12.033 - நமிநந்தி அடிகள் நாயனார் புராணம் - திருநின்ற சருக்கம்",
    "n_songs": 33,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "narasinga_munaiyaraiya_nayanar",
@@ -533,7 +617,9 @@
    "section_slug": "periya-puranam-poiyadimai-illatha-pulavar-charukkam-narachinka-munaiyaraiya-nayanar-puranam",
    "section_title": "12.048 - நரசிங்க முனையரைய நாயனார் புராணம் - பொய்யடிமை யில்லாத புலவர் சருக்கம் ",
    "n_songs": 9,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "nesa_nayanar",
@@ -545,7 +631,9 @@
    "section_slug": "periya-puranam-manniya-seer-charukkam-necha-nayanar-puranam",
    "section_title": "12.073 - நேச நாயனார் புராணம் - மன்னிய சீர்ச் சருக்கம்",
    "n_songs": 5,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "paramanaiye_paduvar",
@@ -557,7 +645,9 @@
    "section_slug": "periya-puranam-paththarai-panivar-charukkam-paramanaiye-paduvar-puranam",
    "section_title": "12.065 - பரமனையே பாடுவார் புராணம்- பத்தராய்ப் பணிவார் சருக்கம்",
    "n_songs": 2,
-   "flag": null
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "perumizhalaikurumba_nayanar",
@@ -569,7 +659,9 @@
    "section_slug": "periya-puranam-thiruninra-charukkam-peru-mizalaik-kurumpa-nayanar-puranam",
    "section_title": "12.029 - பெருமிழலைக் குறும்ப நாயனார் புராணம் - திருநின்ற சருக்கம்",
    "n_songs": 11,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "poosalaar_nayanar",
@@ -581,7 +673,9 @@
    "section_slug": "periya-puranam-manniya-seer-charukkam-puchalar-nayanar-puranam",
    "section_title": "12.071 - பூசலார் நாயனார் புராணம் - மன்னிய சீர்ச் சருக்கம்",
    "n_songs": 18,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "poyyadiai_illadha_nayanar",
@@ -593,7 +687,9 @@
    "section_slug": "periya-puranam-poiyadimai-illatha-pulavar-puranam",
    "section_title": "12.046 - பொய்யடிமை யில்லாத புலவர் புராணம் - பொய்யடிமை யில்லாத புலவர் சருக்கம்",
    "n_songs": 3,
-   "flag": "alias-match: story covers the Poyyadimai-illadha framing section (46, 3 verses); confirm scope"
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "pugazh_chozha_nayanar",
@@ -605,7 +701,9 @@
    "section_slug": "periya-puranam-poiyadimai-illatha-pulavar-charukkam-pukazch-choza-nayanar-puranam",
    "section_title": "12.047 - புகழ்ச்சோழ நாயனார் புராணம் - பொய்யடிமை யில்லாத புலவர் சருக்கம்",
    "n_songs": 41,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "pugazhthunai_nayanar",
@@ -617,7 +715,9 @@
    "section_slug": "periya-puranam-kadal-soozhntha-charukkam-pukazththuanai-nayanar-puranam",
    "section_title": "12.062 - புகழ்த்துணை நாயனார் புராணம் - கடல் சூழ்ந்த சருக்கம்",
    "n_songs": 7,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "rudhra_pasupadhi_nayanar",
@@ -629,7 +729,9 @@
    "section_slug": "periya-puranam-mummaiyal-ulakanda-charukkam-uruththira-pachupathi-nayanar-puranam",
    "section_title": "12.023 - உருத்திர பசுபதி நாயனார் புராணம் - மும்மையால் உலகாண்ட சருக்கம்",
    "n_songs": 10,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "sakkiya_nayanar",
@@ -641,7 +743,9 @@
    "section_slug": "periya-puranam-varkonda-vanamulaiyal-charukkam-chakkiya-nayanar-puranam",
    "section_title": "12.040 - சாக்கிய நாயனார் புராணம் - வார்கொண்ட வனமுலையாள் சருக்கம்",
    "n_songs": 18,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "sakthi_nayanar",
@@ -653,7 +757,9 @@
    "section_slug": "periya-puranam-poiyadimai-illatha-pulavar-charukkam-saththi-nayanar-puranam",
    "section_title": "12.052 - சத்தி நாயனார் புராணம் - பொய்யடிமை யில்லாத புலவர் சருக்கம்",
    "n_songs": 7,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "seruthunai_nayanar",
@@ -665,7 +771,9 @@
    "section_slug": "periya-puranam-kadal-soozhntha-charukkam-cheruththuanai-nayana-puranam",
    "section_title": "12.061 - செருத்துணை நாயனார் புராணம் - கடல் சூழ்ந்த சருக்கம்",
    "n_songs": 7,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "sirappuli_nayanar",
@@ -677,7 +785,9 @@
    "section_slug": "periya-puranam-varkonda-vanamulaiyal-charukkam-chirappuli-nayanar-puranam",
    "section_title": "12.041 - சிறப்புலி நாயனார் புராணம் - வார்கொண்ட வனமுலையாள் சருக்கம்",
    "n_songs": 6,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "siruthonda_nayanar",
@@ -689,7 +799,9 @@
    "section_slug": "periya-puranam-varkonda-vanamulaiyal-charukkam-chiruththonta-nayanar-puranam",
    "section_title": "12.042 - சிறுத்தொண்ட நாயனார் புராணம் - வார்கொண்ட வனமுலையாள் சருக்கம்",
    "n_songs": 88,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "somasi_mara_nayanar",
@@ -701,7 +813,9 @@
    "section_slug": "periya-puranam-vampara-varivanduu-charukkam-chomachi-mara-nayanar-puranam",
    "section_title": "12.039 - சோமாசிமாற நாயனார் புராணம் - வம்பறா வரிவண்டுச் சருக்கம்",
    "n_songs": 6,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "thillai_vazh_anthanar",
@@ -713,7 +827,9 @@
    "section_slug": "periya-puranam-thillai-vaz-anthanar-charukkam-thillai-vaz-anthanar-puranam",
    "section_title": "12.007 - தில்லைவாழ் அந்தணர் புராணம் - தில்லைவாழ் அந்தணர் சருக்கம்",
    "n_songs": 10,
-   "flag": null
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "thirumoola_deva_nayanar",
@@ -725,7 +841,9 @@
    "section_slug": "periya-puranam-vampara-varivanduu-charukkam-thiru-mula-nayanar-puranam",
    "section_title": "12.036 - திருமூல நாயனார் புராணம் - வம்பறா வரிவண்டுச் சருக்கம்",
    "n_songs": 28,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "thiruneelakanta_yazhpana_nayanar",
@@ -737,7 +855,9 @@
    "section_slug": "periya-puranam-manniya-seer-charukkam-thirunilakanta-yazppana-nayanar-puranam",
    "section_title": "12.075 - திருநீலகண்ட யாழ்ப்பாண நாயனார் புராணம் - மன்னிய சீர்ச் சருக்கம்",
    "n_songs": 12,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "thiruvarurp_pirandhar",
@@ -749,7 +869,9 @@
    "section_slug": "periya-puranam-paththarai-panivar-charukkam-thiruvarur-piranthar-puranam",
    "section_title": "12.067 - திருவாரூர் பிறந்தார் புராணம் - பத்தராய்ப் பணிவார் சருக்கம்",
    "n_songs": 2,
-   "flag": null
+   "flag": null,
+   "group": "thogai",
+   "isBig4": false
   },
   {
    "factory_slug": "tiruk_kurippu_tonda_nayanar",
@@ -761,7 +883,9 @@
    "section_slug": "periya-puranam-mummaiyal-ulakanda-charukkam-thiruk-kuripputh-thonta-nayanar-puranam",
    "section_title": "12.025 - திருக்குறிப்புத் தொண்ட நாயனார் புராணம் - மும்மையால் உலகாண்ட சருக்கம்",
    "n_songs": 128,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "tirunalaippovar_nayanar",
@@ -773,7 +897,9 @@
    "section_slug": "periya-puranam-mummaiyal-ulakanda-charukkam-thiru-nalaip-povar-nayana-puranam",
    "section_title": "12.024 - திருநாளைப் போவார் நாயனார் புராணம் - மும்மையால் உலகாண்ட சருக்கம்",
    "n_songs": 37,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "tiruneelanakkar_nayanar",
@@ -785,7 +911,9 @@
    "section_slug": "periya-puranam-thiruninra-charukkam-thiru-nila-nakka-nayanar-puranam",
    "section_title": "12.032 - திருநீலநக்க நாயனார் புராணம் - திருநின்ற சருக்கம்",
    "n_songs": 38,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "tirunilakanta_nayanar",
@@ -797,7 +925,9 @@
    "section_slug": "periya-puranam-thillai-vaz-anthanar-charukkam-thirunilakanta-nayanar-puranam",
    "section_title": "12.008 - திருநீலகண்ட நாயனார் புராணம் - தில்லைவாழ் அந்தணர் சருக்கம்",
    "n_songs": 44,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "vayilar_nayanar",
@@ -809,7 +939,9 @@
    "section_slug": "periya-puranam-karaik-kantan-charukkam-vayilar-nayanar-puranam",
    "section_title": "12.057 - வாயிலார் நாயனார் புராணம் - கறைக் கண்டன் சருக்கம்",
    "n_songs": 10,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "viran_mindar_nayanar",
@@ -821,7 +953,9 @@
    "section_slug": "periya-puranam-thillai-vaz-anthanar-charukkam-viranminta-nayanar-puranam",
    "section_title": "12.012 - விறன்மிண்ட நாயனார் புராணம் - தில்லைவாழ் அந்தணர் சருக்கம்",
    "n_songs": 11,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "yeyar_kon_kalikkaama_nayanar",
@@ -833,7 +967,9 @@
    "section_slug": "periya-puranam-vampara-varivanduu-charukkam-eyar-kon-kalik-kama-nayanar-puranam",
    "section_title": "12.035 - ஏயர்கோன் கலிக்காம நாயனார் புராணம் - வம்பறா வரிவண்டுச் சருக்கம்",
    "n_songs": 409,
-   "flag": null
+   "flag": null,
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "nedumara_nayanar",
@@ -845,7 +981,9 @@
    "section_slug": "periya-puranam-karaik-kantan-charukkam-ninra-chir-netumara-nayanar-puranam",
    "section_title": "12.056 - நின்றசீர் நெடுமாற நாயனார் புராணம் - கறைக் கண்டன் சருக்கம்",
    "n_songs": 10,
-   "flag": "placeholder story (web synthesis, unverified) — pending factory transcription/translation"
+   "flag": "enriched placeholder (LLM+web, drawer-grounded, ~959ta/~1110en words) — preview-only by user decision 2026-10-14, factory dead",
+   "group": "tani",
+   "isBig4": false
   },
   {
    "factory_slug": "sundarar",
@@ -872,7 +1010,9 @@
      "n_songs": 53
     }
    ],
-   "flag": "giant (day-08): 36 Thaduthatkonda chapters + 11 Vellanai chapters; verses = drawer 6 + 78"
+   "flag": null,
+   "group": "samaya",
+   "isBig4": true
   },
   {
    "factory_slug": "thirunavukkarasu_nayanar",
@@ -894,7 +1034,9 @@
      "n_songs": 429
     }
    ],
-   "flag": "giant (day-08): 215 chapters"
+   "flag": null,
+   "group": "samaya",
+   "isBig4": true
   },
   {
    "factory_slug": "thirugnanasambandha_nayanar",
@@ -916,7 +1058,23 @@
      "n_songs": 1256
     }
    ],
-   "flag": "giant (day-08): 291 chapters"
+   "flag": null,
+   "group": "samaya",
+   "isBig4": true
+  },
+  {
+   "factory_slug": "manikkavachagar",
+   "id": "manikkavachagar",
+   "nameEn": "Manikkavachagar (Vadhavurar)",
+   "nameTa": "மாணிக்கவாசகர்",
+   "ref": "Thiruvasagam — external Nalvar note (no Periyapuranam section)",
+   "section_order": 999,
+   "section_slug": "",
+   "section_title": "external — Nalvar placeholder, no drawer section",
+   "n_songs": 0,
+   "group": "external",
+   "isBig4": true,
+   "flag": "external Nalvar placeholder (no PP section) — preview-only by user decision 2026-10-14"
   }
  ]
 }

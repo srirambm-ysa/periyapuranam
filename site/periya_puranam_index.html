@@ -8,7 +8,39 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="/manifest.webmanifest">
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="./images/sekkizhar_384.jpg">
+    <!-- SEO: search + social sharing. Canonical/OG use the planned custom
+         domain (one-line change if the domain differs at deploy time). -->
+    <meta name="description" content="Read the Periya Puranam — Sekkizhar's 12th-Thirumurai epic of the 63 Nayanmars and 9 Thogai Adiyars — in Tamil and English, with root Thirumurai verses and yappu metre notes.">
+    <meta name="keywords" content="Periya Puranam, Periyapuranam, 63 Nayanmars, Thogai Adiyars, Sekkizhar, Thirumurai, Nayanmar stories in English, Thiruthondar Puranam, Appar Sundarar Sambandar Manikkavachagar, பெரிய புராணம், நாயன்மார்கள், சேக்கிழார்">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="balaramansriram.com">
+    <link rel="canonical" href="https://periyapuranam.nalvar.in/site/periya_puranam_index.html">
+    <link rel="icon" type="image/svg+xml" href="./images/lingam.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Periya Puranam Reader">
+    <meta property="og:title" content="Periya Puranam - Sacred Epic Reader & Devotional Gallery">
+    <meta property="og:description" content="Sekkizhar's Periya Puranam: the 63 Nayanmars and 9 Thogai Adiyars in Tamil and English, with Thirumurai root verses.">
+    <meta property="og:url" content="https://periyapuranam.nalvar.in/site/periya_puranam_index.html">
+    <meta property="og:image" content="https://periyapuranam.nalvar.in/site/images/sekkizhar_384.jpg">
+    <meta property="og:image:alt" content="Sekkizhar, author of the Periyapuranam">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Periya Puranam - Sacred Epic Reader & Devotional Gallery">
+    <meta name="twitter:description" content="Sekkizhar's Periya Puranam: the 63 Nayanmars and 9 Thogai Adiyars in Tamil and English, with Thirumurai root verses.">
+    <meta name="twitter:image" content="https://periyapuranam.nalvar.in/site/images/sekkizhar_384.jpg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Periya Puranam — Sacred Epic Reader & Devotional Gallery",
+        "alternateName": "பெரிய புராணம்",
+        "url": "https://periyapuranam.nalvar.in/site/periya_puranam_index.html",
+        "inLanguage": ["en", "ta"],
+        "author": { "@type": "Person", "name": "Sekkizhar", "alternateName": "சேக்கிழார்" },
+        "about": { "@type": "Book", "name": "Periya Puranam (Thiruthondar Puranam)", "inLanguage": "ta", "author": { "@type": "Person", "name": "Sekkizhar" } }
+    }
+    </script>
     <title>Periya Puranam - Sacred Epic Reader & Devotional Gallery</title>
     <!-- Tailwind CSS (compiled offline-first — see ppreader/tailwind.config.js) -->
     <link rel="stylesheet" href="./ppreader.css">
@@ -106,6 +138,20 @@
         body.theme-dark .verse-highlight-text {
             color: #F3E5AB;
         }
+
+        /* Fallback utilities absent from the precompiled ppreader.css
+           (Tailwind build predates these classes — verified by scan). */
+        .scroll-mt-40 { scroll-margin-top: 10rem; }
+        .bg-zinc-700 { background-color: #3f3f46; }
+        .max-w-2xl { max-width: 42rem; }
+        .pt-1 { padding-top: 0.25rem; }
+        .text-amber-200\/80 { color: rgb(253 230 138 / 0.8); }
+        .underline { text-decoration-line: underline; }
+        .hover\:text-templeGold:hover { color: #D4AF37; }
+        .text-red-400 { color: #f87171; }
+        .p-8 { padding: 2rem; }
+        /* Long resource URLs in story text must wrap on 360px screens. */
+        #post-chapters-container p { overflow-wrap: break-word; }
     </style>
 </head>
 <body class="theme-dark font-body min-h-screen flex flex-col antialiased selection:bg-templeGold/30 selection:text-templeRed transition-colors duration-300">
@@ -134,7 +180,7 @@
             <div class="flex items-center gap-3">
                 <button onclick="showGalleryView()" id="btn-nav-gallery" class="min-h-[44px] px-3.5 py-2 rounded-full border border-templeGold/50 text-templeRed dark:text-amber-200 hover:bg-templeGold/10 transition-colors text-xs sm:text-sm font-semibold flex items-center gap-2">
                     <i class="fa-solid fa-grid-2 text-templeGold"></i>
-                    <span>All 72 Saints Gallery</span>
+                    <span id="nav-gallery-label">All Saints Gallery</span>
                 </button>
                 <button onclick="toggleBookmarksDrawer()" class="min-h-[44px] px-3.5 py-2 rounded-full bg-templeRed hover:bg-templeRed/90 text-templeGold text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-bookmark text-templeGold"></i>
@@ -187,17 +233,27 @@
             </figure>
         </div>
 
+        <!-- Nalvar invocation (Sambandar · Appar · Sundarar · Manikkavachagar) -->
+        <div class="text-center mb-10 px-4">
+            <p class="font-tamil text-sm sm:text-base leading-loose text-templeRed dark:text-amber-200 font-semibold">
+                பூழியர்கோன் வெப்பொழித்த புகலியர்கோன் கழல் போற்றி<br>
+                ஆழிமிசைக் கல்மிதப்பில் அணைந்தபிரான் அடி போற்றி<br>
+                வாழி திருநாவலூர் வன்தொண்டர் பதம் போற்றி<br>
+                ஊழிமலி திருவாத வூரர்திருத் தாள்போற்றி
+            </p>
+        </div>
+
         <!-- Category Filters -->
         <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-templeGold/20 pb-4">
             <div class="flex flex-wrap gap-2" id="filter-buttons">
                 <button onclick="filterDevotees('all')" data-filter="all" class="filter-btn active min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-templeRed text-templeGold shadow-sm transition-all border border-templeRed">
-                    All Devotees (72)
+                    All Devotees
                 </button>
                 <button onclick="filterDevotees('tani')" data-filter="tani" class="filter-btn min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-parchmentDark dark:bg-zinc-800 text-charcoal dark:text-amber-200 hover:bg-templeGold/20 transition-all border border-templeGold/30">
-                    63 Nayanmars (Individual)
+                    Nayanmars (Individual)
                 </button>
                 <button onclick="filterDevotees('thogai')" data-filter="thogai" class="filter-btn min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-parchmentDark dark:bg-zinc-800 text-charcoal dark:text-amber-200 hover:bg-templeGold/20 transition-all border border-templeGold/30">
-                    9 Thogai Adiyars (Collective)
+                    Thogai Adiyars (Collective)
                 </button>
                 <button onclick="filterDevotees('big4')" data-filter="big4" class="filter-btn min-h-[44px] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-parchmentDark dark:bg-zinc-800 text-charcoal dark:text-amber-200 hover:bg-templeGold/20 transition-all border border-templeGold/30">
                     The Big 4 (Samayacharyars)
@@ -205,7 +261,7 @@
             </div>
 
             <div class="text-xs sm:text-sm font-semibold text-saffron flex items-center gap-2">
-                Showing <span id="active-count-badge" class="bg-templeGold/20 px-2.5 py-1 rounded-md text-templeRed dark:text-amber-300 font-bold">72</span> Saints
+                Showing <span id="active-count-badge" class="bg-templeGold/20 px-2.5 py-1 rounded-md text-templeRed dark:text-amber-300 font-bold">–</span> Saints
             </div>
         </div>
 
@@ -345,13 +401,13 @@
                     <!-- Dynamic Chapters inject here -->
                 </div>
 
-                <!-- Bottom Chapter Navigation -->
-                <div class="pt-8 border-t-2 border-templeGold/30 flex items-center justify-between gap-4 font-sans">
-                    <button id="btn-prev-chapter" onclick="navigateChapter(-1)" class="px-5 py-2.5 rounded-xl border border-templeGold/50 hover:bg-templeGold/10 text-xs sm:text-sm font-semibold flex items-center gap-2 text-charcoal dark:text-amber-200">
-                        <i class="fa-solid fa-arrow-left"></i> Previous Chapter
+                <!-- Bottom Story Navigation: home + pick another story -->
+                <div class="pt-8 border-t-2 border-templeGold/30 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 font-sans">
+                    <button onclick="showGalleryView()" class="min-h-[44px] px-5 py-2.5 rounded-xl border border-templeGold/50 hover:bg-templeGold/10 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 text-charcoal dark:text-amber-200">
+                        <i class="fa-solid fa-house"></i> Home — All Saints
                     </button>
-                    <button id="btn-next-chapter" onclick="navigateChapter(1)" class="px-5 py-2.5 rounded-xl bg-templeRed text-templeGold hover:bg-templeRed/90 text-xs sm:text-sm font-semibold flex items-center gap-2">
-                        Next Chapter <i class="fa-solid fa-arrow-right"></i>
+                    <button onclick="chooseAnotherStory()" class="min-h-[44px] px-5 py-2.5 rounded-xl bg-templeRed text-templeGold hover:bg-templeRed/90 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2">
+                        Choose another story <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </article>
@@ -407,9 +463,11 @@
     <!-- Footer -->
     <footer class="bg-templeRed text-amber-100 py-8 border-t-4 border-templeGold mt-20">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
-            <p class="font-heading font-bold text-lg text-templeGold">Tiruthondar Puranam • Sekkizhar's Periya Puranam</p>
-            <p class="font-tamil text-xs text-amber-200">"தென்னாடுடைய சிவனே போற்றி... எந்நாட்டவர்க்கும் இறைவா போற்றி..."</p>
-            <p class="text-xs text-amber-200/60 pt-2">Full English Epic Translation & Devotional Reader</p>
+        <p class="font-heading font-bold text-lg text-templeGold">Tiruthondar Puranam • Sekkizhar's Periya Puranam</p>
+        <p class="font-tamil text-xs text-amber-200">"தென்னாடுடைய சிவனே போற்றி... எந்நாட்டவர்க்கும் இறைவா போற்றி..."</p>
+        <p class="text-xs text-amber-200/60 pt-2">Full English Epic Translation & Devotional Reader</p>
+        <p class="text-xs text-amber-200/80 pt-1">Site created by <a href="https://balaramansriram.com" target="_blank" rel="noopener" class="underline hover:text-templeGold">balaramansriram.com</a></p>
+        <p class="text-[11px] text-amber-200/60 max-w-2xl mx-auto leading-relaxed">Created with AI assistance. These retellings are devotional reading aids — not a substitute for traditional upanyasam or scholarly lectures. Please learn the Periyapuranam at the feet of qualified scholars.</p>
         </div>
     </footer>
 
@@ -617,7 +675,7 @@
         function chapterSectionHTML(chap, index, en) {
             const L = (typeof localStorage !== 'undefined' && localStorage.getItem('pp_lang')) || 'en';
             const enOK = en && en.n === chap.n;
-            return '<section id="chapter-' + index + '" class="space-y-4 pt-4 border-b border-templeGold/20 pb-8">' +
+            return '<section id="chapter-' + index + '" class="space-y-4 pt-4 border-b border-templeGold/20 pb-8 scroll-mt-40">' +
                 '<h2 class="font-heading font-bold text-2xl sm:text-3xl text-templeRed dark:text-amber-300 flex items-center gap-3">' +
                 '<span class="text-saffron font-sans text-sm border border-saffron px-2.5 py-1 rounded-md">Chapter ' + esc(chap.n) + '</span></h2>' +
                 parasHTML(chap.text, 'font-tamil text-justify leading-relaxed lang-ta', false, L !== 'ta') +
@@ -708,10 +766,61 @@
                 english_count: e.english_count, verse_count: e.verse_count,
                 image: e.image || ((cache[e.id] && cache[e.id].image) || ''),
                 type: e.type || null,
-                isBig4: !!(cache[e.id] && cache[e.id].isBig4),
+                isBig4: !!(e.isBig4 || (cache[e.id] && cache[e.id].isBig4)),
+                group: e.group || (e.type === 'thogai' ? 'thogai' : 'tani'),
                 category: e.category || '',
                 place: (cache[e.id] && cache[e.id].place) || ''
             }));
+        }
+
+        // Gallery grouping (manifest-driven, works on unopened stories):
+        // tani = 63 Nayanmars incl. the 3 samaya saints; thogai = 9
+        // collectives; samaya = Appar/Sundarar/Sambandar; external =
+        // Manikkavachagar note (no drawer section).
+        function groupOf(d) { return d.group || 'tani'; }
+        function groupBadgeLabel(d) {
+            const g = groupOf(d);
+            return g === 'thogai' ? 'Group'
+                : g === 'samaya' ? 'Samayachariyar'
+                : g === 'external' ? 'External Note' : 'Nayanmar';
+        }
+        function groupBadgeClass(d) {
+            const g = groupOf(d);
+            return g === 'thogai' ? 'bg-amber-900 text-amber-200'
+                : g === 'external' ? 'bg-zinc-700 text-amber-200'
+                : 'bg-templeRed text-amber-100';
+        }
+        function groupTypeLabel(g) {
+            return g === 'thogai' ? 'Thogai Adiyar'
+                : g === 'samaya' ? 'Samayachariyar'
+                : g === 'external' ? 'Nalvar · External Note'
+                : '63 Nayanmar';
+        }
+        function groupCounts() {
+            const src = gallerySource();
+            return {
+                all: src.length,
+                tani: src.filter(d => groupOf(d) === 'tani' || groupOf(d) === 'samaya').length,
+                thogai: src.filter(d => groupOf(d) === 'thogai').length,
+                big4: src.filter(d => d.isBig4 === true).length
+            };
+        }
+        // Live counts on the filter buttons + nav, so product (TK-only)
+        // and preview (full gallery) both label themselves truthfully.
+        function updateFilterCounts() {
+            const c = groupCounts();
+            const names = {
+                all: 'All Devotees',
+                tani: 'Nayanmars (Individual)',
+                thogai: 'Thogai Adiyars (Collective)',
+                big4: 'The Big 4 (Samayacharyars)'
+            };
+            document.querySelectorAll('#filter-buttons .filter-btn').forEach(btn => {
+                const f = btn.getAttribute('data-filter');
+                if (names[f] && typeof c[f] === 'number') btn.innerText = names[f] + ' (' + c[f] + ')';
+            });
+            const navLabel = document.getElementById('nav-gallery-label');
+            if (navLabel) navLabel.innerText = 'All ' + c.all + ' Saints Gallery';
         }
 
         function renderGallery() {
@@ -722,11 +831,12 @@
             if (!grid) return;
 
             const filtered = gallerySource().filter(devotee => {
-                // Type comes from the manifest, so filters work unopened.
+                // Group comes from the manifest, so filters work unopened.
+                // tani covers the 63 Nayanmars incl. the 3 samaya saints.
                 const matchesFilter =
                     activeFilter === 'all' ? true :
-                    activeFilter === 'tani' ? devotee.type === 'tani' :
-                    activeFilter === 'thogai' ? devotee.type === 'thogai' :
+                    activeFilter === 'tani' ? (groupOf(devotee) === 'tani' || groupOf(devotee) === 'samaya') :
+                    activeFilter === 'thogai' ? groupOf(devotee) === 'thogai' :
                     activeFilter === 'big4' ? devotee.isBig4 === true : true;
 
                 const matchesSearch =
@@ -752,8 +862,8 @@
             grid.innerHTML = filtered.map(devotee => `
                 <div onclick="loadStory('${esc(devotee.id)}')" class="group cursor-pointer p-3 sm:p-4 rounded-2xl bg-parchmentDark/70 dark:bg-zinc-800/80 border border-templeGold/30 hover:border-templeGold hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden">
                     <div class="absolute top-2 right-2">
-                        <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${esc(devotee.type === 'thogai' ? 'bg-amber-900 text-amber-200' : 'bg-templeRed text-amber-100')}">
-                            ${esc(devotee.type === 'thogai' ? 'Group' : 'Nayanmar')}
+                        <span class="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${esc(groupBadgeClass(devotee))}">
+                            ${esc(groupBadgeLabel(devotee))}
                         </span>
                     </div>
 
@@ -842,7 +952,7 @@
             document.getElementById('reader-meta-place').innerText = devotee.place;
             document.getElementById('reader-meta-devotion').innerText = devotee.category;
             document.getElementById('reader-meta-readtime').innerText = devotee.readTime || '25 mins';
-            document.getElementById('reader-type-badge').innerText = devotee.type === 'thogai' ? 'Thogai Adiyar' : '63 Nayanmar';
+            document.getElementById('reader-type-badge').innerText = groupTypeLabel(devotee.group || 'tani');
             
             document.getElementById('reader-icon-avatar').innerHTML = `
                 <img src="${esc(imgURL(devotee.image))}" alt="${esc(devotee.nameEn)}" class="w-full h-full object-cover rounded-full" onerror="this.src='./images/lingam.svg'" />
@@ -869,10 +979,7 @@
             initTocSpy();
             setActiveToc(chapterIdx || 0);
             if (chapterIdx) {
-                requestAnimationFrame(() => {
-                    const first = document.getElementById(`chapter-${chapterIdx}`);
-                    if (first) first.scrollIntoView({ block: 'start' });
-                });
+                scrollToChapter(chapterIdx);
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
@@ -911,22 +1018,37 @@
             secs.forEach(s => tocObserver.observe(s));
             window._tocObserver = tocObserver;
         }
+        // Chapter jumps land the chapter top just below the sticky
+        // header + reader toolbar (measured live — the toolbar wraps on
+        // mobile, so a fixed offset undershoots). scroll-mt-40 on the
+        // section covers hash/anchor jumps the same way.
+        function stickyChromeHeight() {
+            let h = 0;
+            const header = document.querySelector('header.sticky');
+            if (header && header.offsetParent !== null) h += header.offsetHeight;
+            const toolbar = document.querySelector('#view-reader .sticky');
+            if (toolbar && toolbar.offsetParent !== null) h += toolbar.offsetHeight;
+            return h;
+        }
         function scrollToChapter(index) {
             setActiveToc(index);
-            requestAnimationFrame(() => {
+            requestAnimationFrame(() => requestAnimationFrame(() => {
                 const target = document.getElementById(`chapter-${index}`);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                else window.scrollTo({ top: 0 });
-            });
+                if (!target) { window.scrollTo({ top: 0 }); return; }
+                const y = target.getBoundingClientRect().top + window.pageYOffset
+                    - stickyChromeHeight() - 16;
+                window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+            }));
         }
 
-        function navigateChapter(direction) {
-            const devotee = devoteesData.find(d => d.id === activeStoryId);
-            if (!devotee) return;
-            const newIndex = activeChapterIndex + direction;
-            if (newIndex >= 0 && newIndex < devotee.tamil_chapters.length) {
-                scrollToChapter(newIndex);
-            }
+        function chooseAnotherStory() {
+            showGalleryView();
+            requestAnimationFrame(() => {
+                const grid = document.getElementById('devotee-grid');
+                if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const si = document.getElementById('searchInput');
+                if (si) si.focus({ preventScroll: true });
+            });
         }
 
         function showGalleryView() {
@@ -1123,6 +1245,7 @@
                 return;
             }
             renderGallery();
+            updateFilterCounts();
             updateBookmarkBadge();
 
             const savedTheme = localStorage.getItem('periya_puranam_theme');

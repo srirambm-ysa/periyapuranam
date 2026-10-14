@@ -2,16 +2,23 @@
   "placeholder": true,
   "factory_slug": "nedumara_nayanar",
   "created": "2026-10-13",
-  "created_by": "periapuranam storefront session (Muse Spark) — no factory transcription exists; nvl_catalog.xlsx and the video catalog carry no Nedumara rows",
+  "enriched": "2026-10-14",
+  "created_by": "periapuranam storefront session (Muse Spark) — no factory transcription exists; nvl_catalog.xlsx and the video catalog carry no Nedumara rows; factory now closed so no transcription is coming",
   "sources": [
+    "drawer §56 — Ninra Seer Nedumara Nayanar Puranam, Karaikandan Sarukkam (10 songs, kochakam-kalippa) — story grounded verse by verse",
     "shaivam.org — The History of Ninrasir Nedumara Nayanar",
     "koyil.com/nm49 — Ninra Seer Nedumara Naayanaar",
     "theindosphere.com — Ninra Seer Nedumaara",
     "thiruppugazh-nectar.blogspot.com — How Sambanthar cured the Pandyan king",
-    "pradosham.com — Ninra Seer Nedumara Nayanar"
+    "pradosham.com — Ninra Seer Nedumara Nayanar",
+    "poojabell.com — Nedurama Pandiyan (Koon Pandiyan = Arikesari Parankusa Maravarman)",
+    "en.wikipedia.org/wiki/Koon_Pandiyan",
+    "Sundarar Thiruthondathogai — 'Nelveli venra Ninra Seer Nedumaran'"
   ],
-  "method": "unverified web synthesis, 8 prose chapters in Tamil and English (placeholder scale, not discourse transcription)",
-  "status_note": "NOT human sign-off and NOT verification. Builds as transcribed (never listed); english_chapters ship in preview only. Promote per SCHEMA_V1 only after factory transcription/translation + per-story human sign-off, which replaces these files.",
+  "method": "LLM-enriched web synthesis grounded in drawer §56 verses (Jain snare v1, Sambandar grace v2, Nelveli battle vv3-7, queen vv8, long reign + Sivaloka v9, Pugali/Vayilar close v10) + web sources above. Disputed points hedged in-text (Arikesari identification, kazhuvertram as tradition, Nellaiyappar tiruppani as marabu). ~959 Tamil words / ~1110 English words across 8 chapters.",
+  "status_note": "NOT human sign-off and NOT verification. Builds as transcribed (never listed); english_chapters ship in preview only. User decision 2026-10-14: keep as preview-only enriched placeholder (factory dead). Promote per SCHEMA_V1 only after per-story human sign-off.",
   "tamil_chapters": 8,
-  "english_chapters": 8
+  "english_chapters": 8,
+  "tamil_words": 959,
+  "english_words": 1110
 }

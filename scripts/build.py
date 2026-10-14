@@ -43,6 +43,7 @@ STORIES_REGISTRY = {
                          "thiruk-kuripputh-thonta-nayanar-puranam"),
         "ref": "திருக்குறிப்புத்தொண்ட புராணம்",
         "status": "english_done",
+        "group": "tani",
         "expect": {"tamil": 36, "english": 36, "verses": 128},
     },
 }
@@ -180,6 +181,7 @@ def build_story(slug, cfg):
         "nameTa": legacy["nameTa"],
         "type": legacy["type"],
         "isBig4": legacy["isBig4"],
+        "group": cfg.get("group", "tani"),
         "category": legacy["category"],
         "place": legacy["place"],
         "grace": legacy["grace"],
@@ -222,6 +224,8 @@ def write_manifest():
             "schema_version": story["schema_version"],
             "image": story["image"],
             "type": story["type"],
+            "isBig4": story.get("isBig4", False),
+            "group": story.get("group", "tani"),
             "category": story["category"],
             "tamil_count": story["tamil_count"],
             "english_count": story["english_count"],
@@ -271,11 +275,14 @@ def split_chapters_preview(text):
 
 def build_preview():
     """Local-only full-scale gallery preview (never ships, never gated as
-    product): all 68 factory stories to content/preview/. TK is the full
+    product): every content/stories/ pair to content/preview/. TK is the full
     signed-off artifact (english_done + drawer verses) plus preview:true,
-    rebuilt exactly as-is. The other 67 get both chapter languages plus
-    drawer verses via content/factory_section_map.json (map_version 1);
-    display names from the map; type/category absent where absent. Stories
+    rebuilt exactly as-is. The others get both chapter languages plus
+    drawer verses via content/factory_section_map.json (map_version 2);
+    display names from the map; type/category absent where absent. Gallery
+    order follows the map's canonical section_order (drawer order), not the
+    slug. External placeholders with no drawer section (Manikkavachagar)
+    build with verses [] + verses_pending_reason. Stories
     with unmapped metre labels (or verse-count mismatch) build with
     verses [] + verses_pending_reason and land in the report — the run
     never fails. Every file and manifest entry carries preview:true."""
@@ -290,6 +297,10 @@ def build_preview():
         try:
             if slug in STORIES_REGISTRY:
                 story = build_story(slug, STORIES_REGISTRY[slug])
+                # Preview carries gallery grouping even for registry builds.
+                _me = factory_map.get(slug, {})
+                story["group"] = _me.get("group", story.get("group", "tani"))
+                story["isBig4"] = _me.get("isBig4", story.get("isBig4", False))
             else:
                 ta_full = story_text_path(slug, "tamil") \
                     .read_text(encoding="utf-8")
@@ -300,19 +311,25 @@ def build_preview():
                 assert [c["n"] for c in ta_ch] == \
                     [c["n"] for c in en_ch], "tamil/english n mismatch"
                 entry = factory_map.get(slug)
-                assert entry and entry.get("section_slug"), "no map entry"
-                verses, unmapped = load_drawer_verses_preview(
-                    entry["section_slug"], entry["ref"])
-                pending = None
-                if verses is None:
-                    pending = "section_missing"
-                elif unmapped:
-                    pending = "unmapped_labels"
-                    unmapped_report[slug] = unmapped
-                elif len(verses) != entry["n_songs"]:
-                    pending = (f"count_mismatch: got {len(verses)}, "
-                               f"map n_songs {entry['n_songs']}")
-                if pending:
+                assert entry, "no map entry"
+                if not entry.get("section_slug"):
+                    # External placeholder (e.g. Manikkavachagar): no drawer
+                    # section exists, so there are no root verses by design.
+                    verses, pending = [], "external_no_drawer_section"
+                    unmapped = []
+                else:
+                    verses, unmapped = load_drawer_verses_preview(
+                        entry["section_slug"], entry["ref"])
+                    pending = None
+                    if verses is None:
+                        pending = "section_missing"
+                    elif unmapped:
+                        pending = "unmapped_labels"
+                        unmapped_report[slug] = unmapped
+                    elif len(verses) != entry["n_songs"]:
+                        pending = (f"count_mismatch: got {len(verses)}, "
+                                    f"map n_songs {entry['n_songs']}")
+                if pending and verses:
                     verses = []
                 if entry.get("flag"):
                     flagged.append((slug, entry["flag"]))
@@ -324,7 +341,8 @@ def build_preview():
                     "nameEn": entry.get("nameEn") or "",
                     "nameTa": entry.get("nameTa") or "",
                     "type": entry.get("type") or "",
-                    "isBig4": False,
+                    "isBig4": entry.get("isBig4", False),
+                    "group": entry.get("group", "tani"),
                     "category": entry.get("category") or "",
                     "place": "",
                     "grace": "",
@@ -332,8 +350,9 @@ def build_preview():
                     "image": "",
                     "prev": None,
                     "next": None,
-                    "summary": "(Local preview — unverified factory text, "
-                               "not for deploy.)",
+                    "summary": ("(External Nalvar note — outside the "
+                                "Periyapuranam.)"
+                                if entry.get("group") == "external" else ""),
                     "subtitle": "",
                     "tamil_chapters": ta_ch,
                     "english_chapters": en_ch,
@@ -361,6 +380,10 @@ def build_preview():
                 "preview": True,
                 "image": story["image"],
                 "type": story["type"],
+                "isBig4": story.get("isBig4", False),
+                "group": story.get("group", "tani"),
+                "section_order": (factory_map.get(slug, {}) or {})
+                .get("section_order", 999),
                 "category": story["category"],
                 "tamil_count": story["tamil_count"],
                 "english_count": story["english_count"],
@@ -408,6 +431,7 @@ def build_preview():
                 "nameTa": entry.get("nameTa") or "",
                 "type": entry.get("type") or "giant",
                 "isBig4": True,
+                "group": entry.get("group", "samaya"),
                 "category": entry.get("category") or "",
                 "place": "",
                 "grace": "",
@@ -415,8 +439,7 @@ def build_preview():
                 "image": "",
                 "prev": None,
                 "next": None,
-                "summary": "(Local preview — giant puranam, unverified factory "
-                           "text, not for deploy.)",
+                "summary": "",
                 "subtitle": "",
                 "tamil_chapters": ta_ch,
                 "english_chapters": en_ch,
@@ -443,6 +466,10 @@ def build_preview():
                 "preview": True,
                 "image": story["image"],
                 "type": story["type"],
+                "isBig4": story.get("isBig4", False),
+                "group": story.get("group", "tani"),
+                "section_order": (factory_map.get(slug, {}) or {})
+                .get("section_order", 999),
                 "category": story["category"],
                 "tamil_count": story["tamil_count"],
                 "english_count": story["english_count"],
@@ -452,7 +479,7 @@ def build_preview():
             })
         except Exception as e:  # noqa: BLE001 — preview reports, never halts
             failed.append((slug, f"{type(e).__name__}: {e}"))
-    entries.sort(key=lambda e: e["slug"])
+    entries.sort(key=lambda e: (e.get("section_order", 999), e["slug"]))
     (PREVIEW / "manifest.json").write_text(
         json.dumps(entries, ensure_ascii=False, indent=2), encoding="utf-8")
     populated = sum(1 for e in entries
