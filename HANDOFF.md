@@ -133,8 +133,8 @@ nedumara placeholder · `ad0ab2b` handoff · `bf800ce` giants + preview reader.
 ## Session log — 2026-10-14 (Muse Spark, closed)
 
 Commits (main, pushed): `f74ead1` reader UI batch · `a30bfc5` 73-story
-corpus · `1522ad5` docs (+ this close: schema/handoff sync, uncommitted
-`docs/SCHEMA_V1.md` + untracked `.github/` at close — commit on resume).
+corpus · `1522ad5` docs · `c83ec25` schema/handoff close (pushed; only
+untracked `.github/` remains by design).
 
 - Session resume → 7 preview flags settled with owner (6 cleared, nedumara
   kept preview-only) → nedumara enriched to ~959ta/~1110en words,
