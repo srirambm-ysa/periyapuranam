@@ -1,9 +1,13 @@
 """Generate site/preview.html (the local all-stories BETA reader) from the
 product reader site/periya_puranam_index.html.
 
-The preview reader is the product reader with exactly two deltas:
-  1. a sticky "LOCAL PREVIEW - NOT FOR DEPLOY" banner after </head>;
-  2. DATA_BASE repointed from ../content/build to ../content/preview.
+The preview reader is the product reader with exactly one delta:
+  1. DATA_BASE repointed from ../content/build to ../content/preview.
+
+(The old sticky "LOCAL PREVIEW - NOT FOR DEPLOY" banner was removed
+2026-10-15 per owner: it covered the sticky header/controls on mobile.
+Preview stays safe without it: the file is gitignored and can only ever
+read the local-only content/preview/ tree, never the shippable build.)
 
 Kept as a script (was previously hand-built and drifted) so the reader's
 yappu DB and render logic never diverge between product and preview.
@@ -24,9 +28,6 @@ BUILD_LINE = '        const DATA_BASE = "../content/build"; ' \
              '// repo-served layout; deploy remaps'
 PREVIEW_LINE = '        const DATA_BASE = "../content/preview"; ' \
                '// LOCAL PREVIEW ONLY - never ships'
-BANNER_STYLE = ("position:sticky;top:0;z-index:100;background:#7A0016;"
-                "color:#FCF6BA;text-align:center;font-weight:700;"
-                "padding:8px 12px;font-size:13px;letter-spacing:.04em;")
 
 
 def main():
@@ -35,15 +36,10 @@ def main():
 
     assert src.count(BUILD_LINE) == 1, \
         "DATA_BASE product line not found (reader drifted?)"
-    assert src.count("</head>") == 1, "expected exactly one </head>"
-
-    banner = (f'<div style="{BANNER_STYLE}">LOCAL PREVIEW - UNVERIFIED, '
-              f'NOT FOR DEPLOY - {n} stories, no sign-off implied</div>')
 
     out = src.replace(BUILD_LINE, PREVIEW_LINE, 1)
-    out = out.replace("</head>", "</head>\n" + banner, 1)
     PREVIEW.write_text(out, encoding="utf-8")
-    print(f"wrote {PREVIEW.relative_to(REPO)} (banner: {n} stories)")
+    print(f"wrote {PREVIEW.relative_to(REPO)} ({n} stories, no banner)")
     return 0
 
 

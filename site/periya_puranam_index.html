@@ -7,8 +7,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="/manifest.webmanifest">
-    <link rel="apple-touch-icon" href="./images/sekkizhar_384.jpg">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
     <!-- SEO: search + social sharing. Canonical/OG use the planned custom
          domain (one-line change if the domain differs at deploy time). -->
     <meta name="description" content="Read the Periya Puranam — Sekkizhar's 12th-Thirumurai epic of the 63 Nayanmars and 9 Thogai Adiyars — in Tamil and English, with root Thirumurai verses and yappu metre notes.">
@@ -88,6 +88,9 @@
         .story-text-md { font-size: 1.2rem; line-height: 1.95; }
         .story-text-lg { font-size: 1.35rem; line-height: 2.05; }
         .story-text-xl { font-size: 1.5rem; line-height: 2.15; }
+        /* Bold reading weight (real 700 glyphs: Noto Serif Tamil ships
+           400/600/700, so Tamil never synthesizes). */
+        #post-chapters-container.story-bold { font-weight: 700; }
 
         .drop-cap::first-letter {
             font-family: 'Cinzel', serif;
@@ -152,6 +155,37 @@
         .p-8 { padding: 2rem; }
         /* Long resource URLs in story text must wrap on 360px screens. */
         #post-chapters-container p { overflow-wrap: break-word; }
+
+        /* Mobile reader: reclaim viewport (hybrid slim chrome).
+           Scoped to body.reader-active + below lg — desktop and the
+           gallery view are pixel-identical. */
+        #display-sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+            transform: translateY(103%); transition: transform .3s ease; }
+        #display-sheet.open { transform: none; }
+        #display-sheet .sheet-card { border-radius: 1rem 1rem 0 0; }
+        @media (min-width: 1024px) { #display-sheet { display: none; } }
+        @media (max-width: 1023.98px) {
+            body.reader-active header.sticky > div { height: 3.5rem; }
+            body.reader-active #brand-logo { width: 2.25rem; height: 2.25rem; }
+            body.reader-active #brand-subtitle,
+            body.reader-active #nav-saved-label { display: none; }
+            body.reader-active #reader-toolbar { top: 3.5rem; padding: .5rem .75rem;
+                gap: .5rem; margin-bottom: 1rem; border-radius: 1rem; flex-wrap: nowrap; }
+            body.reader-active #reader-toolbar .reader-crumbs { flex: 1 1 auto; min-width: 0; }
+            body.reader-active #reader-toolbar .reader-controls { flex-wrap: nowrap; gap: .5rem; }
+            body.reader-active #reader-toolbar .ctl-label { display: none; }
+            body.reader-active #reader-toolbar .ctl-box { border-color: transparent;
+                background: transparent; padding: 0; }
+            body.reader-active header.sticky,
+            body.reader-active #reader-toolbar { transition: transform .25s ease; }
+            body.reader-active.chrome-hidden header.sticky { transform: translateY(-101%); }
+            body.reader-active.chrome-hidden #reader-toolbar { transform: translateY(calc(-100% - 3.6rem)); }
+            #display-sheet-controls .sheet-row { display: flex; align-items: center;
+                justify-content: space-between; gap: .75rem; }
+            #display-sheet-controls .sheet-row > div[id^="slot-"] { flex: 1 1 auto; }
+            #display-sheet-controls .sheet-row > div[id^="slot-"] > div { width: 100%; }
+            #display-sheet-controls .sheet-row button { flex: 1 1 0; }
+        }
     </style>
 </head>
 <body class="theme-dark font-body min-h-screen flex flex-col antialiased selection:bg-templeGold/30 selection:text-templeRed transition-colors duration-300">
@@ -165,26 +199,22 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#" onclick="showGalleryView(); return false;" class="flex items-center gap-3 group">
-                <div class="w-12 h-12 rounded-full border-2 border-templeGold bg-templeRed flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform overflow-hidden">
+                <div id="brand-logo" class="w-12 h-12 rounded-full border-2 border-templeGold bg-templeRed flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform overflow-hidden">
                     <img src="./images/lingam.svg" alt="Shivalingam" class="w-full h-full" />
                 </div>
                 <div>
                     <h1 class="font-heading font-bold text-lg sm:text-xl text-templeRed dark:text-amber-300 leading-tight tracking-wide">
                         PERIYA PURANAM
                     </h1>
-                    <p class="font-tamil text-xs text-saffron font-semibold">பெரிய புராணம் • Complete English Epic & Thirumurai</p>
+                    <p id="brand-subtitle" class="font-tamil text-xs text-saffron font-semibold">பெரிய புராணம் • Complete English Epic & Thirumurai</p>
                 </div>
             </a>
 
             <!-- Right Navigation Buttons -->
             <div class="flex items-center gap-3">
-                <button onclick="showGalleryView()" id="btn-nav-gallery" class="min-h-[44px] px-3.5 py-2 rounded-full border border-templeGold/50 text-templeRed dark:text-amber-200 hover:bg-templeGold/10 transition-colors text-xs sm:text-sm font-semibold flex items-center gap-2">
-                    <i class="fa-solid fa-grid-2 text-templeGold"></i>
-                    <span id="nav-gallery-label">All Saints Gallery</span>
-                </button>
                 <button onclick="toggleBookmarksDrawer()" class="min-h-[44px] px-3.5 py-2 rounded-full bg-templeRed hover:bg-templeRed/90 text-templeGold text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-bookmark text-templeGold"></i>
-                    <span class="hidden sm:inline">Saved Stories</span>
+                    <span id="nav-saved-label" class="hidden sm:inline">Saved Stories</span>
                     <span id="bookmark-count" class="bg-templeGold text-charcoal text-xs px-2 py-0.5 rounded-full font-bold">0</span>
                 </button>
             </div>
@@ -192,7 +222,16 @@
     </header>
 
     <main id="view-gallery" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-opacity duration-300">
-        
+        <!-- Resume banner (shown when a last-read position is stored) -->
+        <div id="resume-banner" class="hidden mb-6 items-center justify-between gap-3 px-4 py-3 rounded-2xl border border-templeGold/50 bg-templeGold/10">
+            <p id="resume-text" class="text-xs sm:text-sm text-charcoal dark:text-amber-100 min-w-0 truncate"></p>
+            <div class="flex items-center gap-2 shrink-0">
+                <button onclick="resumeLastRead()" class="min-h-[44px] px-4 rounded-full bg-templeRed text-templeGold text-xs font-bold shadow-sm">Resume</button>
+                <button onclick="dismissResume()" title="Dismiss" aria-label="Dismiss resume" class="min-h-[44px] min-w-[44px] rounded-full border border-templeGold/40 text-saffron flex items-center justify-center hover:bg-templeGold/10">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
         <!-- Hero Banner -->
         <div class="relative rounded-3xl bg-gradient-to-r from-templeRed via-red-950 to-templeRed text-white p-6 sm:p-10 mb-10 overflow-hidden shadow-2xl border border-templeGold/40">
             <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
@@ -282,9 +321,9 @@
     <main id="view-reader" class="hidden flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-opacity duration-300">
         
         <!-- Reader Toolbar Controls (Sticky below header) -->
-        <div class="sticky top-20 z-30 bg-parchment/95 dark:bg-darkBg/95 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-templeGold/40 shadow-md mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div id="reader-toolbar" class="sticky top-20 z-30 bg-parchment/95 dark:bg-darkBg/95 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-templeGold/40 shadow-md mb-8 flex flex-wrap items-center justify-between gap-4">
             <!-- Breadcrumbs -->
-            <div class="flex items-center gap-2 text-xs sm:text-sm">
+            <div class="reader-crumbs flex items-center gap-2 text-xs sm:text-sm">
                 <button onclick="showGalleryView()" class="min-h-[44px] text-saffron hover:underline font-semibold flex items-center gap-1">
                     <i class="fa-solid fa-arrow-left"></i> Gallery
                 </button>
@@ -293,43 +332,54 @@
             </div>
 
             <!-- Reading Display Customization Controls -->
-            <div class="flex items-center flex-wrap gap-3 text-xs">
+            <div id="reader-controls-inline" class="reader-controls flex items-center flex-wrap gap-3 text-xs">
                 <!-- Drawer Toggles: Chapters (mobile) + Root Verses (Tamil mode) -->
-                <div class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
-                    <button onclick="openTocDrawer()" title="Chapters" class="lg:hidden min-h-[44px] min-w-[44px] px-3 text-xs font-bold rounded hover:text-templeRed flex items-center gap-1.5">
-                        <i class="fa-solid fa-list-ol text-saffron"></i> Chapters
+                <div class="ctl-box flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                    <button onclick="openTocDrawer()" title="Chapters" aria-label="Chapters" class="lg:hidden min-h-[44px] min-w-[44px] px-3 text-xs font-bold rounded hover:text-templeRed flex items-center gap-1.5">
+                        <i class="fa-solid fa-list-ol text-saffron"></i><span class="ctl-label"> Chapters</span>
                     </button>
                     <span class="lang-ta hidden">
-                        <button id="verses-btn" onclick="openVersesDrawer()" title="மூல பாடல்கள்" class="min-h-[44px] px-3 text-xs font-bold rounded hover:text-templeRed flex items-center gap-1.5 font-tamil">
-                            <i class="fa-solid fa-book-open text-saffron"></i> மூல பாடல்கள்
+                        <button id="verses-btn" onclick="openVersesDrawer()" title="மூல பாடல்கள்" aria-label="மூல பாடல்கள்" class="min-h-[44px] px-3 text-xs font-bold rounded hover:text-templeRed flex items-center gap-1.5 font-tamil">
+                            <i class="fa-solid fa-book-open text-saffron"></i><span class="ctl-label"> மூல பாடல்கள்</span>
                         </button>
                     </span>
                 </div>
 
                 <!-- Reading Mode Themes -->
-                <div class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
-                    <button onclick="setTheme('parchment')" title="Parchment Mode" class="px-2.5 py-1 rounded font-serif text-charcoal hover:bg-white transition-colors">Aa</button>
-                    <button onclick="setTheme('sepia')" title="Sepia Mode" class="px-2.5 py-1 rounded font-serif bg-sepiaBg text-sepiaText hover:opacity-90 transition-colors">Aa</button>
-                    <button onclick="setTheme('dark')" title="Night Temple Mode" class="px-2.5 py-1 rounded font-serif bg-darkBg text-amber-200 hover:opacity-90 transition-colors">Aa</button>
+                <div id="ctl-theme" class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                    <button id="theme-btn-parchment" onclick="setTheme('parchment')" title="Parchment Mode" class="px-2.5 py-1 rounded font-serif text-charcoal hover:bg-white transition-colors">Aa</button>
+                    <button id="theme-btn-sepia" onclick="setTheme('sepia')" title="Sepia Mode" class="px-2.5 py-1 rounded font-serif bg-sepiaBg text-sepiaText hover:opacity-90 transition-colors">Aa</button>
+                    <button id="theme-btn-dark" onclick="setTheme('dark')" title="Night Temple Mode" class="px-2.5 py-1 rounded font-serif bg-darkBg text-amber-200 hover:opacity-90 transition-colors">Aa</button>
                 </div>
 
                 <!-- Font Size Adjuster -->
-                <div class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
-                    <button onclick="setFontSize('sm')" title="Small Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-xs font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed">A-</button>
-                    <button onclick="setFontSize('md')" title="Medium Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed">A</button>
-                    <button onclick="setFontSize('lg')" title="Large Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-base font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed">A+</button>
-                    <button onclick="setFontSize('xl')" title="Extra Large Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-lg font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed">A++</button>
+                <div id="ctl-font" class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                    <button id="font-btn-sm" onclick="setFontSize('sm')" title="Small Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-xs font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed rounded">A-</button>
+                    <button id="font-btn-md" onclick="setFontSize('md')" title="Medium Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed rounded">A</button>
+                    <button id="font-btn-lg" onclick="setFontSize('lg')" title="Large Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-base font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed rounded">A+</button>
+                    <button id="font-btn-xl" onclick="setFontSize('xl')" title="Extra Large Text" class="min-h-[44px] min-w-[44px] px-2 py-0.5 text-lg font-bold text-gray-700 dark:text-gray-300 hover:text-templeRed rounded">A++</button>
+                </div>
+
+                <!-- Font Weight Toggle -->
+                <div id="ctl-weight" class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                    <button id="weight-btn-regular" onclick="setWeight('regular')" title="Regular weight" class="min-h-[44px] min-w-[44px] px-2.5 py-0.5 text-xs rounded text-gray-700 dark:text-gray-300 hover:text-templeRed">Aa</button>
+                    <button id="weight-btn-bold" onclick="setWeight('bold')" title="Bold weight" class="min-h-[44px] min-w-[44px] px-2.5 py-0.5 text-xs font-bold rounded text-gray-700 dark:text-gray-300 hover:text-templeRed">Aa</button>
                 </div>
 
                 <!-- Language Toggle -->
-                <div class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
+                <div id="ctl-lang" class="flex items-center border border-templeGold/30 rounded-lg p-1 bg-parchmentDark/60 dark:bg-zinc-800">
                     <button id="lang-btn-en" onclick="setLang('en')" title="Read in English" class="min-h-[44px] min-w-[44px] px-2.5 py-0.5 text-xs font-bold rounded hover:text-templeRed">EN</button>
                     <button id="lang-btn-ta" onclick="setLang('ta')" title="தமிழில் படிக்க" class="min-h-[44px] min-w-[44px] px-2.5 py-0.5 text-xs font-bold rounded font-tamil hover:text-templeRed">தமிழ்</button>
                 </div>
 
                 <!-- Bookmark Story -->
-                <button id="reader-bookmark-btn" onclick="toggleActiveBookmark()" class="min-h-[44px] px-3 py-1.5 rounded-lg border border-templeGold/50 text-templeRed dark:text-amber-300 font-semibold flex items-center gap-1.5 hover:bg-templeGold/10">
-                    <i class="fa-regular fa-bookmark"></i> Save
+                <button id="reader-bookmark-btn" onclick="toggleActiveBookmark()" title="Save story" class="min-h-[44px] px-3 py-1.5 rounded-lg border border-templeGold/50 text-templeRed dark:text-amber-300 font-semibold flex items-center gap-1.5 hover:bg-templeGold/10">
+                    <i class="fa-regular fa-bookmark"></i><span class="ctl-label"> Save</span>
+                </button>
+
+                <!-- Display settings (mobile reader: theme/font/lang live in the bottom sheet) -->
+                <button id="display-sheet-btn" onclick="openDisplaySheet()" title="Display settings" aria-label="Display settings" class="lg:hidden min-h-[44px] min-w-[44px] px-3 py-1.5 rounded-lg border border-templeGold/50 text-templeRed dark:text-amber-300 flex items-center justify-center hover:bg-templeGold/10">
+                    <i class="fa-solid fa-sliders"></i>
                 </button>
             </div>
         </div>
@@ -372,8 +422,9 @@
                     </div>
                 </div>
 
-                <!-- Sticky Chapters Table of Contents -->
-                <div class="sticky top-40 p-5 rounded-2xl bg-parchmentDark/80 dark:bg-zinc-900 border border-templeGold/30 shadow-sm">
+                <!-- Sticky Chapters Table of Contents (desktop only; on mobile
+                     chapters live in the Chapters drawer to save viewport) -->
+                <div id="toc-inline" class="hidden lg:block sticky top-40 p-5 rounded-2xl bg-parchmentDark/80 dark:bg-zinc-900 border border-templeGold/30 shadow-sm">
                     <h4 class="font-heading font-bold text-xs uppercase tracking-widest text-templeRed dark:text-amber-300 mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-list-ol text-saffron"></i> Table of Chapters
                     </h4>
@@ -404,7 +455,7 @@
                 <!-- Bottom Story Navigation: home + pick another story -->
                 <div class="pt-8 border-t-2 border-templeGold/30 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 font-sans">
                     <button onclick="showGalleryView()" class="min-h-[44px] px-5 py-2.5 rounded-xl border border-templeGold/50 hover:bg-templeGold/10 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 text-charcoal dark:text-amber-200">
-                        <i class="fa-solid fa-house"></i> Home — All Saints
+                        <i class="fa-solid fa-house"></i> Nayanmar Home
                     </button>
                     <button onclick="chooseAnotherStory()" class="min-h-[44px] px-5 py-2.5 rounded-xl bg-templeRed text-templeGold hover:bg-templeRed/90 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2">
                         Choose another story <i class="fa-solid fa-arrow-right"></i>
@@ -444,6 +495,40 @@
         <p class="px-4 py-3 border-t border-templeGold/20 text-[11px] text-gray-500 font-tamil">திருமுறை மூலம் · எண் வரிசைப்படி · யாப்பு அட்டைகளுடன்</p>
     </aside>
 
+    <!-- Display settings bottom sheet (mobile reader only; the theme /
+         font-size / language groups relocate here via JS, desktop keeps
+         them inline in the toolbar) -->
+    <div id="display-sheet" role="dialog" aria-modal="true" aria-label="Display settings">
+        <div class="sheet-card mx-auto max-w-2xl border border-b-0 border-templeGold/40 bg-parchment dark:bg-zinc-900 shadow-2xl p-4" style="padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-heading font-bold text-sm text-templeRed dark:text-amber-300 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-saffron"></i> Display settings
+                </h3>
+                <button data-close onclick="closeDrawers()" aria-label="Close display settings" class="min-h-[44px] min-w-[44px] rounded-lg hover:bg-templeGold/10 text-saffron flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="display-sheet-controls" class="flex flex-col gap-3 text-xs">
+                <div class="sheet-row">
+                    <span class="font-bold text-gray-500 uppercase tracking-wider">Theme</span>
+                    <div id="slot-theme"></div>
+                </div>
+                <div class="sheet-row">
+                    <span class="font-bold text-gray-500 uppercase tracking-wider">Text size</span>
+                    <div id="slot-font"></div>
+                </div>
+                <div class="sheet-row">
+                    <span class="font-bold text-gray-500 uppercase tracking-wider">Weight</span>
+                    <div id="slot-weight"></div>
+                </div>
+                <div class="sheet-row">
+                    <span class="font-bold text-gray-500 uppercase tracking-wider">Language</span>
+                    <div id="slot-lang"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="bookmarks-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-parchment dark:bg-zinc-900 text-charcoal dark:text-amber-100 w-full max-w-lg rounded-2xl shadow-2xl border border-templeGold p-6 relative">
             <div class="flex items-center justify-between border-b border-templeGold/30 pb-3 mb-4">
@@ -465,7 +550,6 @@
         <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
         <p class="font-heading font-bold text-lg text-templeGold">Tiruthondar Puranam • Sekkizhar's Periya Puranam</p>
         <p class="font-tamil text-xs text-amber-200">"தென்னாடுடைய சிவனே போற்றி... எந்நாட்டவர்க்கும் இறைவா போற்றி..."</p>
-        <p class="text-xs text-amber-200/60 pt-2">Full English Epic Translation & Devotional Reader</p>
         <p class="text-xs text-amber-200/80 pt-1">Site created by <a href="https://balaramansriram.com" target="_blank" rel="noopener" class="underline hover:text-templeGold">balaramansriram.com</a></p>
         <p class="text-[11px] text-amber-200/60 max-w-2xl mx-auto leading-relaxed">Created with AI assistance. These retellings are devotional reading aids — not a substitute for traditional upanyasam or scholarly lectures. Please learn the Periyapuranam at the feet of qualified scholars.</p>
         </div>
@@ -943,6 +1027,8 @@
             document.getElementById('view-gallery').classList.add('hidden');
             document.getElementById('view-reader').classList.remove('hidden');
             document.getElementById('progress-container').classList.remove('hidden');
+            document.body.classList.add('reader-active');
+            revealChrome();
 
             // Set Breadcrumb & Metadata
             document.getElementById('reader-breadcrumb-title').innerText = devotee.nameEn;
@@ -1002,6 +1088,44 @@
                 });
             });
             try { history.replaceState(null, '', '#story=' + activeStoryId + '&chapter=' + index); } catch (e) {}
+            saveLastRead();
+        }
+        /* Last-read position (localStorage, on-device only — no cookies,
+           nothing leaves the phone). Written on every chapter activation
+           (scroll spy + jumps), read back as a gallery resume banner. */
+        function saveLastRead() {
+            try {
+                if (!activeStoryId) return;
+                localStorage.setItem('periya_puranam_lastread',
+                    JSON.stringify({ id: activeStoryId, chapter: activeChapterIndex || 0 }));
+            } catch (e) {}
+        }
+        function readLastRead() {
+            try {
+                const o = JSON.parse(localStorage.getItem('periya_puranam_lastread') || 'null');
+                if (o && o.id && STORY_MANIFEST.some(e => e.id === o.id)) return o;
+            } catch (e) {}
+            return null;
+        }
+        function renderResumeBanner() {
+            const bar = document.getElementById('resume-banner');
+            if (!bar) return;
+            const last = readLastRead();
+            const onGallery = !document.getElementById('view-gallery').classList.contains('hidden');
+            if (!last || !onGallery) { bar.classList.add('hidden'); bar.classList.remove('flex'); return; }
+            const entry = STORY_MANIFEST.find(e => e.id === last.id) || {};
+            document.getElementById('resume-text').innerHTML =
+                'Continue reading <b>' + esc(entry.titleEn || last.id) + '</b> · Chapter ' + esc((last.chapter || 0) + 1);
+            bar.classList.remove('hidden');
+            bar.classList.add('flex');
+        }
+        function resumeLastRead() {
+            const last = readLastRead();
+            if (last) loadStory(last.id, last.chapter || 0);
+        }
+        function dismissResume() {
+            try { localStorage.removeItem('periya_puranam_lastread'); } catch (e) {}
+            renderResumeBanner();
         }
         function initTocSpy() {
             if (tocObserver) tocObserver.disconnect();
@@ -1023,14 +1147,23 @@
         // mobile, so a fixed offset undershoots). scroll-mt-40 on the
         // section covers hash/anchor jumps the same way.
         function stickyChromeHeight() {
+            // Transformed-away (auto-hidden) chrome still reports its layout
+            // height, so report zero while hidden — callers reveal first.
+            if (document.body.classList.contains('chrome-hidden')) return 0;
             let h = 0;
             const header = document.querySelector('header.sticky');
             if (header && header.offsetParent !== null) h += header.offsetHeight;
-            const toolbar = document.querySelector('#view-reader .sticky');
+            const toolbar = document.getElementById('reader-toolbar')
+                || document.querySelector('#view-reader .sticky');
             if (toolbar && toolbar.offsetParent !== null) h += toolbar.offsetHeight;
             return h;
         }
+        function revealChrome() {
+            document.body.classList.remove('chrome-hidden');
+            lastScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        }
         function scrollToChapter(index) {
+            revealChrome();
             setActiveToc(index);
             requestAnimationFrame(() => requestAnimationFrame(() => {
                 const target = document.getElementById(`chapter-${index}`);
@@ -1052,10 +1185,12 @@
         }
 
         function showGalleryView() {
+            document.body.classList.remove('reader-active', 'chrome-hidden');
             document.getElementById('view-gallery').classList.remove('hidden');
             document.getElementById('view-reader').classList.add('hidden');
             document.getElementById('progress-container').classList.add('hidden');
             window.location.hash = '#gallery';
+            renderResumeBanner();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1063,6 +1198,10 @@
             document.body.classList.remove('theme-parchment', 'theme-sepia', 'theme-dark');
             document.body.classList.add(`theme-${theme}`);
             document.documentElement.classList.toggle('dark', theme === 'dark');
+            ['parchment', 'sepia', 'dark'].forEach(t => {
+                const b = document.getElementById(`theme-btn-${t}`);
+                if (b) b.classList.toggle('bg-templeGold/30', t === theme);
+            });
             localStorage.setItem('periya_puranam_theme', theme);
         }
 
@@ -1072,7 +1211,21 @@
                 container.classList.remove('story-text-sm', 'story-text-md', 'story-text-lg', 'story-text-xl');
                 container.classList.add(`story-text-${size}`);
             }
+            ['sm', 'md', 'lg', 'xl'].forEach(s => {
+                const b = document.getElementById(`font-btn-${s}`);
+                if (b) b.classList.toggle('bg-templeGold/30', s === size);
+            });
             localStorage.setItem('periya_puranam_fontsize', size);
+        }
+
+        function setWeight(weight) {
+            const container = document.getElementById('post-chapters-container');
+            if (container) container.classList.toggle('story-bold', weight === 'bold');
+            ['regular', 'bold'].forEach(w => {
+                const b = document.getElementById(`weight-btn-${w}`);
+                if (b) b.classList.toggle('bg-templeGold/30', w === weight);
+            });
+            localStorage.setItem('periya_puranam_fontweight', weight);
         }
 
         /* Slide-over drawers: TOC (mobile) + root verses (Tamil mode).
@@ -1098,6 +1251,8 @@
             var v = document.getElementById('verses-drawer');
             if (t) t.classList.add('-translate-x-full');
             if (v) v.classList.add('translate-x-full');
+            var s = document.getElementById('display-sheet');
+            if (s) s.classList.remove('open');
             if (!keepBackdrop) {
                 document.getElementById('drawer-backdrop').classList.add('hidden');
                 document.body.classList.remove('overflow-hidden');
@@ -1106,6 +1261,73 @@
         function openTocDrawer() { openDrawer('toc-drawer'); }
         function openVersesDrawer() { openDrawer('verses-drawer'); }
         function goChapter(i) { closeDrawers(); scrollToChapter(i); }
+
+        /* Mobile-reader slim chrome: theme/font/lang groups live inline on
+           desktop but relocate into the display bottom sheet below lg.
+           Nodes are moved (not cloned), so handlers and IDs survive. */
+        const displayMq = window.matchMedia('(max-width: 1023.98px)');
+        function relocateDisplayControls() {
+            const inlineHost = document.getElementById('reader-controls-inline');
+            const theme = document.getElementById('ctl-theme');
+            const font = document.getElementById('ctl-font');
+            const weight = document.getElementById('ctl-weight');
+            const lang = document.getElementById('ctl-lang');
+            if (!inlineHost || !theme || !font || !weight || !lang) return;
+            if (displayMq.matches) {
+                const st = document.getElementById('slot-theme');
+                const sf = document.getElementById('slot-font');
+                const sw = document.getElementById('slot-weight');
+                const sl = document.getElementById('slot-lang');
+                if (st) st.appendChild(theme);
+                if (sf) sf.appendChild(font);
+                if (sw) sw.appendChild(weight);
+                if (sl) sl.appendChild(lang);
+            } else {
+                const saveBtn = document.getElementById('reader-bookmark-btn');
+                inlineHost.insertBefore(theme, saveBtn);
+                inlineHost.insertBefore(font, saveBtn);
+                inlineHost.insertBefore(weight, saveBtn);
+                inlineHost.insertBefore(lang, saveBtn);
+            }
+        }
+        if (displayMq.addEventListener) displayMq.addEventListener('change', relocateDisplayControls);
+        function openDisplaySheet() {
+            closeDrawers(true);
+            revealChrome();
+            document.getElementById('drawer-backdrop').classList.remove('hidden');
+            document.getElementById('display-sheet').classList.add('open');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        /* Hover-reveal: from any scroll depth, moving the pointer into the
+           top strip of the viewport brings hidden chrome back (a no-op
+           wherever chrome never hides). rAF-throttled; scrolling down
+           hides it again. */
+        let hoverQueued = false;
+        window.addEventListener('mousemove', (e) => {
+            if (hoverQueued) return;
+            hoverQueued = true;
+            requestAnimationFrame(() => {
+                hoverQueued = false;
+                if (e.clientY <= 96
+                    && document.body.classList.contains('reader-active')
+                    && document.body.classList.contains('chrome-hidden')) revealChrome();
+            });
+        }, { passive: true });
+
+        /* Auto-hide pinned chrome while reading on mobile: hide past 160px
+           of downward scroll, reveal on any upward scroll or near the top.
+           Transform-only (no reflow); progress bar stays as the anchor. */
+        let lastScrollY = window.pageYOffset || 0;
+        function updateChromeVisibility() {
+            if (!document.body.classList.contains('reader-active')) return;
+            if (!displayMq.matches) return;
+            if (document.getElementById('view-reader').classList.contains('hidden')) return;
+            const y = window.pageYOffset || document.documentElement.scrollTop || 0;
+            if (y > 160 && y > lastScrollY + 4) document.body.classList.add('chrome-hidden');
+            else if (y < lastScrollY - 4 || y <= 120) document.body.classList.remove('chrome-hidden');
+            lastScrollY = y;
+        }
         function renderDrawerToc() {
             var host = document.getElementById('toc-drawer-list');
             var d = activeDevotee();
@@ -1178,10 +1400,10 @@
             const btn = document.getElementById('reader-bookmark-btn');
             if (!btn) return;
             if (savedBookmarks.includes(activeStoryId)) {
-                btn.innerHTML = `<i class="fa-solid fa-bookmark text-templeGold"></i> Saved`;
+                btn.innerHTML = `<i class="fa-solid fa-bookmark text-templeGold"></i><span class="ctl-label"> Saved</span>`;
                 btn.classList.add('bg-templeGold/20');
             } else {
-                btn.innerHTML = `<i class="fa-regular fa-bookmark"></i> Save`;
+                btn.innerHTML = `<i class="fa-regular fa-bookmark"></i><span class="ctl-label"> Save</span>`;
                 btn.classList.remove('bg-templeGold/20');
             }
         }
@@ -1220,7 +1442,8 @@
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             progressBar.style.width = scrolled + '%';
-        });
+            updateChromeVisibility();
+        }, { passive: true });
 
         function handleHashRouting() {
             const hash = window.location.hash;
@@ -1245,17 +1468,20 @@
                 return;
             }
             renderGallery();
+            renderResumeBanner();
             updateFilterCounts();
             updateBookmarkBadge();
 
             const savedTheme = localStorage.getItem('periya_puranam_theme');
             if (savedTheme) setTheme(savedTheme); else setTheme('dark');
 
-            const savedFontSize = localStorage.getItem('periya_puranam_fontsize');
-            if (savedFontSize) setFontSize(savedFontSize);
+            setFontSize(localStorage.getItem('periya_puranam_fontsize') || 'md');
+
+            setWeight(localStorage.getItem('periya_puranam_fontweight') || 'regular');
 
             setLang(localStorage.getItem('pp_lang') || 'en');
 
+            relocateDisplayControls();
             handleHashRouting();
         });
 

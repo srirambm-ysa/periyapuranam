@@ -1,0 +1,30 @@
+{
+  "name": "Periya Puranam — Sacred Epic Reader",
+  "short_name": "Periya Puranam",
+  "description": "Sekkizhar's Periya Puranam: the 63 Nayanmars and 9 Thogai Adiyars in Tamil and English, with Thirumurai root verses.",
+  "start_url": "periya_puranam_index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#12100E",
+  "theme_color": "#12100E",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -18,6 +18,7 @@ REPO = Path(__file__).resolve().parent.parent
 DIST = REPO / "dist"
 
 SITE_FILES = ["periya_puranam_index.html", "ppreader.css", "fonts.css",
+              "manifest.webmanifest", "sw.js",
               "tailwind.config.js", "fonts", "fa", "images"]
 
 
@@ -53,6 +54,15 @@ def main(clean=False):
     for path in sorted(build_dir.glob("*.json")):
         shutil.copy2(path, out_build / path.name)
         shipped.append(path.name)
+
+    # Service worker at the dist ROOT: the page registers '/sw.js', and only
+    # a root-level worker controls both /site/* and /content/*. site/sw.js
+    # is the source of truth (also copied to dist/site/ above); the root
+    # copy is what browsers fetch.
+    root_sw = REPO / "site" / "sw.js"
+    if root_sw.exists():
+        shutil.copy2(root_sw, DIST / "sw.js")
+        print("dist/ sw.js at root (scope /)")
 
     # Deploy safety: preview paths must never ship (mirrors check.py gate).
     leaks = sorted(str(p.relative_to(DIST)) for p in DIST.rglob("preview*"))
