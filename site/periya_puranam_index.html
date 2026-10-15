@@ -187,6 +187,21 @@
             #display-sheet-controls .sheet-row button { flex: 1 1 0; }
         }
     </style>
+    <!-- Google Analytics 4: loaded + configured off-localhost only, so local
+         preview/file testing never pollutes stats. Hash-route page views
+         are sent manually via trackPage() (GA4 ignores hash changes). -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        if (!/^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)) {
+            var gaScript = document.createElement('script');
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y3YV6XQ9JH';
+            document.head.appendChild(gaScript);
+            gtag('js', new Date());
+            gtag('config', 'G-Y3YV6XQ9JH');
+        }
+    </script>
 </head>
 <body class="theme-dark font-body min-h-screen flex flex-col antialiased selection:bg-templeGold/30 selection:text-templeRed transition-colors duration-300">
 
@@ -999,6 +1014,13 @@
             handleSearch();
         }
 
+        // GA4 manual page views: gallery <-> story travel is hash-routing,
+        // which GA4 never auto-tracks. No-op offline or when blocked.
+        function trackPage(path) {
+            try {
+                if (typeof gtag === 'function') gtag('event', 'page_view', { page_path: path });
+            } catch (e) {}
+        }
         async function loadStory(id, chapterIdx = 0) {
             let devotee = devoteesData.find(d => d.id === id);
             if (!devotee) {
@@ -1071,6 +1093,7 @@
             }
             updateBookmarkBtnState();
             window.location.hash = `#story=${id}&chapter=${chapterIdx}`;
+            trackPage(`/story/${id}/chapter/${chapterIdx}`);
         }
 
         // Golden P-d scroll spy, adapted to v1 (tamil_chapters): scrolling or
@@ -1191,6 +1214,7 @@
             document.getElementById('progress-container').classList.add('hidden');
             window.location.hash = '#gallery';
             renderResumeBanner();
+            trackPage('/gallery');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 

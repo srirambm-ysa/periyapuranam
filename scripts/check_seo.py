@@ -179,6 +179,18 @@ def main():
             check(f"manifest icon {icon.get('src')} on disk",
                   p.is_file() and p.stat().st_size > 0)
 
+    # 9. Google Analytics 4: snippet + manual hash-route page views.
+    m = re.search(r"googletagmanager\.com/gtag/js\?id=(G-[A-Z0-9]+)", t)
+    check("GA4 loader with Measurement ID", m is not None)
+    ga_id = m.group(1) if m else ""
+    check("GA4 config matches loader ID",
+          bool(ga_id) and f"gtag('config', '{ga_id}')" in t)
+    check("GA4 localhost-guarded", "127\\.0\\.0\\.1" in t
+          and "localhost" in t)
+    check("trackPage helper defined", "function trackPage(path)" in t)
+    check("story views tracked", "trackPage(`/story/" in t)
+    check("gallery views tracked", "trackPage('/gallery')" in t)
+
     print(f"check_seo: {len(passes)} passed, {len(fails)} failed")
     for f in fails:
         print(f"  FAIL: {f}")
